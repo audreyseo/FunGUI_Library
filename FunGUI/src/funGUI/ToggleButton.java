@@ -9,6 +9,7 @@ public class ToggleButton extends Button implements PConstants {
 	protected float r;
 	String stateOn = "ON";
 	String stateOff = "OFF";
+	Direction textPosition = Direction.UP;
 
 	/**
 	 * Makes a ToggleButton object that is toggled on and off, i.e. like a
@@ -39,9 +40,14 @@ public class ToggleButton extends Button implements PConstants {
 	 *            String, the button's descriptive name, i.e. "Display Bunnies."
 	 */
 	public ToggleButton(PApplet p, float x, float y, String l) {
-		
 		init(p, x, y);
 		label(l);
+	}
+	
+	public ToggleButton(PApplet p, float x, float y, String l, Direction d) {
+		init(p, x, y);
+		label(l);
+		textPosition = d;
 	}
 	
 	public void label(String l) {
@@ -52,27 +58,52 @@ public class ToggleButton extends Button implements PConstants {
 		label(name);
 	}
 
-	@Override
-	protected void text() {
+	protected void text(float dx, float dy) {
 		if (notequals(label, "")) {
 			graphics.pushStyle();
 			graphics.fill(0);
 			graphics.textAlign(CENTER);
-			graphics.text(label, x, y - 25);
+			graphics.text(label, x + dx, y - dy);
 			graphics.popStyle();
 		}
 	}
 
 	@Override
 	protected void display() {
+		offset();
+	}
+	
+	protected void offset() {
+		float dx = graphics.textWidth(label);
+		float dy = 25;
+		switch (textPosition) {
+		case UP:
+			dx = 0;
+			dy *= -1;
+			break;
+		case DOWN:
+			dx = 0;
+			break;
+		case RIGHT:
+			dy = 0;
+			break;
+		case LEFT:
+			dx *= -1;
+			dy = 0;
+			break;
+		default:
+			break;
+		}
 		// Draw the background components of the button
-		buttonBase();
+		
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
-		buttonFace();
+		buttonBase(dx, dy);
+		text(dx, dy);
+		buttonFace(dx, dy);
 	}
 
-	protected void buttonFace() {
+	protected void buttonFace(float xi, float yi) {
 		graphics.fill(255);
 	    graphics.stroke(200);
 	    graphics.strokeWeight(3.2f);
@@ -98,7 +129,7 @@ public class ToggleButton extends Button implements PConstants {
 	    graphics.popStyle();
 	}
 
-	protected void buttonBase() {
+	protected void buttonBase(float dx, float dy) {
 		graphics.pushStyle();
 		if (on)
 			graphics.fill(50, 240, 90);
@@ -107,8 +138,8 @@ public class ToggleButton extends Button implements PConstants {
 
 		graphics.stroke(180);
 		graphics.strokeWeight(3);
-		openarc(x - w2, y, r, HALF_PI, HALF_PI * 3);
-		openarc(x + w2, y, r, HALF_PI * 3, TWO_PI + HALF_PI);
+		openarc(x - w2 + dx, y + dy, r, HALF_PI, HALF_PI * 3);
+		openarc(x + w2 + dx, y + dy, r, HALF_PI * 3, TWO_PI + HALF_PI);
 		
 		graphics.rectMode(CENTER);
 		graphics.rect(x, y, w, w2);
@@ -116,8 +147,8 @@ public class ToggleButton extends Button implements PConstants {
 		float offset = (float) (w2 * 0.90);
 		//float shrink = (float) 3.75;
 		float ychng = (float) .5;
-		openarc(( float ) (x - offset), ( float ) (y + ychng), ( float ) (r * .85), rads(60), rads(300));
-		openarc(( float ) (x + offset - .05), ( float ) (y + ychng), ( float ) (r * .89), rads(245), rads(500));
+		openarc(( float ) (x + dx - offset), ( float ) (y + dy + ychng), ( float ) (r * .85), rads(60), rads(300));
+		openarc(( float ) (x + dx + offset - .05), ( float ) (y + dy + ychng), ( float ) (r * .89), rads(245), rads(500));
 		graphics.popStyle();
 	}
 
@@ -144,17 +175,43 @@ public class ToggleButton extends Button implements PConstants {
 	protected void openarc(float x, float y, float r, float s, float e) {
 		graphics.arc(x, y, r * 2, r * 2, s, e, OPEN);
 	}
-
-	protected boolean notequals(String s1, String s2) {
-		return (!(s1.equals(s2)));
+	
+	@Override
+	public float w() {
+		float dx = 25;
+		float dy = 25;
+		if (textPosition == Direction.DOWN || textPosition == Direction.UP){
+			return(x);
+		} else if (textPosition == Direction.LEFT) {
+			return(( float ) (x - dx - .5 * graphics.textWidth(label)));
+		} else {
+			return(( float ) (x + dx + .5 * graphics.textWidth(label)));
+		}
+	}
+	
+	@Override
+	public float h() {
+		float dx = 25;
+		float dy = 25;
+		if (textPosition == Direction.LEFT || textPosition == Direction.RIGHT){
+			return(y);
+		} else if (textPosition == Direction.UP) {
+			return(( float ) (y - dy));
+		} else {
+			return(( float ) (y + dy));
+		}
 	}
 
 	protected float rads(float degrees) {
 		return (( float ) ((degrees / 180.0) * PI));
 	}
-	
+
 	public boolean on() {
 		return(on);
+	}
+
+	protected boolean notequals(String s1, String s2) {
+		return (!(s1.equals(s2)));
 	}
 
 	/**
