@@ -2,42 +2,73 @@ package fungui;
 
 import processing.core.*;
 
+/**
+ * The RectButton class is one of the many options included 
+ * in the FunGUI library for classes. This button returns a
+ * boolean if the mouse is pressed over it.
+ * @author Audrey Seo
+ *
+ */
 public class RectButton extends Button {
+	// float, the ratios of the size of the PApplet sketch
 	float hratio = 1;
 	float wratio = 1;
-	int [] scheme = new int [3]; //buttons need three colors typically
+
+	// boolean
 	boolean pressed = false;
 	boolean rollover;
 
-	boolean displayingMessage = false;
+	// The button's label
 	String buttonText;
-	PFont font, smallfont, minifont;
-	
-	int fsize;
-	
+
+	// PFont
+	PFont font;
+	PFont smallfont;
+	PFont minifont;
 	PFont sFont;
 	PFont mFont;
 	PFont myfont1;
-	int sfsize, mfsize;
+
+	// PFont sizes
+	int fsize;  // For font
+	int sfsize;  // For smallfont
+	int mfsize;  // For minifont
 	int beginningWidth = 0;
 	int beginningHeight = 0;
-	int outside, inside;
+
+	// Colors
+	int outside;
+	int inside;
+	int cGrey15;
+	int [] scheme = new int [3]; //buttons need three colors typically
+
+	// Obsolete
 	float wid;
 	float hei;
+
+	// Counters
 	int counting = 0;
 	int counter = 0;
 	PApplet p;
 	PGraphics g;
-	int cGrey15;
-	
 
-	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, PFont nfont, int nfsize) {
+	/**
+	 * Constructor of a rectangular button.
+	 * @param p			PApplet, the parent of the sketch, usually "this"
+	 * @param nx		float, the x-coordinate of the location of the button
+	 * @param ny		float, the y-coordinate of the location of the button
+	 * @param nw		float, the width of the button
+	 * @param nh		float, the height of the button
+	 * @param ncolors	color [], the colors of the button (0-outside, 1-overlay (for clicked status), 2-inside)
+	 * @param ntext		String, the label for the button
+	 */
+	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext) {
 		wid = 20 / w;
 		hei = 20 / h;
 		this.x = nx;
 		this.y = ny;
-		this.w = w;
-		this.h = h;
+		this.w = nw;
+		this.h = nh;
 		this.p = p;
 		this.g = p.g;
 		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
@@ -48,6 +79,100 @@ public class RectButton extends Button {
 		scheme = ncolors;
 		buttonText = ntext;
 		font = p.createFont("Baskerville-Italic", 200, true);
+		fsize = PApplet.floor((float) (nh - 20));
+
+		//fonts
+		minifont = p.createFont("Menlo-regular", 20);
+		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
+		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
+		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
+		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
+		cGrey15 = g.color(250, 250, 250);
+		inside = scheme[1];
+		outside = scheme[0];
+		sfsize = 15;
+		mfsize = 19;
+
+		beginningWidth = p.width;
+		beginningHeight = p.height;
+	}
+	
+	/**
+	 * Constructor of a rectangular button.
+	 * @param p			PApplet, the parent of the sketch, usually "this"
+	 * @param nx		float, the x-coordinate of the location of the button
+	 * @param ny		float, the y-coordinate of the location of the button
+	 * @param nw		float, the width of the button
+	 * @param nh		float, the height of the button
+	 * @param ncolors	color [], the colors of the button (0-outside, 1-overlay (for clicked status), 2-inside)
+	 * @param ntext		String, the label for the button
+	 * @param fontName	String, the name of the font needed for the label (must be compatible with createFont, use PFont.list() if you're not sure)
+	 * @param fontSize  int, the size of the font for the label
+	 */
+	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, String fontName, int fontSize) {
+		wid = 20 / w;
+		hei = 20 / h;
+		this.x = nx;
+		this.y = ny;
+		this.w = nw;
+		this.h = nh;
+		this.p = p;
+		this.g = p.g;
+		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
+			wid = 9/w;
+			hei = 9/w;
+			PApplet.println(ntext);
+		}
+		scheme = ncolors;
+		buttonText = ntext;
+		font = p.createFont(fontName, 200, true);
+		fsize = fontSize;
+
+		//fonts
+		minifont = p.createFont("Menlo-regular", 20);
+		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
+		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
+		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
+		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
+		cGrey15 = g.color(250, 250, 250);
+		inside = scheme[1];
+		outside = scheme[0];
+		sfsize = 15;
+		mfsize = 19;
+
+		beginningWidth = p.width;
+		beginningHeight = p.height;
+	}
+
+	/**
+	 * Constructor of the button with room for specification of the font
+	 * @param p			PApplet, the parent of the sketch, usually "this"
+	 * @param nx		float, the x-coordinate of the location of the button
+	 * @param ny		float, the y-coordinate of the location of the button
+	 * @param nw		float, the width of the button
+	 * @param nh		float, the height of the button
+	 * @param ncolors	color [], the colors of the button (0-outside, 1-overlay (for clicked status), 2-inside)
+	 * @param ntext		String, the label for the button
+	 * @param nfont		PFont, the font of the button's label
+	 * @param nfsize	int, the size of the font
+	 */
+	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, PFont nfont, int nfsize) {
+		wid = 20 / w;
+		hei = 20 / h;
+		this.x = nx;
+		this.y = ny;
+		this.w = nw;
+		this.h = nh;
+		this.p = p;
+		this.g = p.g;
+		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
+			wid = 9/w;
+			hei = 9/w;
+			PApplet.println(ntext);
+		}
+		scheme = ncolors;
+		buttonText = ntext;
+		font = nfont;
 		fsize = nfsize;
 
 		//fonts
@@ -61,22 +186,22 @@ public class RectButton extends Button {
 		outside = scheme[0];
 		sfsize = 15;
 		mfsize = 19;
-		
-		 beginningWidth = p.width;
+
+		beginningWidth = p.width;
 		beginningHeight = p.height;
 	}
-	
-	
-	
+
+
+
 	void change() {
-	    wratio = p.width / beginningWidth;
-	    hratio = p.height / beginningHeight;
-	  }
+		wratio = p.width / beginningWidth;
+		hratio = p.height / beginningHeight;
+	}
 	void update() {
 		change();
-//		if (buttonMessage != null) {
-//			buttonMessage.update();
-//		}
+		//		if (buttonMessage != null) {
+		//			buttonMessage.update();
+		//		}
 	}
 
 	void display(String time, PFont displayFont, float fontsize) {
@@ -127,7 +252,7 @@ public class RectButton extends Button {
 
 		drawButtonName();
 	}
-	
+
 	void drawButtonName() {
 		g.pushStyle();
 		g.textFont(font, limitFont(fsize, buttonText, w));
@@ -135,7 +260,7 @@ public class RectButton extends Button {
 		g.fill(0);
 		g.text(buttonText, x(), y());
 		g.popStyle();
-		
+
 	}
 
 	void rolled_over(float mX, float mY) {
@@ -177,9 +302,9 @@ public class RectButton extends Button {
 		}
 	}
 
-//	void createMessage(String tempHeader, String tempMessage, String tempYesOpt, String tempNoOpt, color [] scheme, color [] buttonColors) {
-//		buttonMessage = new Message(tempHeader, tempMessage, tempYesOpt, tempNoOpt, scheme, buttonColors);
-//	}
+	//	void createMessage(String tempHeader, String tempMessage, String tempYesOpt, String tempNoOpt, color [] scheme, color [] buttonColors) {
+	//		buttonMessage = new Message(tempHeader, tempMessage, tempYesOpt, tempNoOpt, scheme, buttonColors);
+	//	}
 
 	boolean isRolledOver() {
 		rolled_over(p.mouseX, p.mouseY);
@@ -213,96 +338,96 @@ public class RectButton extends Button {
 	float ohthree() {
 		return(h * hei);
 	}
-	
+
 	public float y() {
-	    return(y * hratio);
-	  }
-	  
-	  @Override
+		return(y * hratio);
+	}
+
+	@Override
 	public float h() {
-	    return(h * hratio);
-	  }
-	  
-	  @Override
+		return(h * hratio);
+	}
+
+	@Override
 	public float w() {
-	    return(w * wratio);
-	  }
-	  
-	  float x() {
-	    return(x * wratio);
-	  }
-	  
-	  float iw() {
-	    int n = 20;
-	    if (w() < 1.5 * n * wratio) {
-	      n = PApplet.floor((float) (w() * .2));
-	    }
-	    return(w() - n);
-	  }
-	  
-	  float ih() {
-	    int n = 20;
-	    if (h() < 1.5 * n * hratio) {
-	      n = PApplet.floor((float) (h() * .2));
-	    }
-	    return(h() - n);
-	  }
+		return(w * wratio);
+	}
 
-	  float reY() {
-	    return y;
-	  }
+	float x() {
+		return(x * wratio);
+	}
 
-	  float reX() {
-	    return x;
-	  }
+	float iw() {
+		int n = 20;
+		if (w() < 1.5 * n * wratio) {
+			n = PApplet.floor((float) (w() * .2));
+		}
+		return(w() - n);
+	}
 
-	  float reH() {
-	    return h;
-	  }
+	float ih() {
+		int n = 20;
+		if (h() < 1.5 * n * hratio) {
+			n = PApplet.floor((float) (h() * .2));
+		}
+		return(h() - n);
+	}
 
-	  float reW() {
-	    return w;
-	  }
+	public float reY() {
+		return y;
+	}
 
-	  float xmin() {
-	    return(x() - (w() / 2));
-	  }
+	public float reX() {
+		return x;
+	}
 
-	  float xmax() {
-	    return(x() + (w() / 2));
-	  }
+	public float reH() {
+		return h;
+	}
 
-	  float ymin() {
-	    return(y() - (h() / 2));
-	  }
+	public float reW() {
+		return w;
+	}
 
-	  float ymax() {
-	    return(y() + (h() / 2));
-	  }
-	  
-	  float limitFont(float fontSize, String str, float w) {
-//		  float hrat = (float) (p.height / 400.0);
-//		  float wrat = (float) (p.width / 600.0);
-//		  g.textFont(myfont1, fontSize * hrat);
-//		  float twidth = g.textWidth(str);
-//		  if (twidth < iw()) {
-//			  return(fontSize * hrat);
-//		  } else if (fontSize * hrat > ih()) {
-//			  return(PApplet.abs((float) (fontSize * hrat * ((ih() / 1.1) / (fontSize * hrat)))));
-//		  }
-//		  return(PApplet.abs((float) (fontSize * hrat * ((iw() / 1.1) / twidth))));
-		  return(fontSize);
-	  }
+	public float xmin() {
+		return(x() - (w() / 2));
+	}
 
-	  float limitFont(PFont font, float fontSize, String str, float w) {
-//		  float hrat = (float) (p.height / 400.0);
-//		  float wrat = (float) (p.width / 600.0);
-//		  g.textFont(font, fontSize * hrat);
-//		  float twidth = g.textWidth(str);
-//		  if (twidth < iw()) {
-//			  return(fontSize * hrat);
-//		  }
-//		  return(PApplet.abs((float) (fontSize * hrat * (iw() / 1.1) / twidth)));
-		  return(fontSize);
-	  }
+	public float xmax() {
+		return(x() + (w() / 2));
+	}
+
+	public float ymin() {
+		return(y() - (h() / 2));
+	}
+
+	public float ymax() {
+		return(y() + (h() / 2));
+	}
+
+	float limitFont(float fontSize, String str, float w) {
+		//		  float hrat = (float) (p.height / 400.0);
+		//		  float wrat = (float) (p.width / 600.0);
+		//		  g.textFont(myfont1, fontSize * hrat);
+		//		  float twidth = g.textWidth(str);
+		//		  if (twidth < iw()) {
+		//			  return(fontSize * hrat);
+		//		  } else if (fontSize * hrat > ih()) {
+		//			  return(PApplet.abs((float) (fontSize * hrat * ((ih() / 1.1) / (fontSize * hrat)))));
+		//		  }
+		//		  return(PApplet.abs((float) (fontSize * hrat * ((iw() / 1.1) / twidth))));
+		return(fontSize);
+	}
+
+	float limitFont(PFont font, float fontSize, String str, float w) {
+		//		  float hrat = (float) (p.height / 400.0);
+		//		  float wrat = (float) (p.width / 600.0);
+		//		  g.textFont(font, fontSize * hrat);
+		//		  float twidth = g.textWidth(str);
+		//		  if (twidth < iw()) {
+		//			  return(fontSize * hrat);
+		//		  }
+		//		  return(PApplet.abs((float) (fontSize * hrat * (iw() / 1.1) / twidth)));
+		return(fontSize);
+	}
 }

@@ -27,11 +27,11 @@ public class TextDisplay extends Display {
 	@Override
 	public void draw() {
 		// Runs all of the shape-drawing functions
-		graphics.pushStyle();
+		g.pushStyle();
 		style();
 		display();
 		text();
-		graphics.popStyle();
+		g.popStyle();
 	}
 
 	public void init(float x, float y, float w, float h) {

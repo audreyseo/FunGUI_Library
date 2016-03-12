@@ -61,12 +61,12 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void text(float dx, float dy) {
 		if (notequals(label, "")) {
-			graphics.pushStyle();
-			graphics.fill(0);
-			graphics.textFont(liFont);
-			graphics.textAlign(CENTER);
-			graphics.text(label, x + dx, y - dy);
-			graphics.popStyle();
+			g.pushStyle();
+			g.fill(0);
+			g.textFont(liFont);
+			g.textAlign(CENTER);
+			g.text(label, x + dx, y - dy);
+			g.popStyle();
 		}
 	}
 
@@ -77,8 +77,8 @@ public class ToggleButton extends Button implements PConstants {
 	}
 
 	protected void offset() {
-		graphics.textFont(font);
-		float dx = graphics.textWidth(label);
+		g.textFont(font);
+		float dx = g.textWidth(label);
 		float dy = 25;
 		switch (textPosition) {
 		case UP:
@@ -108,9 +108,9 @@ public class ToggleButton extends Button implements PConstants {
 	}
 
 	protected void buttonFace(float dx, float dy) {
-		graphics.fill(255);
-		graphics.stroke(200);
-		graphics.strokeWeight(3.2f);
+		g.fill(255);
+		g.stroke(200);
+		g.strokeWeight(3.2f);
 		int a = -1;
 		int b = 1;
 		String text = stateOn;
@@ -120,36 +120,36 @@ public class ToggleButton extends Button implements PConstants {
 			text = stateOff;
 		}
 
-		graphics.ellipse(x + dx + a * w2, y + dy, r * 2, r * 2);
+		g.ellipse(x + dx + a * w2, y + dy, r * 2, r * 2);
 		// shadow
-		graphics.stroke(150);
-		graphics.arc(x + dx + a * w2, y + dy, r * 2, r * 2, rads(60), rads(260));
+		g.stroke(150);
+		g.arc(x + dx + a * w2, y + dy, r * 2, r * 2, rads(60), rads(260));
 
-		graphics.pushStyle();
-		graphics.fill(255);
-		graphics.textFont(font);
-		graphics.textAlign(CENTER, CENTER);
-		graphics.text(text, (float) (x + dx + b * w2 * .5),
+		g.pushStyle();
+		g.fill(255);
+		g.textFont(font);
+		g.textAlign(CENTER, CENTER);
+		g.text(text, (float) (x + dx + b * w2 * .5),
 				(float) (y + dy - 2.5));
-		graphics.popStyle();
+		g.popStyle();
 	}
 
 	protected void buttonBase(float dx, float dy) {
-		graphics.pushStyle();
+		g.pushStyle();
 		if (on)
-			graphics.fill(50, 240, 90);
+			g.fill(50, 240, 90);
 		else
-			graphics.fill(255, 30, 10);
+			g.fill(255, 30, 10);
 
-		graphics.stroke(180);
-		graphics.strokeWeight(3);
+		g.stroke(180);
+		g.strokeWeight(3);
 		// The two left sides
 		openarc(x - w2 + dx, y + dy, r, HALF_PI, HALF_PI * 3);
 		openarc(x + w2 + dx, y + dy, r, HALF_PI * 3, TWO_PI + HALF_PI);
 
-		graphics.rectMode(CENTER);
-		graphics.rect(x + dx, y + dy, w, w2);
-		graphics.noStroke();
+		g.rectMode(CENTER);
+		g.rect(x + dx, y + dy, w, w2);
+		g.noStroke();
 		float offset = (float) (w2 * 0.90);
 		// float shrink = (float) 3.75;
 		float ychng = (float) .5;
@@ -157,7 +157,7 @@ public class ToggleButton extends Button implements PConstants {
 				(float) (r * .85), rads(60), rads(300));
 		openarc((float) (x + dx + offset - .05), (float) (y + dy + ychng),
 				(float) (r * .89), rads(245), rads(500));
-		graphics.popStyle();
+		g.popStyle();
 	}
 
 	@Override
@@ -180,11 +180,11 @@ public class ToggleButton extends Button implements PConstants {
 	}
 
 	protected void arch(float x, float y, float r, float s, float e) {
-		graphics.arc(x, y, r * 2, r * 2, s, e);
+		g.arc(x, y, r * 2, r * 2, s, e);
 	}
 
 	protected void openarc(float x, float y, float r, float s, float e) {
-		graphics.arc(x, y, r * 2, r * 2, s, e, OPEN);
+		g.arc(x, y, r * 2, r * 2, s, e, OPEN);
 	}
 
 	@Override
@@ -194,9 +194,9 @@ public class ToggleButton extends Button implements PConstants {
 		if (textPosition == Direction.DOWN || textPosition == Direction.UP) {
 			return (x);
 		} else if (textPosition == Direction.LEFT) {
-			return ((float) (x - dx - .5 * graphics.textWidth(label)));
+			return ((float) (x - dx - .5 * g.textWidth(label)));
 		} else {
-			return ((float) (x + dx + .5 * graphics.textWidth(label)));
+			return ((float) (x + dx + .5 * g.textWidth(label)));
 		}
 	}
 
@@ -214,8 +214,8 @@ public class ToggleButton extends Button implements PConstants {
 	}
 
 	public float adjustedX() {
-		graphics.textFont(font);
-		float dx = graphics.textWidth(label);
+		g.textFont(font);
+		float dx = g.textWidth(label);
 		float dy = 25;
 		switch (textPosition) {
 		case UP:
@@ -239,8 +239,8 @@ public class ToggleButton extends Button implements PConstants {
 	}
 
 	public float adjustedY() {
-		graphics.textFont(font);
-		float dx = graphics.textWidth(label);
+		g.textFont(font);
+		float dx = g.textWidth(label);
 		float dy = 25;
 		switch (textPosition) {
 		case UP:
@@ -266,8 +266,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	@Override
 	public boolean clicked() {
-		graphics.textFont(font);
-		float dx = graphics.textWidth(label);
+		g.textFont(font);
+		float dx = g.textWidth(label);
 		float dy = 25;
 		switch (textPosition) {
 		case UP:
@@ -324,6 +324,6 @@ public class ToggleButton extends Button implements PConstants {
 		w2 = 20.0f;
 		font = p.createFont("Optima-Bold", 17);
 		liFont = p.createFont("Helvetica-Regular", 18);
-		graphics = p.g;
+		g = p.g;
 	}
 }

@@ -23,11 +23,11 @@ public abstract class Display extends Frame {
 	@Override
 	public void draw() {
 		// Runs all of the shape-drawing functions
-		graphics.pushStyle();
+		g.pushStyle();
 		style();
 		display();
 		text();
-		graphics.popStyle();
+		g.popStyle();
 	}
 
 }

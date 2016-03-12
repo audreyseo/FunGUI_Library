@@ -10,9 +10,10 @@ public abstract class Frame {
 
 	public int[] c;
 	protected PApplet p;
+	
 	public float x, y;
 	public float w, h;
-	protected PGraphics graphics = new PGraphics();
+	protected PGraphics g = new PGraphics();
 
 	public Frame() {
 		// BLANK
@@ -32,34 +33,34 @@ public abstract class Frame {
 
 	public void draw() {
 		// Runs all of the shape-drawing functions
-		graphics.pushStyle();
+		g.pushStyle();
 		style();
 		display();
 		text();
-		graphics.popStyle();
+		g.popStyle();
 	}
 
 	protected void col(ColorApp app) {
 		switch (app) {
 		case INNER_FILL:
 			if (col(0))
-				graphics.fill(c[0]);
+				g.fill(c[0]);
 			break;
 		case INNER_STROKE:
 			if (col(1))
-				graphics.stroke(c[1]);
+				g.stroke(c[1]);
 			break;
 		case OUTER_FILL:
 			if (col(2))
-				graphics.fill(c[2]);
+				g.fill(c[2]);
 			break;
 		case OUTER_STROKE:
 			if (col(3))
-				graphics.stroke(c[3]);
+				g.stroke(c[3]);
 			break;
 		case FONT_FILL:
 			if (col(4))
-				graphics.fill(c[4]);
+				g.fill(c[4]);
 			break;
 		default:
 			break;
@@ -76,5 +77,18 @@ public abstract class Frame {
 
 	public float h() {
 		return (h);
+	}
+
+
+	float limitFont(PFont font, float fontSize, String str, float w) {
+		float hrat = (float) (p.height / 400.0);
+		float wrat = (float) (p.width / 600.0);
+		g.textFont(font, fontSize * hrat);
+		float twidth = g.textWidth(str);
+		if (twidth < w - 30 * wrat) {
+			return(fontSize * hrat);
+		}
+		if (fontSize * hrat * ((w - (30 * wrat)) / twidth) > 0) return(fontSize * hrat * ((w - (30 * wrat)) / twidth));
+		return(PApplet.abs(fontSize * hrat * ((w * 4) / (5 * twidth))));
 	}
 }
