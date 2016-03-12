@@ -5,4 +5,4 @@ FunGUI is a library for implementing functional and well-designed graphical user
 FunGUI is a pun on "fungi" sounding like "fun guy" but instead this is a fun, easy-to-use GUI. This name is subject to change.
 
 ## Download
-You can download a zip file here: https://github.com/audreyseo/FunGUI/archive/master.zip. Install using the instructions for manually installing libraries in the Processing IDE.
+If you want to try it out, you can download a zip file here: https://github.com/audreyseo/FunGUI/archive/master.zip. Install using the instructions for manually installing libraries in the Processing IDE.
