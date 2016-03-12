@@ -4,12 +4,13 @@ import processing.core.*;
 
 public class ToggleButton extends Button implements PConstants {
 	boolean on = false;
-	Timer t;
+	public Timer t;
 	PFont font, liFont;
 	protected float r;
 	String stateOn = "ON";
 	String stateOff = "OFF";
 	Direction textPosition = Direction.UP;
+	boolean pressed = false;
 
 	/**
 	 * Makes a ToggleButton object that is toggled on and off, i.e. like a
@@ -62,6 +63,7 @@ public class ToggleButton extends Button implements PConstants {
 		if (notequals(label, "")) {
 			graphics.pushStyle();
 			graphics.fill(0);
+			graphics.textFont(liFont);
 			graphics.textAlign(CENTER);
 			graphics.text(label, x + dx, y - dy);
 			graphics.popStyle();
@@ -71,9 +73,11 @@ public class ToggleButton extends Button implements PConstants {
 	@Override
 	protected void display() {
 		offset();
+		toggle();
 	}
 	
 	protected void offset() {
+		graphics.textFont(font);
 		float dx = graphics.textWidth(label);
 		float dy = 25;
 		switch (textPosition) {
@@ -99,11 +103,11 @@ public class ToggleButton extends Button implements PConstants {
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
 		buttonBase(dx, dy);
-		text(dx, dy);
 		buttonFace(dx, dy);
+		text(dx, dy);
 	}
 
-	protected void buttonFace(float xi, float yi) {
+	protected void buttonFace(float dx, float dy) {
 		graphics.fill(255);
 	    graphics.stroke(200);
 	    graphics.strokeWeight(3.2f);
@@ -116,16 +120,16 @@ public class ToggleButton extends Button implements PConstants {
 	      text = stateOff;
 	    }
 
-	    graphics.ellipse(x + a * w2, y, r * 2, r * 2);
+	    graphics.ellipse(x + dx + a * w2, y + dy, r * 2, r * 2);
 	    //shadow
 	    graphics.stroke(150);
-	    graphics.arc(x + a * w2, y, r * 2, r * 2, rads(60), rads(260));
+	    graphics.arc(x + dx + a * w2, y + dy, r * 2, r * 2, rads(60), rads(260));
 	    
 	    graphics.pushStyle();
 	    graphics.fill(255);
 	    graphics.textFont(font);
 	    graphics.textAlign(CENTER, CENTER);
-	    graphics.text(text, ( float ) (x + b * w2 * .5), ( float ) (y - 2.5));
+	    graphics.text(text, ( float ) (x + dx + b * w2 * .5), ( float ) (y + dy - 2.5));
 	    graphics.popStyle();
 	}
 
@@ -138,11 +142,12 @@ public class ToggleButton extends Button implements PConstants {
 
 		graphics.stroke(180);
 		graphics.strokeWeight(3);
+		// The two left sides
 		openarc(x - w2 + dx, y + dy, r, HALF_PI, HALF_PI * 3);
 		openarc(x + w2 + dx, y + dy, r, HALF_PI * 3, TWO_PI + HALF_PI);
 		
 		graphics.rectMode(CENTER);
-		graphics.rect(x, y, w, w2);
+		graphics.rect(x + dx, y + dy, w, w2);
 		graphics.noStroke();
 		float offset = (float) (w2 * 0.90);
 		//float shrink = (float) 3.75;
@@ -162,9 +167,11 @@ public class ToggleButton extends Button implements PConstants {
 	 * it was on.
 	 */
 	protected void toggle() {
-		if (clicked() && t.done()) {
-			on = !on;
+		if (clicked()) {
+			if (pressed && t.done()) on = !on;
 			t.reset();
+		} else {
+			pressed = p.mousePressed;
 		}
 	}
 
@@ -201,6 +208,84 @@ public class ToggleButton extends Button implements PConstants {
 			return(( float ) (y + dy));
 		}
 	}
+	
+	public float adjustedX() {
+		graphics.textFont(font);
+		float dx = graphics.textWidth(label);
+		float dy = 25;
+		switch (textPosition) {
+		case UP:
+			dx = 0;
+			dy *= -1;
+			break;
+		case DOWN:
+			dx = 0;
+			break;
+		case RIGHT:
+			dy = 0;
+			break;
+		case LEFT:
+			dx *= -1;
+			dy = 0;
+			break;
+		default:
+			break;
+		}
+		return(x + dx);
+	}
+	
+	public float adjustedY() {
+		graphics.textFont(font);
+		float dx = graphics.textWidth(label);
+		float dy = 25;
+		switch (textPosition) {
+		case UP:
+			dx = 0;
+			dy *= -1;
+			break;
+		case DOWN:
+			dx = 0;
+			break;
+		case RIGHT:
+			dy = 0;
+			break;
+		case LEFT:
+			dx *= -1;
+			dy = 0;
+			break;
+		default:
+			break;
+		}
+		
+		return(y + dy);
+	}
+	
+	@Override
+	public boolean clicked() {
+		graphics.textFont(font);
+		float dx = graphics.textWidth(label);
+		float dy = 25;
+		switch (textPosition) {
+		case UP:
+			dx = 0;
+			dy *= -1;
+			break;
+		case DOWN:
+			dx = 0;
+			break;
+		case RIGHT:
+			dy = 0;
+			break;
+		case LEFT:
+			dx *= -1;
+			dy = 0;
+			break;
+		default:
+			break;
+		}
+		if (p.mousePressed) pressed = true;
+		return(super.clicked(dx, dy));
+	}
 
 	protected float rads(float degrees) {
 		return (( float ) ((degrees / 180.0) * PI));
@@ -226,12 +311,14 @@ public class ToggleButton extends Button implements PConstants {
 		this.p = p;
 		this.x = x;
 		this.y = y;
-		t = new Timer(50, p);
+		t = new Timer(60, p);
 		t.reset();
 		w = 40.0f;
+		h = 20;
 		r = 10.0f;
 		w2 = 20.0f;
 		font = p.createFont("Optima-Bold", 17);
 		liFont = p.createFont("Helvetica-Regular", 18);
+		graphics = p.g;
 	}
 }

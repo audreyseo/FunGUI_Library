@@ -52,4 +52,13 @@ public abstract class Button extends Frame implements PConstants {
 	public boolean clicked() {
 		return(p.mousePressed && p.mouseX < x + w * .5 && p.mouseX > x - w * .5 && p.mouseY < y + h * .5 && p.mouseY > y - h * .5);
 	}
+	
+	public boolean clicked(float dx, float dy) {
+//		p.println("MX1: " + (x + dx + w * .5));
+//		p.println("MX2: " + (x + dx - w * .5));
+//		p.println("MY1: " + (y + dy + h * .5));
+//		p.println("MY2: " + (y + dy - h * .5));
+//		p.println("MP:  " + p.mousePressed);
+		return(p.mousePressed && (p.mouseX < x + dx + w * .5) && (p.mouseX > x + dx - w * .5) && (p.mouseY < y + dy + h * .5) && (p.mouseY > y + dy - h * .5));
+	}
 }

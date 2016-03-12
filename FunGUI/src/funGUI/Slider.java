@@ -13,22 +13,22 @@ public class Slider implements PConstants {
 	PGraphics g;
 	PApplet p;
 
-	Slider(PApplet p, float x, float y, float min, float max) {
+	public Slider(PApplet p, float x, float y, float min, float max) {
 		init(p, x, y, min, max);
 	}
 
-	Slider(PApplet p, String label, float x, float y, float min, float max) {
+	public Slider(PApplet p, String label, float x, float y, float min, float max) {
 		this.label = label;
 		init(p, x, y, min, max);
 	}
 
-	Slider(PApplet p, String label, float x, float y, float min, float max, float initial) {
+	public Slider(PApplet p, String label, float x, float y, float min, float max, float initial) {
 		this.label = label;
 		init(p, x, y, min, max);
 		this.percent = PApplet.constrain( PApplet.map(initial, min, max, 0, 1), 0, 1 );
 	}
 
-	void draw() {
+	public void draw() {
 		txt();
 		bg();
 		slider();
@@ -74,7 +74,14 @@ public class Slider implements PConstants {
 		g.rectMode(CENTER);
 		g.fill(255);
 		g.stroke(0);
-		g.rect(xs, y, 7, 15);
+		g.beginShape();
+		g.vertex((float) (xs - 3.5), (float) (y - 7.5));
+		g.vertex((float) (xs - 3.5), (float) ( y + 7.5));
+		g.vertex(xs, (float) (y + 10));
+		g.vertex((float) (xs + 3.5), (float) ( y + 7.5));
+		g.vertex((float) (xs + 3.5), (float) (y - 7.5));
+		g.endShape(CLOSE);
+//		g.rect(xs, y, 7, 15);
 		g.popStyle();
 	}
 
@@ -91,7 +98,7 @@ public class Slider implements PConstants {
 				&& p.mouseY > y - 7.5 && p.mouseY < y + 7.5);
 	}
 
-	float p() {
+	public float p() {
 		return (percent * (min + (max - min)));
 	}
 
@@ -106,7 +113,7 @@ public class Slider implements PConstants {
 		this.w = 150;
 		this.h = 20;
 		f = p.createFont("Georgia", 20, true);
-		g = new PGraphics();
+		g = p.g;
 	}
 
 }

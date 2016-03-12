@@ -8,14 +8,14 @@ import processing.core.*;
  */
 public class Timer {
 	private PApplet p;
-	int endtime;
+	private int endtime;
 	int dt;
 	/**
 	 * First constructor for the Timer class.
 	 * @param end	int, the amount of time to set the timer to in milliseconds.
 	 * @param p		PApplet parent, usually "this."
 	 */
-	Timer(int end, PApplet p) {
+	public Timer(int end, PApplet p) {
 		dt = end;
 		endtime = 0;
 		this.p = p;
@@ -25,7 +25,7 @@ public class Timer {
 	 * Second constructor for the Timer class.
 	 * @param p		PApplet parent, usually "this."
 	 */
-	Timer(PApplet p) {
+	public Timer(PApplet p) {
 		this.p = p;
 		dt = 0;
 		endtime = 0;
@@ -53,5 +53,10 @@ public class Timer {
 	 */
 	public boolean done() {
 		return(endtime < p.millis());
+	}
+	
+	public int timeLeft() {
+		if (p.millis() < endtime) return(endtime - p.millis());
+		return(0);
 	}
 }
