@@ -3,6 +3,14 @@ package fungui;
 import processing.core.*;
 import processing.core.PGraphics;
 
+/**
+ * The Button class serves as the template for all button-type
+ * objects. Events such as mouseClick and draw are handled here.
+ * However, this class is abstract, and thus never implemented.
+ * If you want a button, try ToggleButton, RectButton, etc. instead.
+ * @author Audrey Seo
+ *
+ */
 public abstract class Button extends Frame implements PConstants {
 	public String label;
 	public float w2, h2;

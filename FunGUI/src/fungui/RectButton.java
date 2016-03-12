@@ -8,12 +8,9 @@ public class RectButton extends Button {
 	int [] scheme = new int [3]; //buttons need three colors typically
 	boolean pressed = false;
 	boolean rollover;
-	boolean messager = false;
-	boolean optButton = false;
-	boolean toggle = false;
+
 	boolean displayingMessage = false;
 	String buttonText;
-	String secondText;
 	PFont font, smallfont, minifont;
 	
 	int fsize;
@@ -34,31 +31,43 @@ public class RectButton extends Button {
 	int cGrey15;
 	
 
-	RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext1, String ntext2, PFont nfont, int nfsize, boolean nMessager, boolean nOptButton, boolean nTwoLabel) {
+	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, PFont nfont, int nfsize) {
 		wid = 20 / w;
 		hei = 20 / h;
+		this.x = nx;
+		this.y = ny;
+		this.w = w;
+		this.h = h;
 		this.p = p;
 		this.g = p.g;
 		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
 			wid = 9/w;
 			hei = 9/w;
-			PApplet.println(ntext1);
+			PApplet.println(ntext);
 		}
 		scheme = ncolors;
-		buttonText = ntext1;
-		secondText = ntext2;
-		font = nfont;
+		buttonText = ntext;
+		font = p.createFont("Baskerville-Italic", 200, true);
 		fsize = nfsize;
-		messager = nMessager;
-		optButton = nOptButton;
-		toggle = nTwoLabel;
+
 		//fonts
-		minifont = p.createFont("Lato-Light.ttf", 20);
-		smallfont = p.loadFont("FZLTXHK--GBK1-0-200.vlw");
+		minifont = p.createFont("Menlo-regular", 20);
+		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
+		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
+		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
+		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
 		cGrey15 = g.color(250, 250, 250);
+		inside = scheme[1];
+		outside = scheme[0];
+		sfsize = 15;
+		mfsize = 19;
+		
 		 beginningWidth = p.width;
 		beginningHeight = p.height;
 	}
+	
+	
+	
 	void change() {
 	    wratio = p.width / beginningWidth;
 	    hratio = p.height / beginningHeight;
@@ -97,42 +106,18 @@ public class RectButton extends Button {
 	     takes no arguments* bc all of the properties of the button are initialized/created by the initializer, new Button()
 		 *other than mX and mY to allow the function rolled_over */
 		rolled_over(p.mouseX, p.mouseY);
-		if (!toggle) {
-			display("", font, fsize);
-		}
+
+		display("", font, fsize);
+
 		g.noStroke();
 		g.rectMode(CENTER);
-		if ((rollover && !toggle) && scheme.length == 3) {
+		if ((rollover)) {
 			g.fill(scheme[0]);
 			g.rect(x(), y(), w(), h());
 			g.fill(scheme[1]);
 			g.rect(x(), y(), w(), h());
 			g.fill(scheme[2]);
 			g.rect(x(), y(), iw(), ih());
-		} else if (messager) {
-			if (rollover && displayingMessage) {
-				g.fill(scheme[0]);
-				g.rect(x(), y(), w(), h());
-				g.fill(scheme[2]);
-				g.rect(x(), y(), w(), h());
-				g.fill(scheme[1]);
-				g.rect(x(), y(), iw(), ih());
-			} else if (!rollover || !displayingMessage) {
-				g.fill(scheme[0]);
-				g.rect(x(), y(), w(), h());
-				g.fill(scheme[1]);
-				g.rect(x(), y(), iw(), ih());
-			}
-		} else if (toggle && returnState()) {
-			g.fill(scheme[1]);
-			g.rect(x(), y(), w(), h());
-			g.fill(cGrey15);
-			g.rect(x(), y(), iw(), ih());
-		} else if (toggle && !returnState()) {
-			g.fill(scheme[0]);
-			g.rect(x(), y(), w(), h());
-			g.fill(cGrey15);
-			g.rect(x(), y(), iw(), ih());
 		} else {
 			g.fill(scheme[0]);
 			g.rect(x(), y(), w(), h());
@@ -140,75 +125,36 @@ public class RectButton extends Button {
 			g.rect(x(), y(), iw(), ih());
 		}
 
-
-		if (optButton) {
-			g.textFont(smallfont, limitFont(20, buttonText, w));
-		} else if (toggle) {
-			g.textFont(smallfont, limitFont(19, buttonText, w));
-		} else {
-			g.textFont(font, limitFont(fsize, buttonText, w));
-		}
-		String buttonLabel = "";
-		if (!(toggle)) {
-			buttonLabel = buttonText;
-		} else if (toggle) {
-			if (counter % 2 == 0) {
-				g.textFont(smallfont, limitFont(smallfont, 19, buttonText, w));
-				buttonLabel = buttonText;
-			} else if (counter % 2 == 1) {
-				g.textFont(smallfont, limitFont(smallfont, 20, buttonText, w));
-				buttonLabel = secondText;
-			}
-		}
+		drawButtonName();
+	}
+	
+	void drawButtonName() {
+		g.pushStyle();
+		g.textFont(font, limitFont(fsize, buttonText, w));
 		g.textAlign(CENTER, CENTER);
 		g.fill(0);
-		g.text(buttonLabel, x(), y());
-//		if (displayingMessage && (buttonMessage.yesRollover() || buttonMessage.noRollover())) {
-//			buttonMessage.displayingMessage = false;
-//			displayingMessage = false;
-//			deleteKeyPressed = false;
-//		} else if (displayingMessage) {
-//			buttonMessage.displayMessage();
-//			buttonMessage.displayingMessage = true;
-//		}
+		g.text(buttonText, x(), y());
+		g.popStyle();
+		
 	}
 
 	void rolled_over(float mX, float mY) {
-		if (!messager) {
-			//for the buttons that do NOT display messages when the user clicks on them
-			if (clickedButton()) {
-				rollover = true;
-			} else {
-				rollover = false; //these buttons need to become false right when they are released
-			}
+		//for the buttons that do NOT display messages when the user clicks on them
+		if (clickedButton()) {
+			rollover = true;
 		} else {
-			//for the buttons that DO display messages when the user clicks on them
-			//while the user is still considering the options that the message displays, the button remains "pressed"
-			if (clickedButton()) {
-				rollover = true; //if rollover were made false, this would change the button's color back
-				counting++;
-				displayingMessage = true;
-			} else
-				rollover = false;
+			rollover = false; //these buttons need to become false right when they are released
 		}
+
 	}
 
 
 
 	@Override
 	public boolean clicked(float mX, float mY) {
-		if (!messager) {
-			//for the buttons that do NOT display messages when the user clicks on them
-			return(clickedButton()); //these buttons need to become false right when they are released
-		} else if (messager) {
-			//for the buttons that DO display messages when the user clicks on them
-			//while the user is still considering the options that the message displays, the button remains "pressed"
-			if (!rollover) {
-				return(clickedButton()); //if rollover were made false, this would change the button's color back
-			} else
-				return false;
-		} else
-			return false;
+		//for the buttons that do NOT display messages when the user clicks on them
+		return(clickedButton()); //these buttons need to become false right when they are released
+
 	}
 
 	//SUPPORTING FUNCTIONS:
@@ -333,27 +279,30 @@ public class RectButton extends Button {
 	  float ymax() {
 	    return(y() + (h() / 2));
 	  }
+	  
 	  float limitFont(float fontSize, String str, float w) {
-		  float hrat = (float) (p.height / 400.0);
-		  float wrat = (float) (p.width / 600.0);
-		  g.textFont(myfont1, fontSize * hrat);
-		  float twidth = g.textWidth(str);
-		  if (twidth < iw()) {
-			  return(fontSize * hrat);
-		  } else if (fontSize * hrat > ih()) {
-			  return(PApplet.abs((float) (fontSize * hrat * ((ih() / 1.1) / (fontSize * hrat)))));
-		  }
-		  return(PApplet.abs((float) (fontSize * hrat * ((iw() / 1.1) / twidth))));
+//		  float hrat = (float) (p.height / 400.0);
+//		  float wrat = (float) (p.width / 600.0);
+//		  g.textFont(myfont1, fontSize * hrat);
+//		  float twidth = g.textWidth(str);
+//		  if (twidth < iw()) {
+//			  return(fontSize * hrat);
+//		  } else if (fontSize * hrat > ih()) {
+//			  return(PApplet.abs((float) (fontSize * hrat * ((ih() / 1.1) / (fontSize * hrat)))));
+//		  }
+//		  return(PApplet.abs((float) (fontSize * hrat * ((iw() / 1.1) / twidth))));
+		  return(fontSize);
 	  }
 
 	  float limitFont(PFont font, float fontSize, String str, float w) {
-		  float hrat = (float) (p.height / 400.0);
-		  float wrat = (float) (p.width / 600.0);
-		  g.textFont(font, fontSize * hrat);
-		  float twidth = g.textWidth(str);
-		  if (twidth < iw()) {
-			  return(fontSize * hrat);
-		  }
-		  return(PApplet.abs((float) (fontSize * hrat * (iw() / 1.1) / twidth)));
+//		  float hrat = (float) (p.height / 400.0);
+//		  float wrat = (float) (p.width / 600.0);
+//		  g.textFont(font, fontSize * hrat);
+//		  float twidth = g.textWidth(str);
+//		  if (twidth < iw()) {
+//			  return(fontSize * hrat);
+//		  }
+//		  return(PApplet.abs((float) (fontSize * hrat * (iw() / 1.1) / twidth)));
+		  return(fontSize);
 	  }
 }
