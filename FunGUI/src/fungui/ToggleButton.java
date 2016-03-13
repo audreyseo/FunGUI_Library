@@ -176,9 +176,8 @@ public class ToggleButton extends Button implements PConstants {
 				pressed = true;
 			}
 			t.reset();
-		} else {
-			pressed = p.mousePressed;
 		}
+		pressed = p.mousePressed;
 	}
 
 	protected void arch(float x, float y, float r, float s, float e) {
