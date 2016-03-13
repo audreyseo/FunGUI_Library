@@ -85,7 +85,7 @@ public class ToggleButton extends Button implements PConstants {
 	protected void offset() {
 		g.textFont(font);
 		float dx = g.textWidth(label);
-		float dy = 25;
+		float dy = 18;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
@@ -105,7 +105,7 @@ public class ToggleButton extends Button implements PConstants {
 			break;
 		}
 		// Draw the background components of the button
-
+		
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
 		buttonBase(-dx, -dy);
@@ -275,7 +275,7 @@ public class ToggleButton extends Button implements PConstants {
 	public boolean clicked() {
 		g.textFont(font);
 		float dx = g.textWidth(label);
-		float dy = 25;
+		float dy = 18;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
