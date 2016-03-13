@@ -1,7 +1,12 @@
 package fungui;
 
 import processing.core.*;
-
+/**
+ * The frame class provides the basic structure of many of the
+ * interface classes, such as the way many objects are drawn to
+ * the screen.
+ * @author Audrey Seo
+ */
 public abstract class Frame {
 	public enum ColorApp {
 		INNER_FILL, OUTER_FILL, INNER_STROKE, OUTER_STROKE, FONT_FILL;
@@ -14,11 +19,15 @@ public abstract class Frame {
 	public float x, y;
 	public float w, h;
 	protected PGraphics g = new PGraphics();
-
+	
+	
+	/**
+	 * The constructor.
+	 */
 	public Frame() {
 		// BLANK
 	}
-
+	
 	protected void display() {
 		// Put any shape functions in here
 	}
@@ -30,7 +39,10 @@ public abstract class Frame {
 	protected void text() {
 		// Put any text calls in here
 	}
-
+	
+	/**
+	 * Draw the frame to the screen.
+	 */
 	public void draw() {
 		// Runs all of the shape-drawing functions
 		g.pushStyle();
@@ -66,7 +78,7 @@ public abstract class Frame {
 			break;
 		}
 	}
-
+	
 	public boolean col(int n) {
 		return (c.length > (n + 1) && c[n] >= 0);
 	}

@@ -1,7 +1,11 @@
 package fungui;
 
 import processing.core.*;
-
+/**
+ * A slider that calculates a float value depending on the 
+ * placement of the slider.
+ * @author Audrey Seo
+ */
 public class Slider implements PConstants {
 	float x, y, w, h;
 
@@ -13,25 +17,55 @@ public class Slider implements PConstants {
 	PFont f;
 	PGraphics g;
 	PApplet p;
-
+	
+	/**
+	 * The constructor of the Slider object.
+	 * @param p		PApplet, the parent of the sketch, usually "this."
+	 * @param x		float, the x location of the slider's center.
+	 * @param y		float, the y location of the slider's center.
+	 * @param min	float, the minimum value of the slider.
+	 * @param max	float, the maximum value of the slider.
+	 */
 	public Slider(PApplet p, float x, float y, float min, float max) {
 		init(p, x, y, min, max);
 	}
-
-	public Slider(PApplet p, String label, float x, float y, float min,
-			float max) {
+	
+	/**
+	 * The constructor of the Slider objects.
+	 * @param p		PApplet, the parent of the sketch, usually "this."
+	 * @param x		float, the x location of the slider's center.
+	 * @param y		float, the y location of the slider's center.
+	 * @param min	float, the minimum value of the slider.
+	 * @param max	float, the maximum value of the slider.
+	 * @param label String, the name of the slider
+	 */
+	public Slider(PApplet p, float x, float y, float min,
+			float max, String label) {
 		this.label = label;
 		init(p, x, y, min, max);
 	}
-
-	public Slider(PApplet p, String label, float x, float y, float min,
-			float max, float initial) {
+	
+	/**
+	 * The constructor of the Slider objects.
+	 * @param p			PApplet, the parent of the sketch, usually "this."
+	 * @param x			float, the x location of the slider's center.
+	 * @param y			float, the y location of the slider's center.
+	 * @param min		float, the minimum value of the slider.
+	 * @param max		float, the maximum value of the slider.
+	 * @param label 	String, the name of the slider
+	 * @param initial	float, the initial value of the slider.
+	 */
+	public Slider(PApplet p, float x, float y, float min,
+			float max, String label, float initial) {
 		this.label = label;
 		init(p, x, y, min, max);
 		this.percent = PApplet.constrain(PApplet.map(initial, min, max, 0, 1),
 				0, 1);
 	}
-
+	
+	/**
+	 * Displays the slider on the screen, fully operational.
+	 */
 	public void draw() {
 		txt();
 		bg();
@@ -103,7 +137,11 @@ public class Slider implements PConstants {
 		return (p.mousePressed && p.mouseX > x - .45 * w
 				&& p.mouseX < x + .45 * w && p.mouseY > y - 7.5 && p.mouseY < y + 7.5);
 	}
-
+	
+	/**
+	 * Returns value marked by the slider's position.
+	 * @return float, the value that the slider is at currently
+	 */
 	public float p() {
 		return (percent * (min + (max - min)));
 	}

@@ -2,11 +2,11 @@ package fungui;
 
 public class TextDisplay extends Display {
 
-	public TextDisplay(String txt, String header, float x, float y, float w,
-			float h) {
+	public TextDisplay(float x, float y, float w, float h, String txt, String header) {
+		super(x, y, w, h);
 		text = txt;
 		headline = header;
-		init(x, y, w, h);
+		//init(x, y, w, h);
 	}
 
 	@Override
@@ -34,10 +34,10 @@ public class TextDisplay extends Display {
 		g.popStyle();
 	}
 
-	public void init(float x, float y, float w, float h) {
-		this.x = x;
-		this.y = y;
-		this.w = w;
-		this.h = h;
-	}
+//	public void init(float x, float y, float w, float h) {
+//		this.x = x;
+//		this.y = y;
+//		this.w = w;
+//		this.h = h;
+//	}
 }

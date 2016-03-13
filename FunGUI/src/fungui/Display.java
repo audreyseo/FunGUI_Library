@@ -2,8 +2,15 @@ package fungui;
 
 import processing.core.*;
 
-public abstract class Display extends Frame {
+public class Display extends Frame {
 	String text, headline;
+	
+	public Display(float x, float y, float w, float h) {
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+	}
 
 	@Override
 	protected void display() {
