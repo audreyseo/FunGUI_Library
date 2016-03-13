@@ -64,7 +64,13 @@ public class ToggleButton extends Button implements PConstants {
 			g.pushStyle();
 			g.fill(0);
 			g.textFont(liFont);
-			g.textAlign(CENTER, CENTER);
+			if (dy > 0) {
+				g.textAlign(CENTER, TOP);
+			} else if (dy < 0) {
+				g.textAlign(CENTER, BOTTOM);
+			} else {
+				g.textAlign(CENTER, CENTER);
+			}
 			g.text(label, x + dx, y + dy);
 			g.popStyle();
 		}
