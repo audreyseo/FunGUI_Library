@@ -171,7 +171,7 @@ public class ToggleButton extends Button implements PConstants {
 	 */
 	protected void toggle() {
 		if (clicked()) {
-			if (!pressed) { // && t.done())
+			if (!pressed && p.mousePressed) { // && t.done())
 				on = !on;
 				pressed = true;
 			}
