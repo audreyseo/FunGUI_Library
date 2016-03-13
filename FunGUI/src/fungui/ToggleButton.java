@@ -298,8 +298,8 @@ public class ToggleButton extends Button implements PConstants {
 		float x1 = (float) ((x + dx - offset));
 		float y1 = (float) (y - dy + ychng);
 		float x2 = (float) (x + dx + offset);
-		float r1 = .85f;
-		float r2 = .89f;
+		float r1 = (float) (.85 * r);
+		float r2 = (float) (.89 * r);
 		boolean leftCircleClicked = PApplet.dist(x1, y1, p.mouseX, p.mouseY) < r1;
 		boolean rightCircleClicked = PApplet.dist(x2, y1, p.mouseX, p.mouseY) < r2;
 		return(leftCircleClicked || rightCircleClicked);
