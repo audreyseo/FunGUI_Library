@@ -289,8 +289,23 @@ public class ToggleButton extends Button implements PConstants {
 		}
 		if (p.mousePressed)
 			pressed = true;
-		return (super.clicked(dx, dy));
+		return (super.clicked(dx, dy) || edgesClicked(dx, dy));
 	}
+	
+	protected boolean edgesClicked(float dx, float dy) {
+		float offset = (float) (w2 * 0.90);
+		float ychng = (float) .5;
+		float x1 = (float) ((x + dx - offset));
+		float y1 = (float) (y - dy + ychng);
+		float x2 = (float) (x + dx + offset);
+		float r1 = .85f;
+		float r2 = .89f;
+		boolean leftCircleClicked = PApplet.dist(x1, y1, p.mouseX, p.mouseY) < r1;
+		boolean rightCircleClicked = PApplet.dist(x2, y1, p.mouseX, p.mouseY) < r2;
+		return(leftCircleClicked || rightCircleClicked);
+	}
+	
+	
 
 	protected float rads(float degrees) {
 		return ((float) ((degrees / 180.0) * PI));

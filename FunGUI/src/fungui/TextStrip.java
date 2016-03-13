@@ -78,16 +78,21 @@ public class TextStrip implements PConstants {
 		g.stroke(30);
 		g.rectMode(CENTER);
 		g.rect(x, y, w, h);
+		cursorDisplay();
+		textDisplay();
+	}
+	
+	void cursorDisplay() {
 		if (clickedIn && cursorTimer.timeLeft() > 1000) {
 			g.fill(30);
 			PApplet.println("Begin: " + begin());
 			PApplet.println("End: " + end());
+			g.textFont(font);
 			g.rect((float) (x - w * .45 + g.textWidth(text.substring(begin(),
 					end()))), y, 3, (float) (h * .9));
 		} else if (cursorTimer.done()) {
 			cursorTimer.reset();
 		}
-		textDisplay();
 	}
 
 	void textDisplay() {
@@ -124,7 +129,7 @@ public class TextStrip implements PConstants {
 	}
 	
 	protected boolean addingConditions() {
-		return(t.done() && p.key != CODED && p.key != DELETE
+		return(!pressed && p.key != CODED && p.key != DELETE
 					&& p.key != BACKSPACE);
 	}
 
