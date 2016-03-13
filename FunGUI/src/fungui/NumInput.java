@@ -1,7 +1,78 @@
 package fungui;
+import processing.core.*;
+import processing.data.*;
 
-public class NumInput {
-	public NumInput() {
+/**
+ * Really just a TextStrip that only allows numerical inputs such
+ * as 10E-2, otherwise known as 10 times 10 to the power of 2, or 3.14,
+ * etc.
+ * @author Audrey Seo
+ */
+public class NumInput extends TextStrip implements PConstants {
+	
+	/**
+	 * Constructor of the numerics-only text strip class.
+	 * @param p		PApplet, the parent sketch, usually "this"
+	 * @param x		float, the x-coordinate of the number input box
+	 * @param y		float, the y-coordinate of the number input box
+	 * @param w		float, the width of the number input box
+	 * @param h		float, the height of the number input box
+	 */
+	public NumInput(PApplet p, float x, float y, float w, float h) {
+		super(p, x, y, w, h);
+	}
+	
+	/**
+	 * Constructor of the numerics-only text strip class.
+	 * @param p		PApplet, the parent sketch, usually "this"
+	 * @param x		float, the x-coordinate of the number input box
+	 * @param y		float, the y-coordinate of the number input box
+	 * @param w		float, the width of the number input box
+	 * @param h		float, the height of the number input box
+	 * @param name	String, the instructions for the user that will be to the left of the number input box, e.g. "Birthdate: "
+	 */
+	public NumInput(PApplet p, float x, float y, float w, float h,
+			String name) {
+		super(p, x, y, w, h, name);
+	}
+	
+	@Override
+	protected boolean addingConditions() {
+		boolean notCoded = p.key != CODED;
+		boolean notDeleting = p.key != DELETE && p.key != BACKSPACE;
+		boolean timeElapsed = t.done();
+		boolean numeric = false;
+		switch(PApplet.str(p.key)) {
+		case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "0":
+			numeric = true;
+			break;
+		case "-": case ".":
+			numeric = true;
+			break;
+		case "E":
+			numeric = true;
+			break;
+		default: break;
+		}
 		
+		return(timeElapsed && notCoded && notDeleting && numeric);
+	}
+	
+	@Override
+	protected String addition() {
+		String news = "";
+		switch(PApplet.str(p.key)) {
+		case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "0":
+			news += PApplet.str(p.key);
+			break;
+		case "-":
+			news += PApplet.str(p.key);
+			break;
+		case "E":
+			news += "x10^";
+			break;
+		default: break;
+		}
+		return(news);
 	}
 }

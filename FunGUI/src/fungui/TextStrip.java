@@ -13,7 +13,7 @@ import processing.data.StringList;
  * @author Audrey Seo
  *
  */
-public class TextBoxStrip implements PConstants {
+public class TextStrip implements PConstants {
 	private float x, y;
 	private float w, h;
 	public String text;
@@ -21,12 +21,12 @@ public class TextBoxStrip implements PConstants {
 	int begin = 0;
 	private float textWidth;
 	private PFont font;
-	private Timer t, cursorTimer, offTime;
+	protected Timer t, cursorTimer, offTime;
 	boolean pressed = false;
 	boolean clickedIn = false;
 	StringList lines = new StringList();
-	private PApplet p;
-	private PGraphics g;
+	protected PApplet p;
+	protected PGraphics g;
 	String command;
 	
 	/**
@@ -37,7 +37,7 @@ public class TextBoxStrip implements PConstants {
 	 * @param w	float, the width of the text box
 	 * @param h	float, the height of the text box
 	 */
-	public TextBoxStrip(PApplet p, float x, float y, float w, float h) {
+	public TextStrip(PApplet p, float x, float y, float w, float h) {
 		init(p, x, y, w, h);
 	}
 	
@@ -50,7 +50,7 @@ public class TextBoxStrip implements PConstants {
 	 * @param h	float, the height of the text box rectangle
 	 * @param name	String, the message that floats to the left of the text box
 	 */
-	public TextBoxStrip(PApplet p, float x, float y, float w, float h,
+	public TextStrip(PApplet p, float x, float y, float w, float h,
 			String name) {
 		command = name;
 		init(p, x, y, w, h);
@@ -109,43 +109,46 @@ public class TextBoxStrip implements PConstants {
 		return ((cursor_placement <= text.length()) ? cursor_placement : text
 				.length());
 	}
+	
+	protected void add() {
+		text += addition();
+		cursor_placement++;
+		g.textFont(font);
+		if (g.textWidth(text.substring(begin, text.length())) > w * .8) {
+			begin++;
+		}
+	}
+	
+	protected String addition() {
+		return(PApplet.str(p.key));
+	}
+	
+	protected boolean addingConditions() {
+		return(t.done() && p.key != CODED && p.key != DELETE
+					&& p.key != BACKSPACE);
+	}
 
 	void type() {
 		if (clicked()) {
 			clickedIn = true;
-			cursor_placement = begin()
-					+ PApplet.round(PApplet.map((float) (p.mouseX),
+			cursor_placement = begin() + PApplet.round(PApplet.map((float) (p.mouseX),
 							(float) (x - w * .5), (float) (x + w * .5),
 							(float) (0.0), (float) (9.0)));
 		}
-		if (p.mousePressed && !clicked())
+		if (p.mousePressed && !clicked()) {
 			clickedIn = false;
+		}
+		
 		if (p.keyPressed && typed() && clickedIn) {
-			if (t.done() && p.key != CODED && p.key != DELETE
-					&& p.key != BACKSPACE) {
-				text += PApplet.str(p.key);
-				cursor_placement++;
-				g.textFont(font);
-				if (g.textWidth(text.substring(begin, text.length())) > w * .8) {
-					begin++;
-				}
+			if (addingConditions()) {
+				add();
 			} else if (t.done()) {
 				if (text.length() > 0
 						&& (p.key == DELETE || p.key == BACKSPACE)) {
-					text = text.substring(0, text.length() - 1);
-					if (cursor_placement > 0)
-						cursor_placement--;
-					if (begin > 0)
-						begin--;
+					text = backspace(text);
+					decrementPosition();
 				} else if (cursor_placement > 1 && (p.key == CODED)) {
-					if (p.keyCode == RIGHT && cursor_placement < text.length()) {
-						cursor_placement++;
-						begin++;
-					} else if (p.keyCode == LEFT && cursor_placement > 1
-							&& begin > 1) {
-						cursor_placement--;
-						begin--;
-					}
+					moveCursor();
 				}
 			}
 			enter();
@@ -155,6 +158,28 @@ public class TextBoxStrip implements PConstants {
 			pressed = p.keyPressed;
 		}
 		// PApplet.println(clickedIn + "  " + text);
+	}
+	
+	protected void moveCursor() {
+		if (p.keyCode == RIGHT && cursor_placement < text.length()) {
+			cursor_placement++;
+			begin++;
+		} else if (p.keyCode == LEFT && cursor_placement > 1
+				&& begin > 1) {
+			cursor_placement--;
+			begin--;
+		}
+	}
+	
+	protected void decrementPosition() {
+		if (cursor_placement > 0)
+			cursor_placement--;
+		if (begin > 0)
+			begin--;
+	}
+
+	protected String backspace(String str) {
+		return(str.substring(0, str.length() - 1));
 	}
 
 	boolean typed() {
