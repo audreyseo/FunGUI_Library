@@ -295,7 +295,7 @@ public class ToggleButton extends Button implements PConstants {
 			break;
 		}
 		//pressed = p.mousePressed;
-		return (super.clicked(dx, dy) || edgesClicked(dx, dy));
+		return (super.clicked(-dx, -dy) || edgesClicked(-dx, -dy));
 	}
 	
 	protected boolean edgesClicked(float dx, float dy) {
