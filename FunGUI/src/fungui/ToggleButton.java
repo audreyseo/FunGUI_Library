@@ -108,8 +108,8 @@ public class ToggleButton extends Button implements PConstants {
 
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
-		buttonBase(dx, dy);
-		buttonFace(dx, dy);
+		buttonBase(-dx, -dy);
+		buttonFace(-dx, -dy);
 		text(dx, dy);
 	}
 
