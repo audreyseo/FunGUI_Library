@@ -4,6 +4,7 @@ import processing.core.*;
 
 public class RoundedRectButton extends RectButton implements PConstants {
 	float curvature = 0.0f;
+	float curveRadius = 0.0f;
 	
 	/**
 	 * Constructor for the RoundedRectButton class.
@@ -19,6 +20,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, float curvature) {
 		super(p, nx, ny, nw, nh, ncolors, ntext);
 		this.curvature = PApplet.constrain(curvature, 0.1f, 1);
+		calculateRadius();
 	}
 	
 	/**
@@ -34,6 +36,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext) {
 		super(p, nx, ny, nw, nh, ncolors, ntext);
 		curvature = 0.75f;
+		calculateRadius();
 	}
 	
 
@@ -41,8 +44,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	public void backShape(float xi, float yi, float wi, float hi) {
 		float wi2 = (float) (wi * .5);
 		float hi2 = (float) (hi * .5);
-		float partialW = (float) (wi2 * curvature);
-		float partialH = (float) (hi2 * curvature);
+		float partialW = (float) (wi2 - r());
+		float partialH = (float) (hi2 - r());
 		
 		float x1a = xi - wi2;
 		float x1b = xi - partialW;
@@ -82,16 +85,38 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		//float theta = 0;
 		float dth = QUARTER_PI;
 		// First corner - arc
-		g.arc(xa, ya, rW(), rH(), PI - dth, 3 * HALF_PI + dth, CHORD);
+		g.arc(xa, ya, r(), r(), PI - dth, 3 * HALF_PI + dth, CHORD);
 		
 		// Second corner - arc
-		g.arc(xa, yb, rW(), rH(), HALF_PI - dth, PI + dth, CHORD);
+		g.arc(xa, yb, r(), r(), HALF_PI - dth, PI + dth, CHORD);
 		
 		// Third corner - arc
-		g.arc(xb, yb, rW(), rH(), -dth, HALF_PI + dth, CHORD);
+		g.arc(xb, yb, r(), r(), -dth, HALF_PI + dth, CHORD);
 		
 		// Fourth corner - arc
-		g.arc(xb, ya, rW(), rH(), -HALF_PI - dth, dth, CHORD);
+		g.arc(xb, ya, r(), r(), -HALF_PI - dth, dth, CHORD);
+	}
+	
+	private void calculateRadius() {
+		float rh = rH();
+		float rw = rW();
+		if (rh < rw) {
+			if (rw < h * .5) {
+				curveRadius = rw;
+			} else {
+				curveRadius = (float) (h * .4);
+			}
+		} else {
+			if (rh < w * .5) {
+				curveRadius = rh;
+			} else {
+				curveRadius = (float) (w * .4);
+			}
+		}
+	}
+	
+	private float r() {
+		return(curveRadius);
 	}
 	
 	/**
