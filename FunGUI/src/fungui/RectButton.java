@@ -215,13 +215,17 @@ public class RectButton extends Button {
 		g.rectMode(CENTER);
 		g.noStroke();
 		g.fill(outside);
-		g.rect(x(), y(), w(), h());
+		backShape(x(), y(), w(), h());
 		float insideW, insideH;
 		insideW = w - 20 * wratio;
 		insideH = h - 20 * hratio;
 		g.fill(inside);
-		g.rect(x(), y(), iw(), ih());
+		backShape(x(), y(), iw(), ih());
 		g.fill(0);
+	}
+	
+	public void backShape(float xi, float yi, float wi, float hi) {
+		g.rect(xi, yi, wi, hi);
 	}
 
 
@@ -238,16 +242,16 @@ public class RectButton extends Button {
 		g.rectMode(CENTER);
 		if ((rollover)) {
 			g.fill(scheme[0]);
-			g.rect(x(), y(), w(), h());
+			backShape(x(), y(), w(), h());
 			g.fill(scheme[1]);
-			g.rect(x(), y(), w(), h());
+			backShape(x(), y(), w(), h());
 			g.fill(scheme[2]);
-			g.rect(x(), y(), iw(), ih());
+			backShape(x(), y(), iw(), ih());
 		} else {
 			g.fill(scheme[0]);
-			g.rect(x(), y(), w(), h());
+			backShape(x(), y(), w(), h());
 			g.fill(scheme[1]);
-			g.rect(x(), y(), iw(), ih());
+			backShape(x(), y(), iw(), ih());
 		}
 
 		drawButtonName();

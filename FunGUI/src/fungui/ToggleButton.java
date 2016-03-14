@@ -17,7 +17,7 @@ public class ToggleButton extends Button implements PConstants {
 	 * switch.
 	 * 
 	 * @param p
-	 *            the instance of PAPplet, usually "this"
+	 *            the instance of PApplet, usually "this"
 	 * @param x
 	 *            float
 	 * @param y
