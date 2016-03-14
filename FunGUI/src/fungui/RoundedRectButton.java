@@ -58,19 +58,19 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		
 		g.beginShape();
 		// First corner
-		g.vertex(x1b, y1a);
-		g.vertex(x1a, y1b);
+		g.vertex(x1b, y1b);
+		g.vertex(x1a, y1a);
 		
 		// Second corner
-		g.vertex(x1b, y2a);
-		g.vertex(x1a, y2b);
+		g.vertex(x1b, y2b);
+		g.vertex(x1a, y2a);
 		// Third corner
 		g.vertex(x2b, y2b);
 		g.vertex(x2a, y2a);
 		
 		// Fourth corner
-		g.vertex(x2b, y1a);
-		g.vertex(x2a, y1b);
+		g.vertex(x2b, y1b);
+		g.vertex(x2a, y1a);
 		g.endShape(CLOSE);
 		
 		float xa = avg(x1a, x1b);
