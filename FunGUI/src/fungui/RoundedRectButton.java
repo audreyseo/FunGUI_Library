@@ -76,14 +76,16 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.vertex(x2b, y1a);
 		g.endShape(CLOSE);
 		
-		float xa = avg(x1a, x1b);
-		float xb = avg(x2a, x2b);
-		float ya = avg(y1a, y1b);
-		float yb = avg(y2a, y2b);
-		float diameter = (float) (PApplet.dist(x1b, y1a, x1a, y1b));
+		float diameter = (float) (PApplet.dist(0, 0, curveRadius, curveRadius));
+		float radius = diameter * .5f;
+		float xa = x1a + radius;
+		float xb = x2a - radius;
+		float ya = y1a + radius;
+		float yb = y2a - radius;
+		
 		
 		//float theta = 0;
-		float dth = QUARTER_PI;
+		float dth = HALF_PI;
 		// First corner - arc
 		g.arc(xa, ya, diameter, diameter, PI - dth, 3 * HALF_PI + dth, CHORD);
 		
@@ -95,6 +97,11 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		
 		// Fourth corner - arc
 		g.arc(xb, ya, diameter, diameter, -HALF_PI - dth, dth, CHORD);
+	}
+	
+	public void changeCurvature(float f) {
+		this.curvature = f;
+		calculateRadius();
 	}
 	
 	private void calculateRadius() {
