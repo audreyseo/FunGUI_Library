@@ -80,17 +80,18 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		
 		
 		//float theta = 0;
+		float dth = QUARTER_PI;
 		// First corner - arc
-		g.arc(xa, ya, rW(), rH(), PI, 3 * HALF_PI, CHORD);
+		g.arc(xa, ya, rW(), rH(), PI - dth, 3 * HALF_PI + dth, CHORD);
 		
 		// Second corner - arc
-		g.arc(xa, yb, rW(), rH(), HALF_PI, PI, CHORD);
+		g.arc(xa, yb, rW(), rH(), HALF_PI - dth, PI + dth, CHORD);
 		
 		// Third corner - arc
-		g.arc(xb, yb, rW(), rH(), 0, HALF_PI, CHORD);
+		g.arc(xb, yb, rW(), rH(), -dth, HALF_PI + dth, CHORD);
 		
 		// Fourth corner - arc
-		g.arc(xb, ya, rW(), rH(), -HALF_PI, 0, CHORD);
+		g.arc(xb, ya, rW(), rH(), -HALF_PI - dth, dth, CHORD);
 	}
 	
 	/**
