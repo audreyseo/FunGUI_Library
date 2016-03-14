@@ -80,21 +80,21 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		float xb = avg(x2a, x2b);
 		float ya = avg(y1a, y1b);
 		float yb = avg(y2a, y2b);
-		
+		float radius = (float) (PApplet.dist(x1b, y1a, x1a, y1b) * .5);
 		
 		//float theta = 0;
 		float dth = QUARTER_PI;
 		// First corner - arc
-		g.arc(xa, ya, r(), r(), PI - dth, 3 * HALF_PI + dth, CHORD);
+		g.arc(xa, ya, radius, radius, PI - dth, 3 * HALF_PI + dth, CHORD);
 		
 		// Second corner - arc
-		g.arc(xa, yb, r(), r(), HALF_PI - dth, PI + dth, CHORD);
+		g.arc(xa, yb, radius, radius, HALF_PI - dth, PI + dth, CHORD);
 		
 		// Third corner - arc
-		g.arc(xb, yb, r(), r(), -dth, HALF_PI + dth, CHORD);
+		g.arc(xb, yb, radius, radius, -dth, HALF_PI + dth, CHORD);
 		
 		// Fourth corner - arc
-		g.arc(xb, ya, r(), r(), -HALF_PI - dth, dth, CHORD);
+		g.arc(xb, ya, radius, radius, -HALF_PI - dth, dth, CHORD);
 	}
 	
 	private void calculateRadius() {
