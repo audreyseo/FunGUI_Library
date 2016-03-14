@@ -35,7 +35,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	 */
 	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext) {
 		super(p, nx, ny, nw, nh, ncolors, ntext);
-		curvature = 0.75f;
+		curvature = 0.25f;
 		calculateRadius();
 	}
 	
@@ -131,11 +131,11 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	 * @return
 	 */
 	private float rH() {
-		return((float) (complement() * h * .5));
+		return((float) (curvature * h * .5));
 	}
 	
 	private float rW() {
-		return((float) (complement() * w * .5));
+		return((float) (curvature * w * .5));
 	}
 	
 	private float complement() {
