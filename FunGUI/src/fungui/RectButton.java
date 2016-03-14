@@ -229,7 +229,7 @@ public class RectButton extends Button {
 	}
 	
 	public void innerBackShape(float xi, float yi, float wi, float hi) {
-		g.rect(xi, yi, wi, hi);
+		backShape(xi, yi, wi, hi);
 	}
 
 
