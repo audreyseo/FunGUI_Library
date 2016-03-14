@@ -220,11 +220,15 @@ public class RectButton extends Button {
 		insideW = w - 20 * wratio;
 		insideH = h - 20 * hratio;
 		g.fill(inside);
-		backShape(x(), y(), iw(), ih());
+		innerBackShape(x(), y(), iw(), ih());
 		g.fill(0);
 	}
 	
 	public void backShape(float xi, float yi, float wi, float hi) {
+		g.rect(xi, yi, wi, hi);
+	}
+	
+	public void innerBackShape(float xi, float yi, float wi, float hi) {
 		g.rect(xi, yi, wi, hi);
 	}
 

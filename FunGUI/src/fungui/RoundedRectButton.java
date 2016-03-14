@@ -5,6 +5,7 @@ import processing.core.*;
 public class RoundedRectButton extends RectButton implements PConstants {
 	float curvature = 0.0f;
 	float curveRadius = 0.0f;
+	float innerCurveRadius = 0.0f;
 	
 	/**
 	 * Constructor for the RoundedRectButton class.
@@ -99,6 +100,65 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.arc(xb, ya, diameter, diameter, -HALF_PI - dth, dth, CHORD);
 	}
 	
+	@Override
+	public void innerBackShape(float xi, float yi, float wi, float hi) {
+		float wi2 = (float) (wi * .5);
+		float hi2 = (float) (hi * .5);
+		float partialW = (float) (wi2 - ir());
+		float partialH = (float) (hi2 - ir());
+		
+		float x1a = xi - wi2;
+		float x1b = xi - partialW;
+		
+		float x2a = xi + wi2;
+		float x2b = xi + partialW;
+		
+		float y1a = yi - hi2;
+		float y1b = yi - partialH;
+		
+		float y2a = yi + hi2;
+		float y2b = yi + partialH;
+		
+		g.beginShape();
+		// First corner
+		g.vertex(x1b, y1a);
+		g.vertex(x1a, y1b);
+		
+		// Second corner
+		g.vertex(x1a, y2b);
+		g.vertex(x1b, y2a);
+		// Third corner
+		g.vertex(x2b, y2a);
+		g.vertex(x2a, y2b);
+		
+		// Fourth corner
+		g.vertex(x2a, y1b);
+		g.vertex(x2b, y1a);
+		g.endShape(CLOSE);
+		
+		float diameter = (float) (PApplet.dist(0, 0, innerCurveRadius, innerCurveRadius));
+		float radius = diameter * .5f;
+		float xa = x1a + radius;
+		float xb = x2a - radius;
+		float ya = y1a + radius;
+		float yb = y2a - radius;
+		
+		
+		//float theta = 0;
+		float dth = HALF_PI;
+		// First corner - arc
+		g.arc(xa, ya, diameter, diameter, PI - dth, 3 * HALF_PI + dth, CHORD);
+		
+		// Second corner - arc
+		g.arc(xa, yb, diameter, diameter, HALF_PI - dth, PI + dth, CHORD);
+		
+		// Third corner - arc
+		g.arc(xb, yb, diameter, diameter, -dth, HALF_PI + dth, CHORD);
+		
+		// Fourth corner - arc
+		g.arc(xb, ya, diameter, diameter, -HALF_PI - dth, dth, CHORD);
+	}
+	
 	public void changeCurvature(float f) {
 		this.curvature = f;
 		calculateRadius();
@@ -107,6 +167,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	private void calculateRadius() {
 		float rh = rH();
 		float rw = rW();
+		float rih = (float) (ih() * curvature * .5);
+		float riw = (float) (iw() * curvature * .5);
 		if (rh < rw) {
 			if (rw < h * .5) {
 				curveRadius = rw;
@@ -120,10 +182,28 @@ public class RoundedRectButton extends RectButton implements PConstants {
 				curveRadius = (float) (w * .4);
 			}
 		}
+		
+		if (rih < riw) {
+			if (riw < ih() * .5) {
+				innerCurveRadius = riw;
+			} else {
+				innerCurveRadius = (float) (ih() * .4);
+			}
+		} else {
+			if (rih < iw() * .5) {
+				innerCurveRadius = rih;
+			} else {
+				innerCurveRadius = (float) (iw() * .4);
+			}
+		}
 	}
 	
 	private float r() {
 		return(curveRadius);
+	}
+	
+	private float ir() {
+		return(innerCurveRadius);
 	}
 	
 	/**
