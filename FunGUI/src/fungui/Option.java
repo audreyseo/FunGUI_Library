@@ -2,9 +2,9 @@ package fungui;
 import processing.core.*;
 public class Option extends Frame implements PConstants {
 	String label;
-	float x, y, r1, r2;
-	float wratio, hratio;
-	boolean selected = false;
+	public float x, y, r1, r2;
+	public float wratio, hratio;
+	public boolean selected = false;
 	PFont font;
 	Display d;
 	int numColumns;
@@ -43,8 +43,7 @@ public class Option extends Frame implements PConstants {
 		shapeDisplay(r2 * wratio);
 		g.fill(90, 90, 90);
 
-		if (!selected)
-			selected();
+		selected();
 
 		selectionDisplay();
 
@@ -66,7 +65,8 @@ public class Option extends Frame implements PConstants {
 	}
 
 	void selected() {
-		selected = (clicked()) ? true : false;
+		if (!selected)
+			selected = (clicked()) ? true : false;
 	}
 
 	float radius() {

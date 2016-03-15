@@ -12,7 +12,11 @@ public class OptionList {
 		this.p = p;
 		options = new Option [numOptions];
 		type = t;
-		for (int i = 0; i < numOptions; i++) {
+		init(ex, why, optionLabels, d, numColumns);
+	}
+	
+	protected void init(float ex, float why, String [] optionLabels, Display d, int numColumns) {
+		for (int i = 0; i < optionLabels.length; i++) {
 			options[i] = new Option(p, ex, why + i * 20, optionLabels[i], d, numColumns);
 		}
 	}
