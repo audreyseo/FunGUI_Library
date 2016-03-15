@@ -73,7 +73,7 @@ public class Option extends Frame implements PConstants {
 		return(r1 * wratio + PApplet.constrain((float) ((r2 - r1) * wratio * .5), 0f, (float) ( (r2 - r1) * .5) ));
 	}
 
-	boolean clicked() {
+	public boolean clicked() {
 		return(p.mousePressed && (p.mouseX < wratio * (x + r2) && p.mouseX > wratio * (x - r2)) && (p.mouseY < hratio * (y + r2) && p.mouseY > hratio * (y - r2)));
 	}
 }

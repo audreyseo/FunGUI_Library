@@ -84,8 +84,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void offset() {
 		g.textFont(font);
-		float dx = g.textWidth(label);
-		float dy = 18;
+		float dx = g.textWidth(label) * .4f;
+		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
@@ -222,8 +222,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedX() {
 		g.textFont(font);
-		float dx = g.textWidth(label);
-		float dy = 25;
+		float dx = g.textWidth(label) * .4f;
+		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
@@ -247,8 +247,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedY() {
 		g.textFont(font);
-		float dx = g.textWidth(label);
-		float dy = 25;
+		float dx = g.textWidth(label) * .4f;
+		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
@@ -274,8 +274,8 @@ public class ToggleButton extends Button implements PConstants {
 	@Override
 	public boolean clicked() {
 		g.textFont(font);
-		float dx = g.textWidth(label);
-		float dy = 18;
+		float dx = g.textWidth(label) * .4f;
+		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;

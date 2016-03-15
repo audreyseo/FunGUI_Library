@@ -25,13 +25,17 @@ public class OptionList {
 		limitwidth();
 		for (int i = 0; i < options.length; i++) {
 			options[i].display();
-			if (p.mousePressed) {
-				if (options[i].selected) {
-					if (i != selectedOption) {
-						options[selectedOption].selected = false;
-						selectedOption = i;
-						selectedLabel = options[i].label;
-					}
+			mutuallyExclusive(i);
+		}
+	}
+	
+	protected void mutuallyExclusive(int i) {
+		if (p.mousePressed) {
+			if (options[i].selected) {
+				if (i != selectedOption) {
+					options[selectedOption].selected = false;
+					selectedOption = i;
+					selectedLabel = options[i].label;
 				}
 			}
 		}

@@ -14,4 +14,11 @@ public class ChoiceList extends OptionList {
 			options[i] = new Choice(p, ex, why + i * 20, optionLabels[i], d, numColumns);
 		}
 	}
+	
+	@Override
+	protected void mutuallyExclusive(int i) {
+		// Hi there, obsolete code...
+	}
+	
+	
 }

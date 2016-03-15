@@ -36,4 +36,9 @@ public class Choice extends Option implements PConstants {
 		if (clicked() && !pressed) selected = !selected;
 		pressed = p.mousePressed;
 	}
+	
+	@Override
+	public boolean clicked() {
+		return(p.mousePressed && (p.mouseX < wratio * (x + r2 * .5) && p.mouseX > wratio * (x - r2 * .5)) && (p.mouseY < hratio * (y + r2 * .5) && p.mouseY > hratio * (y - r2 * .5)));
+	}
 }
