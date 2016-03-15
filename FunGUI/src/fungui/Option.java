@@ -40,21 +40,29 @@ public class Option extends Frame implements PConstants {
 
 		g.noStroke();
 		g.fill(220, 220, 220);
-		g.ellipse(x * wratio, y * hratio, r2 * wratio, r2 * wratio);
+		shapeDisplay(r2 * wratio);
 		g.fill(90, 90, 90);
 
 		if (!selected)
 			selected();
 
-		if (selected) {
-			g.ellipse(x * wratio, y * hratio, radius(), radius());
-		}
+		selectionDisplay();
 
 
 		g.fill(0);
 		g.textAlign(LEFT, CENTER);
 		g.textFont(font, limitFont(font, 12, label, (float) ((d.w() / numColumns) / 1.25)));
 		g.text(label, wratio * (x + 20), hratio * y);
+	}
+	
+	public void selectionDisplay() {
+		if (selected) {
+			shapeDisplay(radius());
+		}
+	}
+	
+	public void shapeDisplay(float radius) {
+		g.ellipse(x * wratio, y * hratio, radius, radius);
 	}
 
 	void selected() {
