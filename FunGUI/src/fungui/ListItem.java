@@ -4,19 +4,19 @@ import processing.core.PApplet;
 import processing.core.PFont;
 
 public class ListItem extends Frame {
-	Float r1, r2;
-	String label;
+	protected float r1, r2;
+	protected String label;
 	public float wratio, hratio;
 	public boolean selected = false;
-	public boolean pressed;
-	PFont font;
-	Display d;
-	int numColumns;
+	public boolean pressed = false;
+	protected PFont font;
+	protected Display d;
+	protected int numColumns;
 	
-	float widthLimit;
+	protected float widthLimit;
 
-	float beginningW;
-	float beginningH;
+	protected float beginningW;
+	protected float beginningH;
 	
 	public ListItem(PApplet p, float ex, float why, String label, int numColumns, float width) {
 		init(p, ex, why, label);

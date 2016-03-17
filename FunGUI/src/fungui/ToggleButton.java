@@ -4,7 +4,7 @@ import processing.core.*;
 
 public class ToggleButton extends Button implements PConstants {
 	boolean on = false;
-	float xOffset = .49f;
+	float xOffset = .7f;
 	public Timer t;
 	PFont font, liFont;
 	protected float r;
@@ -74,7 +74,11 @@ public class ToggleButton extends Button implements PConstants {
 			} else if (dy < 0) {
 				g.textAlign(CENTER, BOTTOM);
 			} else {
-				g.textAlign(CENTER, CENTER);
+				if (dx > 0) {
+					g.textAlign(RIGHT, CENTER);
+				} else {
+					g.textAlign(LEFT, CENTER);
+				}
 			}
 			g.text(label, x + dx, y + dy);
 			g.popStyle();

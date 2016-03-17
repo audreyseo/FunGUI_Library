@@ -47,7 +47,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		float hi2 = (float) (hi * .5);
 		float partialW = (float) (wi2 - r());
 		float partialH = (float) (hi2 - r());
-		PApplet.println("PartialW: " + partialW);
+		//PApplet.println("PartialW: " + partialW);
 		float x1a = xi - wi2;
 		float x1b = xi - partialW;
 		
@@ -106,7 +106,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		float hi2 = (float) (hi * .5);
 		float partialW = (float) (wi2 - ir());
 		float partialH = (float) (hi2 - ir());
-		PApplet.println("partialW: " + partialW);
+		//PApplet.println("partialW: " + partialW);
 		float x1a = xi - wi2;
 		float x1b = xi - partialW;
 		
@@ -139,8 +139,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		float diameter = (float) (PApplet.dist(0, 0, ir(), ir()));
 		
 		float radius = diameter * .5f;
-		PApplet.println("Radius: " + r() + " Inner Radius: " + ir());
-		PApplet.println("Real radius: " + radius);
+//		PApplet.println("Radius: " + r() + " Inner Radius: " + ir());
+//		PApplet.println("Real radius: " + radius);
 		float xa = x1a + radius;
 		float xb = x2a - radius;
 		float ya = y1a + radius;

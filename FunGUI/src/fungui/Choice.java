@@ -3,10 +3,16 @@ import processing.core.*;
 
 
 public class Choice extends Option implements PConstants {
-	boolean pressed = false;
 	
 	public Choice(PApplet p, float ex, float why, String label, Display d, int numColumns) {
 		super(p, ex, why, label, d, numColumns);
+	}
+	
+	@Override
+	public void record(String s) {
+		if (testing) {
+			PApplet.println("Choice: " + s);
+		}
 	}
 
 	@Override

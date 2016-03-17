@@ -18,7 +18,7 @@ public abstract class Frame {
 	
 	public float x, y;
 	public float w, h;
-	protected PGraphics g = new PGraphics();
+	protected PGraphics g;
 	
 	
 	/**

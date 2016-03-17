@@ -7,7 +7,7 @@ public class List {
 	int selectedOption = 0;
 	String selectedLabel = "";
 	String type;
-	PApplet p;
+	public PApplet p;
 	
 	public List(PApplet p, float ex, float why, String [] optionLabels, String t, Display d, int numColumns) {
 		this.p = p;

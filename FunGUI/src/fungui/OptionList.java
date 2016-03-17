@@ -2,20 +2,19 @@ package fungui;
 
 import processing.core.PApplet;
 
-public class OptionList {
-	Option [] options;
+public class OptionList extends List {
 	int selectedOption = 0;
 	String selectedLabel = "";
 	String type;
-	PApplet p;
+//	PApplet p;
 	public OptionList(PApplet p, float ex, float why, int numOptions, String [] optionLabels, String t, Display d, int numColumns) {
-		this.p = p;
-		options = new Option [numOptions];
+		super(p, ex, why, numOptions, optionLabels, t, d, numColumns);
 		type = t;
 		init(ex, why, optionLabels, d, numColumns);
 	}
 	
 	protected void init(float ex, float why, String [] optionLabels, Display d, int numColumns) {
+		options = new Option [optionLabels.length];
 		for (int i = 0; i < optionLabels.length; i++) {
 			options[i] = new Option(p, ex, why + i * 20, optionLabels[i], d, numColumns);
 		}
