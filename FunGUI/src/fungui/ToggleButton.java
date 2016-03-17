@@ -58,6 +58,9 @@ public class ToggleButton extends Button implements PConstants {
 
 	public void label(String l) {
 		this.label = l;
+		g.textFont(font);
+		float full = PApplet.abs((g.textWidth(label)));
+		this.xOffset = (float) ((full - 30.0) / full);
 	}
 
 	public void name(String name) {
@@ -117,8 +120,18 @@ public class ToggleButton extends Button implements PConstants {
 		
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
+//		if (dx < 0) {
+//			dx += 30;
+//		} else if (dx > 0) {
+//			dx -= 30;
+//		}
 		buttonBase(-dx, -dy);
 		buttonFace(-dx, -dy);
+		if (dx > 0) {
+			dx += 30;
+		} else if (dx < 0) {
+			dx -= 30;
+		}
 		text(dx, dy);
 	}
 
@@ -294,10 +307,12 @@ public class ToggleButton extends Button implements PConstants {
 			dx = 0;
 			break;
 		case RIGHT:
+//			dx -= 30;
 			dy = 0;
 			break;
 		case LEFT:
 			dx *= -1;
+//			dx += 30;
 			dy = 0;
 			break;
 		default:
@@ -352,5 +367,6 @@ public class ToggleButton extends Button implements PConstants {
 		font = p.createFont("Optima-Bold", 17);
 		liFont = p.createFont("Helvetica-Regular", 18);
 		g = p.g;
+		g.textFont(font);
 	}
 }
