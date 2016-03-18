@@ -3,7 +3,7 @@ package fungui;
 import processing.core.PApplet;
 
 public class OptionList extends List {
-	int selectedOption = 0;
+	protected int selectedOption = 0;
 	String selectedLabel = "";
 	String type;
 //	PApplet p;
