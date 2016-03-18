@@ -186,17 +186,20 @@ public class RoundedRectButton extends RectButton implements PConstants {
 			}
 		}
 		
+		float widthRatio = (w / iw());
+		float heightRatio = (h / ih());
+		
 		if (rih < riw) {
 			if (riw < ih() * .5) {
 				innerCurveRadius = riw;
 			} else {
-				innerCurveRadius = (float) (ih() * .35);
+				innerCurveRadius = (float) (h() * .4 * heightRatio);
 			}
 		} else {
 			if (rih < iw() * .5) {
 				innerCurveRadius = rih;
 			} else {
-				innerCurveRadius = (float) (iw() * .35);
+				innerCurveRadius = (float) (w() * .4 * widthRatio);
 			}
 		}
 	}
