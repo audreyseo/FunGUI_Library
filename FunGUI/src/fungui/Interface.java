@@ -15,9 +15,12 @@ import processing.data.*;
 public class Interface {
 	int cols = 0;
 	int rows = 0;
-	float rowHeight;
-	float columnWidth;
+	public float defaultHeight = 50;
+	public float defaultWidth = 100;
+	float rowHeight = 0;
+	float columnWidth = 0;
 	PApplet p;
+	int [] standardColors = {p.color(100, 100, 230), p.color(190, 190, 190), p.color(240, 240, 240)};
 //	ArrayList<Button> buttons = new ArrayList<Button>();
 	HashMap<String, Button> buttons = new HashMap<String, Button>();
 	
@@ -44,8 +47,24 @@ public class Interface {
 	}
 	
 	public void makeRectButton(int column, int row, String name) {
-		int [] colors = {p.color(100, 100, 230), p.color(190, 190, 190), p.color(240, 240, 240)};
-		buttons.put(index(column, row),  new RectButton(p, column * columnWidth, row * rowHeight, .8f * columnWidth, .8f * rowHeight, colors, name));
+		buttons.put(index(column, row),  new RectButton(p, column * columnWidth, row * rowHeight, .8f * columnWidth, .8f * rowHeight, standardColors, name));
+	}
+	
+	public void makeRectButton(int column, int row, float length, String name) {
+		float height = .8f * rowHeight;
+		float width = .8f * columnWidth;
+		if (rowHeight == 0) {
+			height = defaultHeight;
+			width = length;
+		} else if (columnWidth == 0) {
+			width = defaultWidth;
+			height = length;
+		}
+		buttons.put(index(column, row),  new RectButton(p, column * columnWidth, row * rowHeight, width, height, standardColors, name));
+	}
+	
+	public void makeToggleButton(int column, int row, String name) {
+		
 	}
 	
 	public Button getButton(int column, int row) {

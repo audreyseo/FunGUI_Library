@@ -11,8 +11,8 @@ public class Slider implements PConstants {
 
 	float percent;
 
-	float min;
-	float max;
+	protected float min;
+	protected float max;
 	String label;
 	PFont f;
 	PGraphics g;
@@ -108,7 +108,7 @@ public class Slider implements PConstants {
 
 	void slider() {
 		g.pushStyle();
-		float xs = (float) (x - w * .45 + percent * (w * .9));
+		float xs = (float) (x - w * .45 + percent() * (w * .9));
 		g.rectMode(CENTER);
 		g.fill(255);
 		g.stroke(0);
@@ -121,6 +121,10 @@ public class Slider implements PConstants {
 		g.endShape(CLOSE);
 		// g.rect(xs, y, 7, 15);
 		g.popStyle();
+	}
+	
+	public float percent() {
+		return(percent);
 	}
 
 	void slide() {
@@ -143,7 +147,11 @@ public class Slider implements PConstants {
 	 * @return float, the value that the slider is at currently
 	 */
 	public float p() {
-		return (percent * (min + (max - min)));
+		return (percent * (range()) + min);
+	}
+	
+	public float range() {
+		return(max - min);
 	}
 
 	void init(PApplet p, float x, float y, float min, float max) {
