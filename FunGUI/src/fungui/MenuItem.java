@@ -4,9 +4,9 @@ import processing.core.*;
 public class MenuItem extends ListItem implements PConstants {
 	Menu m;
 	int ordinal = 0;
-	public int alignment = LEFT;
+	public int alignment = CENTER;
 	PFont font;
-	int c = 230;
+	int c = 0xFF3213;
 	
 	public MenuItem(PApplet p, float ex, float why, String label, int numColumns, float width, int ordinal, Menu menu) {
 		super(p, ex, why, label, numColumns, width);
@@ -14,6 +14,8 @@ public class MenuItem extends ListItem implements PConstants {
 		this.m = menu;
 		pressed = false;
 		font = this.p.createFont("Helvetica", 13);
+		h = 16;
+		w = width;
 	}
 	
 	public MenuItem(PApplet p, float ex, float why, String label, float width, int ordinal, Menu menu, int alignmentDirection) {
@@ -23,6 +25,8 @@ public class MenuItem extends ListItem implements PConstants {
 		font = this.p.createFont("Helvetica", 13);
 		pressed = false;
 		alignment = alignmentDirection;
+		h = 16;
+		w = width;
 	}
 	
 	public void colorize(int n) {
@@ -30,16 +34,16 @@ public class MenuItem extends ListItem implements PConstants {
 	}
 	
 	@Override
-	public void display() {
+	protected void display() {
 		g.pushStyle();
 		g.rectMode(CORNER);
-		if (clicked()) {
+		if (selected) {
 			g.fill(210);
 		} else {
 			g.fill(c);
 		}
-		g.noStroke();
-		g.rect(x, y, w, h);
+		g.stroke(0);
+		g.rect(x, y(), w, h);
 		g.popStyle();
 		
 		selected();
@@ -47,20 +51,32 @@ public class MenuItem extends ListItem implements PConstants {
 	}
 
 	void selected() {
-		if (!pressed)
-			selected = (clicked()) ? true : false;
+//		PApplet.println(pressed);
+		if (!pressed && clicked()) {
+			selected = !selected;
+			PApplet.println("selected");
+		}
 		pressed = p.mousePressed;
 	}
 	
 	@Override
-	public void text() {
+	protected void text() {
 		g.textAlign(alignment, CENTER);
 		g.textFont(font);
-		g.text(label, (float) (x + w * .5), y);
+		g.fill(30);
+		g.text(label, (float) (x + w * 0.5), (float) (y() + (15.0 / 2)));
 	}
 	
 	@Override
 	public boolean clicked() {
-		return(p.mousePressed && p.mouseX > x && p.mouseY > y && p.mouseX < x + w && p.mouseY < y + 20);
+		return(p.mousePressed && p.mouseX > x && p.mouseY > y() && p.mouseX < x + w && p.mouseY < y() + h);
+	}
+	
+	public float x() {
+		return(x);
+	}
+	
+	public float y() {
+		return(y + 18 * ordinal);
 	}
 }

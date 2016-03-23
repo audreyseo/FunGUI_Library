@@ -114,9 +114,9 @@ public class Slider implements PConstants {
 		g.stroke(0);
 		g.beginShape();
 		g.vertex((float) (xs - 3.5), (float) (y - 7.5));
-		g.vertex((float) (xs - 3.5), (float) (y + 7.5));
+		g.vertex((float) (xs - 3.5), (float) (y + 5));
 		g.vertex(xs, (float) (y + 10));
-		g.vertex((float) (xs + 3.5), (float) (y + 7.5));
+		g.vertex((float) (xs + 3.5), (float) (y + 5));
 		g.vertex((float) (xs + 3.5), (float) (y - 7.5));
 		g.endShape(CLOSE);
 		// g.rect(xs, y, 7, 15);
@@ -128,7 +128,7 @@ public class Slider implements PConstants {
 	}
 
 	void slide() {
-		float xs = (float) (x - w * .45 + percent * (w * .9));
+		float xs = (float) (x - w * .45 + percent() * (w * .9));
 		if (p.mousePressed && p.mouseX > x - .45 * w && p.mouseX < x + .45 * w
 				&& p.mouseY > y - 7.5 && p.mouseY < y + 7.5) {
 			percent = PApplet.constrain(PApplet.map((float) (p.mouseX),
@@ -167,5 +167,13 @@ public class Slider implements PConstants {
 		f = p.createFont("Georgia", 20, true);
 		g = p.g;
 	}
-
+	
+	public float low() {
+		return(min);
+	}
+	
+	public float high() {
+		return(max);
+	}
+	
 }

@@ -63,7 +63,7 @@ public class NumInput extends TextStrip implements PConstants {
 		case '-': case '.':
 			numeric = true;
 			break;
-		case 'E':
+		case 'e':
 			numeric = (scientific) ? true : false;
 			break;
 		default: break;
@@ -82,7 +82,7 @@ public class NumInput extends TextStrip implements PConstants {
 		case "-": case ".":
 			news += PApplet.str(p.key);
 			break;
-		case "E":
+		case "e":
 			if (scientific) {
 				news += "x10^";
 			}

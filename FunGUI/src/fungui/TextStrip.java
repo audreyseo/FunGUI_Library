@@ -147,9 +147,8 @@ public class TextStrip implements PConstants {
 		if (p.keyPressed && typed() && clickedIn) {
 			if (addingConditions()) {
 				add();
-			} else if (t.done()) {
-				if (text.length() > 0
-						&& (p.key == DELETE || p.key == BACKSPACE)) {
+			} else if (!pressed) {
+				if (text.length() > 0&& (p.key == DELETE || p.key == BACKSPACE)) {
 					text = backspace(text);
 					decrementPosition();
 				} else if (cursor_placement > 1 && (p.key == CODED)) {

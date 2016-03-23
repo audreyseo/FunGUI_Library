@@ -19,7 +19,7 @@ public class IncrementalSlider extends Slider {
 	
 	@Override
 	public float percent() {
-		return(increment() / Math.round(range()));
+		return((float) (increment()) / Math.round(range()));
 	}
 	
 	public int increment() {

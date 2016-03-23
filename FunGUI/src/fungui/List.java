@@ -4,7 +4,7 @@ import processing.core.PApplet;
 
 public class List {
 	ListItem [] options;
-	int selectedOption = 0;
+	int selectedOption = -1;
 	String selectedLabel = "";
 	String type;
 	public PApplet p;

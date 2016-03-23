@@ -1,5 +1,6 @@
 package fungui;
 import processing.core.*;
+import processing.data.*;
 
 /**
  * 
@@ -15,13 +16,40 @@ public class Menu extends List {
 	 * @param ex			float, the x-coordinate of the top left corner of the menu
 	 * @param why			float, the y-coordinate of the top left corner of the menu
 	 * @param optionLabels	String, the names for the various menu items
+	 */
+	public Menu(PApplet p, float ex, float why, String [] optionLabels) {
+		super(p, ex, why, optionLabels, "", new Display(ex, why, 400, 1000), 1);
+		items = new MenuItem [optionLabels.length];
+		PFont font = this.p.createFont("Helvetica", 13);
+		p.textFont(font);
+		FloatList textSizes = new FloatList();
+		for (int i = 0; i < optionLabels.length; i++) {
+			textSizes.append((float) (p.g.textWidth(optionLabels[i]) * 1.2));
+		}
+		for (int i = 0; i < optionLabels.length; i++) {
+			items[i] = new MenuItem(p, ex, why, optionLabels[i], 1, textSizes.max(), i, this);
+		}
+	}
+	
+	/**
+	 * Constructor for the class Menu, a pop-up list of items to choose from
+	 * @param p				PApplet, the parent sketch, usually "this'
+	 * @param ex			float, the x-coordinate of the top left corner of the menu
+	 * @param why			float, the y-coordinate of the top left corner of the menu
+	 * @param optionLabels	String, the names for the various menu items
 	 * @param t				String, the "type" of the items, ex. "food"
 	 */
 	public Menu(PApplet p, float ex, float why, String [] optionLabels, String t) {
 		super(p, ex, why, optionLabels, t, new Display(ex, why, 400, 1000), 1);
 		items = new MenuItem [optionLabels.length];
+		PFont font = this.p.createFont("Helvetica", 13);
+		p.textFont(font);
+		FloatList textSizes = new FloatList();
 		for (int i = 0; i < optionLabels.length; i++) {
-			items[i] = new MenuItem(p, ex, why, optionLabels[i], 1, 400, i, this);
+			textSizes.append((float) (p.g.textWidth(optionLabels[i]) * 1.2));
+		}
+		for (int i = 0; i < optionLabels.length; i++) {
+			items[i] = new MenuItem(p, ex, why, optionLabels[i], 1, textSizes.max(), i, this);
 		}
 	}
 	
@@ -47,8 +75,21 @@ public class Menu extends List {
 	public void draw() {
 		limitwidth();
 		for (int i = 0; i < options.length; i++) {
-			items[i].display();
+			items[i].draw();
+			
 			mutuallyExclusive(i);
+		}
+	}
+
+	@Override
+	protected void mutuallyExclusive(int i) {
+		if (items[i].selected) {
+			if (selectedOption < 0) {
+				selectedOption = i;
+			} else if (selectedOption != i) {
+				items[selectedOption].selected = false;
+				selectedOption = i;
+			}
 		}
 	}
 }

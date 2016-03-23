@@ -4,7 +4,7 @@ import processing.core.*;
 
 public class ToggleButton extends Button implements PConstants {
 	boolean on = false;
-	float xOffset = .7f;
+	float xOffset = .25f;
 	public Timer t;
 	PFont font, liFont;
 	protected float r;
@@ -44,12 +44,23 @@ public class ToggleButton extends Button implements PConstants {
 	public ToggleButton(PApplet p, float x, float y, String l) {
 		init(p, x, y);
 		label(l);
+		position();
 	}
 
 	public ToggleButton(PApplet p, float x, float y, String l, Direction d) {
 		init(p, x, y);
 		label(l);
 		textPosition = d;
+		
+		position();
+	}
+	
+	void position() {
+		g.textFont(font);
+		float tw = g.textWidth(label);
+		float half_w = 40 + 20;
+		float wi = tw + half_w + 30; // 30 pixels of padding in between
+		this.xOffset = 1 - ((tw+15) / wi);
 	}
 	
 	public void position(Direction d) {
@@ -96,18 +107,22 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void offset() {
 		g.textFont(font);
-		float dx = g.textWidth(label) * xOffset;
+		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
+		float dx = (g.textWidth(label) * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
+			dx1 = 0;
 			dy *= -1;
 			break;
 		case DOWN:
 			dx = 0;
+			dx1 = 0;
 			break;
 		case RIGHT:
 			dy = 0;
+			dx1 *= -1;
 			break;
 		case LEFT:
 			dx *= -1;
@@ -125,12 +140,14 @@ public class ToggleButton extends Button implements PConstants {
 //		} else if (dx > 0) {
 //			dx -= 30;
 //		}
-		buttonBase(-dx, -dy);
-		buttonFace(-dx, -dy);
+		buttonBase(dx1, -dy);
+		buttonFace(dx1, -dy);
 		if (dx > 0) {
-			dx += 30;
+//			dx += 55;
+			dx += 70;
 		} else if (dx < 0) {
-			dx -= 30;
+//			dx -= 55;
+			dx -= 70;
 		}
 		text(dx, dy);
 	}
@@ -244,21 +261,25 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedX() {
 		g.textFont(font);
-		float dx = g.textWidth(label) * xOffset;
+		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
+		float dx = (g.textWidth(label) * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
+			dx1 = 0;
 			dy *= -1;
 			break;
 		case DOWN:
 			dx = 0;
+			dx1 = 0;
 			break;
 		case RIGHT:
 			dy = 0;
 			break;
 		case LEFT:
 			dx *= -1;
+			dx1 *= -1;
 			dy = 0;
 			break;
 		default:
@@ -269,21 +290,25 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedY() {
 		g.textFont(font);
-		float dx = g.textWidth(label) * xOffset;
+		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
+		float dx = (g.textWidth(label) * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
+			dx1 = 0;
 			dy *= -1;
 			break;
 		case DOWN:
 			dx = 0;
+			dx1 = 0;
 			break;
 		case RIGHT:
 			dy = 0;
 			break;
 		case LEFT:
 			dx *= -1;
+			dx1 *= -1;
 			dy = 0;
 			break;
 		default:
@@ -296,30 +321,32 @@ public class ToggleButton extends Button implements PConstants {
 	@Override
 	public boolean clicked() {
 		g.textFont(font);
-		float dx = g.textWidth(label) * xOffset;
+		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
+		float dx = (g.textWidth(label) * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
 			dx = 0;
+			dx1 = 0;
 			dy *= -1;
 			break;
 		case DOWN:
 			dx = 0;
+			dx1 = 0;
 			break;
 		case RIGHT:
-//			dx -= 30;
 			dy = 0;
 			break;
 		case LEFT:
 			dx *= -1;
-//			dx += 30;
+			dx1 *= -1;
 			dy = 0;
 			break;
 		default:
 			break;
 		}
 		//pressed = p.mousePressed;
-		return (super.clicked(-dx, -dy) || edgesClicked(-dx, -dy));
+		return (super.clicked(-dx1, -dy) || edgesClicked(-dx1, -dy));
 	}
 	
 	protected boolean edgesClicked(float dx, float dy) {
