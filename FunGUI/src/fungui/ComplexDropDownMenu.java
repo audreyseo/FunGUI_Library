@@ -85,7 +85,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 					if (dropDownSelected) {
 						dropDownSelected = false;
 					}
-				} else if (selectedOption != i || (submenus[selectedOption - stagger].m.selectedOption > 0 && submenus[selectedOption - stagger].m.selectedOption != submenuChoice)) {
+				} else if (selectedOption != i || (submenus[i - stagger].m.selectedOption > 0 && submenus[i - stagger].m.selectedOption != submenuChoice)) {
 					if (selectedOption >= stagger) {
 						submenus[selectedOption - stagger].deselect();
 					} else {
