@@ -1,6 +1,5 @@
 package fungui;
 import processing.core.*;
-import processing.data.*;
 
 /**
  * Really just a TextStrip that only allows numerical inputs such

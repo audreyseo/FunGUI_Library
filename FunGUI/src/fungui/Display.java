@@ -1,7 +1,5 @@
 package fungui;
 
-import processing.core.*;
-
 public class Display extends Frame {
 	String text, headline;
 	

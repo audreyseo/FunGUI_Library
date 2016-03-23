@@ -24,9 +24,10 @@ public class TextBox implements PConstants {
 	int beginning_line = 0;
 	int maxRows = 0;
 	int begin = 0;
-	private float textWidth;
+//	private float textWidth;
 	private PFont font;
-	private Timer t, cursorTimer, offTime;
+	private Timer t, cursorTimer;
+//	private Timer offTime;
 	boolean pressed = false;
 	boolean clickedIn = false;
 	StringList paragraph = new StringList();
@@ -105,7 +106,7 @@ public class TextBox implements PConstants {
 			g.noStroke();
 			//PApplet.println("Begin: " + begin());
 			//PApplet.println("End: " + end());
-			int num_lines = PApplet.floor(((h / (fontSize + 2))));
+//			int num_lines = PApplet.floor(((h / (fontSize + 2))));
 			g.textFont(font);
 			g.rect((float) (x - w * .45 + g.textWidth(current)), (float) (y - (h * .5) + ((current_line - beginning_line) + .5) * (fontSize + 2)), 3, fontSize);
 		} else if (cursorTimer.done()) {
@@ -126,7 +127,7 @@ public class TextBox implements PConstants {
 		}
 
 		//# of lines down from the top
-		int num_lines = PApplet.floor((h / (fontSize * 2))) - beginning_line;
+//		int num_lines = PApplet.floor((h / (fontSize * 2))) - beginning_line;
 		float y1 = (float) (y - (h * .5) + (i - beginning_line) * (fontSize + 2));
 		g.text(current, (float) (x - w * .45), y1);
 		if (command != null) {
@@ -355,13 +356,13 @@ public class TextBox implements PConstants {
 		current = "";
 		t = new Timer(1, p);
 		cursorTimer = new Timer(2000, p);
-		offTime = new Timer(500, p);
+//		offTime = new Timer(500, p);
 		cursor_placement = 0;
 		this.p = p;
 		this.g = p.g;
 		font = this.p.createFont("Times-New-Roman", fontSize, true);
 		g.textFont(font);
-		textWidth = g.textWidth(text);
+//		textWidth = g.textWidth(text);
 		cursorTimer.reset();
 		this.fontSize = fontSize;
 	}

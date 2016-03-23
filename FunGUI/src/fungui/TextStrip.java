@@ -19,7 +19,7 @@ public class TextStrip implements PConstants {
 	public String text;
 	int cursor_placement;
 	int begin = 0;
-	private float textWidth;
+//	private float textWidth;
 	private PFont font;
 	protected Timer t, cursorTimer, offTime;
 	boolean pressed = false;
@@ -245,7 +245,7 @@ public class TextStrip implements PConstants {
 		this.g = p.g;
 		font = this.p.createFont("Times-New-Roman", (float) (h * .8), true);
 		g.textFont(font);
-		textWidth = g.textWidth(text);
+//		textWidth = g.textWidth(text);
 		cursorTimer.reset();
 	}
 }

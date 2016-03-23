@@ -128,7 +128,7 @@ public class Slider implements PConstants {
 	}
 
 	void slide() {
-		float xs = (float) (x - w * .45 + percent() * (w * .9));
+//		float xs = (float) (x - w * .45 + percent() * (w * .9));
 		if (p.mousePressed && p.mouseX > x - .45 * w && p.mouseX < x + .45 * w
 				&& p.mouseY > y - 7.5 && p.mouseY < y + 7.5) {
 			percent = PApplet.constrain(PApplet.map((float) (p.mouseX),

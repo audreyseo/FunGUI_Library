@@ -1,6 +1,6 @@
 package fungui;
 
-import processing.core.PApplet;
+import processing.core.*;
 
 public class DropDownSubMenuItem extends DropDownMenuItem {
 	Menu m;
@@ -8,21 +8,20 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 		super(p, ex, why, label, numColumns, width, ordinal, menu);
 		m = new Menu(p, x() + w, y(), optionLabels);
 	}
-	@Override
-	public void draw(boolean selected) {
+
+	public void draw(boolean selected, boolean drawing) {
 		g.pushStyle();
-		display(selected);
+		display(selected, drawing);
 		text();
 		g.popStyle();
 	}
 	
 	
-	@Override
-	protected void display(boolean okayToSelect) {
+	protected void display(boolean okayToSelect, boolean okayToDraw) {
 		g.pushStyle();
 		g.rectMode(CORNER);
 		if (selected && okayToSelect) {
-			m.draw();
+			if (okayToDraw) m.draw();
 			g.fill(210);
 		} else {
 			g.fill(c);

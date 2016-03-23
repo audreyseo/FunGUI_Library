@@ -224,9 +224,9 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		return((float) (curvature * w * .5));
 	}
 	
-	private float complement() {
-		return(1 - curvature);
-	}
+//	private float complement() {
+//		return(1 - curvature);
+//	}
 	
 	public float avg(float one, float two) {
 		return((float) ((one + two) / 2));

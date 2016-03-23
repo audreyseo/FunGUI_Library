@@ -1,9 +1,7 @@
 package fungui;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import processing.core.*;
-import processing.data.*;
 
 /**
  * The Interface class can help you organize all of your buttons,

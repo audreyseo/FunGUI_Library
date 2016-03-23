@@ -1,7 +1,6 @@
 package fungui;
 
 import processing.core.*;
-import processing.core.PGraphics;
 
 /**
  * The Button class serves as the template for all button-type

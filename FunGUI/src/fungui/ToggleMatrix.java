@@ -6,7 +6,7 @@ import fungui.ToggleButton;
 
 public class ToggleMatrix {
 	private ToggleButton[][] toggles;
-	private float longest = 0;
+//	private float longest = 0;
 	PApplet p;
 	public boolean draw = false;
 	PGraphics g = new PGraphics();
@@ -37,7 +37,7 @@ public class ToggleMatrix {
 					fls.append(g.textWidth(toggles[i][j].label));
 				}
 			}
-			longest = fls.max();
+//			longest = fls.max();
 		}
 	}
 

@@ -1,6 +1,6 @@
 package fungui;
 
-import processing.core.*;
+//import processing.core.*;
 
 public class Matrix {
 	public static enum ClassType {
@@ -37,7 +37,7 @@ public class Matrix {
 
 	public void init(float w, float h, int row, int col) {
 		this.rows = row;
-		this.cols = cols;
+		this.cols = col;
 		this.colw = w / cols;
 		this.rowh = h / rows;
 		matrix = new Frame[cols][rows];

@@ -44,7 +44,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 				if (!dropDownSelected) {
 					g.translate(0,  -1 * (stagger + i) * 18);
 				}
-				submenus[i].draw(dropDownSelected);
+				submenus[i].draw(submenus[i].selectionComplete() || dropDownSelected);
 				g.popMatrix();
 //				if (submenus[i].selectionComplete() && submenus[i].m.selectedOption > 0 && submenus[i].m.selectedOption != submenuChoice && dropDownSelected) {
 //					dropDownSelected = false;

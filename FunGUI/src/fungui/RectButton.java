@@ -216,9 +216,9 @@ public class RectButton extends Button {
 		g.noStroke();
 		g.fill(outside);
 		backShape(x(), y(), w(), h());
-		float insideW, insideH;
-		insideW = w - 20 * wratio;
-		insideH = h - 20 * hratio;
+//		float insideW, insideH;
+//		insideW = w - 20 * wratio;
+//		insideH = h - 20 * hratio;
 		g.fill(inside);
 		innerBackShape(x(), y(), iw(), ih());
 		g.fill(0);
