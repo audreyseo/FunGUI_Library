@@ -6,6 +6,7 @@ import processing.data.FloatList;
 
 public class ComplexDropDownMenu extends DropDownMenu {
 	DropDownSubMenuItem [] submenus;
+	int submenuChoice = -1;
 	int stagger = 0;
 	
 	public ComplexDropDownMenu(PApplet p, float ex, float why, String [] optionLabels, String [][] submenus) {
@@ -45,6 +46,9 @@ public class ComplexDropDownMenu extends DropDownMenu {
 				}
 				submenus[i].draw(dropDownSelected);
 				g.popMatrix();
+//				if (submenus[i].selectionComplete() && submenus[i].m.selectedOption > 0 && submenus[i].m.selectedOption != submenuChoice && dropDownSelected) {
+//					dropDownSelected = false;
+//				}
 				mutuallyExclusive(stagger + i);
 			}
 		}
@@ -67,6 +71,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 						items[selectedOption].selected = false;
 					}
 					selectedOption = i;
+					submenuChoice = -1;
 					if (dropDownSelected) {
 						dropDownSelected = false;
 					}
@@ -76,16 +81,18 @@ public class ComplexDropDownMenu extends DropDownMenu {
 			if (submenus[i - stagger].selectionComplete()) {
 				if (selectedOption < 0) {
 					selectedOption = i;
+					submenuChoice = submenus[i - stagger].m.selectedOption;
 					if (dropDownSelected) {
 						dropDownSelected = false;
 					}
-				} else if (selectedOption != i) {
+				} else if (selectedOption != i || (submenus[selectedOption - stagger].m.selectedOption > 0 && submenuChoice > 0 && submenus[selectedOption - stagger].m.selectedOption != submenuChoice)) {
 					if (selectedOption >= stagger) {
 						submenus[selectedOption - stagger].deselect();
 					} else {
 						items[selectedOption].selected = false;
 					}
 					selectedOption = i;
+					submenuChoice = submenus[i - stagger].m.selectedOption;
 					if (dropDownSelected) {
 						dropDownSelected = false;
 					}
