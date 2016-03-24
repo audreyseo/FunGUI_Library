@@ -1,6 +1,5 @@
 package funGUI;
 
-//import funGUI.Frame;
 import processing.core.*;
 
 /**
