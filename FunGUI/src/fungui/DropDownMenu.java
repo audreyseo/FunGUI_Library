@@ -119,6 +119,7 @@ public class DropDownMenu extends Menu implements PConstants {
 	void dropDownSelected() {
 		if (!dropDownPressed && clicked()) {
 			dropDownSelected = !dropDownSelected;
+			
 		}
 		dropDownPressed = clicked();
 	}
