@@ -1,4 +1,4 @@
-package fungui;
+package funGUI;
 import processing.core.*;
 
 public class ChoiceList extends OptionList {

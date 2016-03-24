@@ -1,4 +1,4 @@
-package fungui;
+package funGUI;
 import java.util.HashMap;
 
 import processing.core.*;

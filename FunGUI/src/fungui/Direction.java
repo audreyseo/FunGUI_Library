@@ -1,4 +1,4 @@
-package fungui;
+package funGUI;
 
 /**
  * The direction enum holds the information for the placement

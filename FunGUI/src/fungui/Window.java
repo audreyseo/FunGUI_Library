@@ -1,4 +1,4 @@
-package fungui;
+package funGUI;
 
 /**
  * A window is what a display should be, except that a display is

@@ -1,4 +1,4 @@
-package fungui;
+package funGUI;
 
 public class IntegerOutput extends NumOutput {
 	IncrementalSlider s;

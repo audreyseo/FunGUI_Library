@@ -1,4 +1,4 @@
-package fungui;
+package funGUI;
 
 /**
  * The GUIFrame is the slightly less abstract version of Frame. Both

@@ -1,8 +1,8 @@
-package fungui;
+package funGUI;
 
 import processing.core.*;
 import processing.data.FloatList;
-import fungui.ToggleButton;
+import funGUI.ToggleButton;
 
 public class ToggleMatrix {
 	private ToggleButton[][] toggles;
