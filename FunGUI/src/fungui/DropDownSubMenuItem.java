@@ -10,10 +10,7 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 	public DropDownSubMenuItem(PApplet p, float ex, float why, String label, int numColumns, float width, int ordinal, Menu menu, String [] optionLabels) {
 		super(p, ex, why, label, numColumns, width, ordinal, menu);
 		m = new Menu(p, x() + w, y(), optionLabels);
-<<<<<<< HEAD
-=======
 		this.selected = false;
->>>>>>> master
 	}
 
 	public void draw(boolean selected) {
@@ -59,11 +56,8 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 	
 	public void deselectSubMenu() {
 		for (int i = 0; i < m.items.length; i++) {
-<<<<<<< HEAD
 			m.items[i].selected = false;
-=======
 			if (i != m.selectedOption) m.items[i].selected = false;
->>>>>>> master
 		}
 	}
 	
@@ -74,18 +68,10 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 //			m.items[i].selected = false;
 //		}
 		oldOption = -1;
-<<<<<<< HEAD
 	}
-	
-	public boolean selectionComplete() {
-		return(selected && this.m.selectedOption >= 0);
-=======
-		showingOptions = false;
-	}
-	
+
 	public boolean selectionComplete() {
 		return(selected && this.m.selectedOption != oldOption);
->>>>>>> master
 	}
 	
 	protected void itemDisplay() {
@@ -107,13 +93,10 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 	boolean oldChange = false;
 	public void printlnChanges() {
 		if (oldChange != selected) {
-<<<<<<< HEAD
 			PApplet.println("Selected: " + m.selectedOption);
 			if (m.selectedOption > -1 && m.selectedOption < m.items.length) PApplet.println("Selected?: " + m.items[m.selectedOption].selected);
-=======
 			PApplet.println("SelectedSubMenuOption: " + m.selectedOption + "   Selected???" + selected);
 			if (m.selectedOption >= 0) PApplet.println("Selected?: " + m.items[m.selectedOption].selected);
->>>>>>> master
 		}
 		oldChange = selected;
 	}
