@@ -51,6 +51,38 @@ public class RectButton extends Button {
 	int counter = 0;
 	PApplet p;
 	PGraphics g;
+	
+	/**
+	 * Constructor of a rectangular button.
+	 * @param p			PApplet, the parent of the sketch, usually "this"
+	 * @param nx		float, the x-coordinate of the location of the button
+	 * @param ny		float, the y-coordinate of the location of the button
+	 * @param nw		float, the width of the button
+	 * @param nh		float, the height of the button
+	 * @param ncolors	color [], the colors of the button (0-outside, 1-overlay (for clicked status), 2-inside)
+	 * @param ntext		String, the label for the button
+	 */
+	public RectButton(PApplet p, float nx, float ny, float nw, float nh, String ntext) {
+		wid = 20 / w;
+		hei = 20 / h;
+		this.x = nx;
+		this.y = ny;
+		this.w = nw;
+		this.h = nh;
+		this.p = p;
+		this.g = p.g;
+		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
+			wid = 9/w;
+			hei = 9/w;
+			PApplet.println(ntext);
+		}
+		scheme = standardColors();
+		buttonText = ntext;
+		font = p.createFont("Baskerville-Italic", 200, true);
+		fsize = PApplet.floor((float) (nh - 20));
+
+		init();
+	}
 
 	/**
 	 * Constructor of a rectangular button.
@@ -81,20 +113,7 @@ public class RectButton extends Button {
 		font = p.createFont("Baskerville-Italic", 200, true);
 		fsize = PApplet.floor((float) (nh - 20));
 
-		//fonts
-		minifont = p.createFont("Menlo-regular", 20);
-		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
-		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
-		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
-		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
-		cGrey15 = g.color(250, 250, 250);
-		inside = scheme[1];
-		outside = scheme[0];
-		sfsize = 15;
-		mfsize = 19;
-
-		beginningWidth = p.width;
-		beginningHeight = p.height;
+		init();
 	}
 	
 	/**
@@ -128,20 +147,7 @@ public class RectButton extends Button {
 		font = p.createFont(fontName, 200, true);
 		fsize = fontSize;
 
-		//fonts
-		minifont = p.createFont("Menlo-regular", 20);
-		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
-		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
-		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
-		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
-		cGrey15 = g.color(250, 250, 250);
-		inside = scheme[1];
-		outside = scheme[0];
-		sfsize = 15;
-		mfsize = 19;
-
-		beginningWidth = p.width;
-		beginningHeight = p.height;
+		init();
 	}
 
 	/**
@@ -175,23 +181,13 @@ public class RectButton extends Button {
 		font = nfont;
 		fsize = nfsize;
 
-		//fonts
-		minifont = p.createFont("Menlo-regular", 20);
-		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
-		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
-		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
-		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
-		cGrey15 = g.color(250, 250, 250);
-		inside = scheme[1];
-		outside = scheme[0];
-		sfsize = 15;
-		mfsize = 19;
-
-		beginningWidth = p.width;
-		beginningHeight = p.height;
+		init();
 	}
 
-
+	protected int [] standardColors() {
+		int [] stdColors = {g.color(200, 240, 240), g.color(250, 250, 250), g.color(200, 200, 200, 190)};
+		return(stdColors);
+	}
 
 	void change() {
 		wratio = p.width / beginningWidth;
@@ -240,7 +236,7 @@ public class RectButton extends Button {
 		 *other than mX and mY to allow the function rolled_over */
 		rolled_over(p.mouseX, p.mouseY);
 
-		display("", font, fsize);
+		
 
 //		g.noStroke();
 //		g.rectMode(CENTER);
@@ -258,7 +254,16 @@ public class RectButton extends Button {
 //			backShape(x(), y(), iw(), ih());
 //		}
 		back();
-
+		display("", font, fsize);
+		
+		if (rollover) {
+			g.pushStyle();
+			g.fill(scheme[2]);
+			g.noStroke();
+			backShape(x(), y(), w(), h());
+			g.popStyle();
+		}
+		
 		drawButtonName();
 	}
 
@@ -438,5 +443,22 @@ public class RectButton extends Button {
 		//		  }
 		//		  return(PApplet.abs((float) (fontSize * hrat * (iw() / 1.1) / twidth)));
 		return(fontSize);
+	}
+	
+	void init() {
+		//fonts
+		minifont = p.createFont("Menlo-regular", 20);
+		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
+		sFont = p.createFont("FZLTXHK--GBK1-0", 15, true);
+		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
+		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
+		cGrey15 = g.color(250, 250, 250);
+		inside = scheme[1];
+		outside = scheme[0];
+		sfsize = 15;
+		mfsize = 19;
+
+		beginningWidth = p.width;
+		beginningHeight = p.height;
 	}
 }

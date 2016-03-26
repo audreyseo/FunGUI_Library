@@ -7,6 +7,25 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	float curveRadius = 0.0f;
 	float innerCurveRadius = 0.0f;
 	
+	
+	/**
+	 * Constructor for the RoundedRectButton class.
+	 * @param p			PApplet, the parent sketch of the object (usually "this")
+	 * @param nx		float, the horizontal location of the center of this button
+	 * @param ny		float, the vertical location of the center of this button
+	 * @param nw		float, the horizontal length of this button
+	 * @param nh		float, the vertical length of this button
+	 * @param ncolors	color, the colors used in this button
+	 * @param ntext		String, the string value of the name of this button
+	 * @param curvature	float, the percent by which to curve the button's corners in
+	 */
+	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, String ntext, float curvature) {
+		super(p, nx, ny, nw, nh, ntext);
+		this.curvature = PApplet.constrain(curvature, 0.1f, 1);
+		calculateRadius();
+	}
+	
+	
 	/**
 	 * Constructor for the RoundedRectButton class.
 	 * @param p			PApplet, the parent sketch of the object (usually "this")
@@ -110,7 +129,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		
 		
 		//float theta = 0;
-		float dth = HALF_PI;
+//		float dth = HALF_PI;
+		float dth = 0;
 		// First corner - arc
 //		PApplet.println("dth???:     " + dth);
 		g.arc(xa, ya, diameter, diameter, PI - dth, 3 * HALF_PI + dth, CHORD);
