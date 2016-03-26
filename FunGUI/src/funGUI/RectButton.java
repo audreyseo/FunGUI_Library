@@ -211,7 +211,7 @@ public class RectButton extends Button {
 		g.text(time, x(), y());
 	}
 
-	void back() {
+	protected void back() {
 		g.rectMode(CENTER);
 		g.noStroke();
 		g.fill(outside);
@@ -242,21 +242,22 @@ public class RectButton extends Button {
 
 		display("", font, fsize);
 
-		g.noStroke();
-		g.rectMode(CENTER);
-		if ((rollover)) {
-			g.fill(scheme[0]);
-			backShape(x(), y(), w(), h());
-			g.fill(scheme[1]);
-			backShape(x(), y(), w(), h());
-			g.fill(scheme[2]);
-			backShape(x(), y(), iw(), ih());
-		} else {
-			g.fill(scheme[0]);
-			backShape(x(), y(), w(), h());
-			g.fill(scheme[1]);
-			backShape(x(), y(), iw(), ih());
-		}
+//		g.noStroke();
+//		g.rectMode(CENTER);
+//		if ((rollover)) {
+//			g.fill(scheme[0]);
+//			backShape(x(), y(), w(), h());
+//			g.fill(scheme[1]);
+//			backShape(x(), y(), w(), h());
+//			g.fill(scheme[2]);
+//			backShape(x(), y(), iw(), ih());
+//		} else {
+//			g.fill(scheme[0]);
+//			backShape(x(), y(), w(), h());
+//			g.fill(scheme[1]);
+//			backShape(x(), y(), iw(), ih());
+//		}
+		back();
 
 		drawButtonName();
 	}
