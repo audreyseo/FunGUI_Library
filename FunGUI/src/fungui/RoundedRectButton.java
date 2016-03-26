@@ -248,9 +248,9 @@ public class RoundedRectButton extends RectButton implements PConstants {
 			} else if (rih * wH < ih() * .4) {
 //				innerCurveRadius = (float) (h() * .4 * heightRatio);
 //				innerCurveRadius = rih * wH;
-				innerCurveRadius = ih() * .4f;
+				innerCurveRadius = rih * wH;
 			} else {
-				innerCurveRadius = (float) (rih);
+				innerCurveRadius = ih() * .4f;
 			}
 		} else {
 			if (rih < iw() * .4) {
