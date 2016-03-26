@@ -10,7 +10,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 	int stagger = 0;
 	int clicked;
 	int oldClick = 0;
-	boolean printing = true;
+	boolean printing = false;
 	
 	public ComplexDropDownMenu(PApplet p, float ex, float why, String [] optionLabels, String [][] submenus) {
 		super(p, ex, why, optionLabels);
@@ -61,9 +61,40 @@ public class ComplexDropDownMenu extends DropDownMenu {
 //				if (submenus[i].selectionComplete() && submenus[i].m.selectedOption > 0 && submenus[i].m.selectedOption != submenuChoice && dropDownSelected) {
 //					dropDownSelected = false;
 //				}
-				mutuallyExclusive(stagger + i);
 			}
+			mutuallyExclusive(stagger + i);
 		}
+		hide();
+	}
+	
+	void hide() {
+		if (p.mousePressed && !allPressed() && !clicked() && !clickedWithinBox()) {
+			dropDownSelected = false;
+		}
+	}
+	
+	boolean clickedWithinBox() {
+		return(p.mouseX < x + w && p.mouseX > x && p.mouseY < y + 18 && p.mouseY > y && p.mousePressed);
+	}
+	
+	boolean allPressed() {
+		boolean [] bools = new boolean [items.length + submenus.length];
+		int i = 0;
+		for (DropDownMenuItem item : items) {
+			bools[i] = item.clicked();
+			i++;
+		}
+		
+		for (DropDownSubMenuItem item : submenus) {
+			bools[i] = item.clicked();
+			i++;
+		}
+		
+		boolean total = false;
+		for (int n = 0; n < bools.length; n++) {
+			total = total || bools[n];
+		}
+		return(total);
 	}
 	
 	void dropDownSelected() {
@@ -72,7 +103,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 		if (!dropDownPressed && clicked()) {
 			dropDownSelected = !dropDownSelected;
 			for (int i = 0; i < submenus.length; i++) {
-				submenus[i].showingOptions = true;
+				submenus[i].showingOptions = dropDownSelected;
 			}
 			clicked++;
 		}
@@ -84,18 +115,30 @@ public class ComplexDropDownMenu extends DropDownMenu {
 		report("PrintOptions");
 		if (clicked != oldClick) {
 			for (int i = 0; i < submenus.length; i++) {
-				PApplet.print(i + ": " + submenus[i].showing() + " " + submenus[i].selectionComplete() + " " + clicked + "  ");
+				report(i + ": " + submenus[i].showing() + " " + submenus[i].selectionComplete() + " " + clicked + "  ");
 			}
-			PApplet.println("");
+			report("");
 			oldClick = clicked;
 		}
+	}
+	
+	boolean subMenuChoiceWasSelected(int i) {
+		boolean appropriate;
+		appropriate = (i - stagger >= 0) ? true : false;
+		if (appropriate) {
+			return(submenus[i - stagger].m.selectedOption > 0 && submenus[i - stagger].m.selectedOption != submenuChoice);
+		}
+		return(false);
 	}
 
 	@Override
 	protected void mutuallyExclusive(int i) {
 
 		report("MutuallyExclusive");
-		if (i < stagger && (i != selectedOption || submenus[i - stagger].m.selectedOption > 0 && submenus[i - stagger].m.selectedOption != submenuChoice)) {
+		report("i: " + i);
+		report("i - stagger: " + (i - stagger));
+		report("i != selectedOption: " + (i != selectedOption));
+		if (i < stagger && (i != selectedOption || subMenuChoiceWasSelected(i))) {
 			report("A");
 			if (items[i].selected) {
 
@@ -121,8 +164,14 @@ public class ComplexDropDownMenu extends DropDownMenu {
 					}
 				}
 			}
-		} else {
+		} else if (i - stagger >= 0) {
+			report(Integer.toString((i - stagger)));
 			if (submenus[i - stagger].selectionComplete()) {
+				if (i != selectedOption) {
+					for (int j = 0; j < items.length; j++) {
+						items[j].selected = false;
+					}
+				}
 				if (selectedOption < 0) {
 					selectedOption = i;
 					report("B");
@@ -130,7 +179,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 					//				PApplet.println(submenuChoice);
 					if (selectedOption < 0) {
 						selectedOption = i;
-						PApplet.println("Selected Option: " + i);
+						report("Selected Option: " + i);
 						submenuChoice = submenus[i - stagger].m.selectedOption;
 						if (dropDownSelected) {
 							dropDownSelected = false;
@@ -141,7 +190,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 						if (selectedOption >= stagger && i != selectedOption) {
 							submenus[selectedOption - stagger].deselect();
 							submenus[selectedOption - stagger].deselectSubMenu();
-							PApplet.println("B - Deselected Other Submenu Properly");
+							report("B - Deselected Other Submenu Properly");
 						} else {
 							items[selectedOption].selected = false;
 						}
@@ -154,8 +203,8 @@ public class ComplexDropDownMenu extends DropDownMenu {
 							dropDownSelected = false;
 							submenus[i - stagger].showingOptions = false;
 						}
-						PApplet.println("Selected Option: " + i);
-						PApplet.println("done");
+						report("Selected Option: " + i);
+						report("done");
 					} else if (submenus[i - stagger].m.selectedOption >= 0 && submenus[i - stagger].m.selectedOption != submenuChoice) {
 						deselection();
 
@@ -166,8 +215,8 @@ public class ComplexDropDownMenu extends DropDownMenu {
 							submenus[i - stagger].showingOptions = false;
 						}
 
-						PApplet.println("Selected Option: " + i);
-						PApplet.println("done");
+						report("Selected Option: " + i);
+						report("done");
 					}
 					//				clicked++;
 					//				PApplet.println("Incremented in Mutually Exclusive");
@@ -181,7 +230,7 @@ public class ComplexDropDownMenu extends DropDownMenu {
 		if (selectedOption >= stagger) {
 			submenus[selectedOption - stagger].deselect();
 			//			submenus[selectedOption - stagger].deselectSubMenu();
-			PApplet.println("Deselected Other Submenu Properly");
+			report("Deselected Other Submenu Properly");
 		} else if (selectedOption < stagger) {
 			items[selectedOption].selected = false;
 		}

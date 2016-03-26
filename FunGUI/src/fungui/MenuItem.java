@@ -54,11 +54,8 @@ public class MenuItem extends ListItem implements PConstants {
 //		PApplet.println(pressed);
 		if (!pressed && clicked()) {
 			selected = !selected;
-<<<<<<< HEAD
 			PApplet.println("selected");
-=======
 //			PApplet.println("selected");
->>>>>>> master
 		}
 		pressed = p.mousePressed;
 	}

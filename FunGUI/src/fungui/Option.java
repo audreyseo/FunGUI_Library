@@ -1,9 +1,6 @@
 package funGUI;
 import processing.core.*;
-<<<<<<< HEAD
 
-=======
->>>>>>> master
 public class Option extends ListItem implements PConstants {
 	//String label;
 	//public float x, y;

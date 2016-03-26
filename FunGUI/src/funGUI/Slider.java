@@ -7,7 +7,7 @@ import processing.core.*;
  * @author Audrey Seo
  */
 public class Slider implements PConstants {
-	float x, y, w, h;
+	public float x, y, w, h;
 
 	float percent;
 

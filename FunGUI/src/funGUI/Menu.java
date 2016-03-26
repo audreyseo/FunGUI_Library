@@ -9,6 +9,10 @@ import processing.data.*;
  */
 public class Menu extends List {
 	MenuItem [] items;
+	public float x;
+	public float y;
+	public float w;
+	public float h;
 	
 	/**
 	 * Constructor for the class Menu, a pop-up list of items to choose from
@@ -19,6 +23,10 @@ public class Menu extends List {
 	 */
 	public Menu(PApplet p, float ex, float why, String [] optionLabels) {
 		super(p, ex, why, optionLabels, "", new Display(ex, why, 400, 1000), 1);
+		this.x = ex;
+		this.y = why;
+		this.h = 20 * optionLabels.length;
+		
 		items = new MenuItem [optionLabels.length];
 		PFont font = this.p.createFont("Helvetica", 13);
 		p.textFont(font);
@@ -26,6 +34,7 @@ public class Menu extends List {
 		for (int i = 0; i < optionLabels.length; i++) {
 			textSizes.append((float) (p.g.textWidth(optionLabels[i]) * 1.2));
 		}
+		this.w = textSizes.max();
 		for (int i = 0; i < optionLabels.length; i++) {
 			items[i] = new MenuItem(p, ex, why, optionLabels[i], 1, textSizes.max(), i, this);
 		}
@@ -41,6 +50,9 @@ public class Menu extends List {
 	 */
 	public Menu(PApplet p, float ex, float why, String [] optionLabels, String t) {
 		super(p, ex, why, optionLabels, t, new Display(ex, why, 400, 1000), 1);
+		this.x = ex;
+		this.y = why;
+		this.h = 20 * optionLabels.length;
 		items = new MenuItem [optionLabels.length];
 		PFont font = this.p.createFont("Helvetica", 13);
 		p.textFont(font);
@@ -48,6 +60,7 @@ public class Menu extends List {
 		for (int i = 0; i < optionLabels.length; i++) {
 			textSizes.append((float) (p.g.textWidth(optionLabels[i]) * 1.2));
 		}
+		this.w = textSizes.max();
 		for (int i = 0; i < optionLabels.length; i++) {
 			items[i] = new MenuItem(p, ex, why, optionLabels[i], 1, textSizes.max(), i, this);
 		}
@@ -65,10 +78,14 @@ public class Menu extends List {
 	 */
 	public Menu(PApplet p, float ex, float why, String [] optionLabels, String t, Display d, int numColumns) {
 		super(p, ex, why, optionLabels, t, d, numColumns);
+		this.x = ex;
+		this.y = why;
+		this.h = 20 * optionLabels.length;
 		items = new MenuItem [optionLabels.length];
 		for (int i = 0; i < optionLabels.length; i++) {
 			items[i] = new MenuItem(p, ex, why, optionLabels[i], numColumns, d.w, i, this);
 		}
+		this.w = d.w;
 	}
 	
 	@Override

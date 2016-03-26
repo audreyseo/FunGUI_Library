@@ -9,11 +9,11 @@ import processing.data.FloatList;
  *
  */
 public class DropDownMenu extends Menu implements PConstants {
-	float w;
+//	float w;
 	PGraphics g;
 	int c = 0x00FFFF;
-	float x;
-	float y;
+//	float x;
+//	float y;
 	DropDownMenuItem [] items;
 	
 	boolean dropDownSelected = false;
@@ -33,10 +33,11 @@ public class DropDownMenu extends Menu implements PConstants {
 			items[i] = new DropDownMenuItem(p, ex, why, optionLabels[i], 1, textSizes.max(), i, this);
 		}
 		
-		w = items[0].w;
+		this.w = items[0].w;
+		this.h = optionLabels.length * 20;
 		this.g = this.p.g;
-		x = ex;
-		y = why;
+		this.x = ex;
+		this.y = why;
 	}
 	
 	public DropDownMenu(PApplet p, float ex, float why, String [] optionLabels, String t) {

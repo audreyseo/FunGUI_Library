@@ -11,6 +11,7 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 		super(p, ex, why, label, numColumns, width, ordinal, menu);
 		m = new Menu(p, x() + w, y(), optionLabels);
 		this.selected = false;
+		c = 0xFF3213;
 	}
 
 	public void draw(boolean selected) {
@@ -24,7 +25,7 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 	protected void display(boolean okayToSelect) {
 		g.pushStyle();
 		g.rectMode(CORNER);
-		if (selected || okayToSelect) {
+		if (selected && okayToSelect) {
 			if (showingOptions) m.draw();
 			g.fill(210);
 		} else {
@@ -75,10 +76,10 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 	}
 	
 	protected void itemDisplay() {
-		if (!selected) {
-			g.rect(x, y(), w, h);
-			
-		} else {
+//		if (!selected) {
+//			g.rect(x, y(), w, h);
+//			
+//		} else {
 			float point = 5;
 			g.beginShape();
 			g.vertex(x, y());
@@ -87,7 +88,7 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 			g.vertex(x + w, y() + h);
 			g.vertex(x, y() + h);
 			g.endShape(CLOSE);
-		}
+//		}
 	}
 	
 	boolean oldChange = false;
