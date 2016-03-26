@@ -247,7 +247,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 				innerCurveRadius = riw;
 			} else if (rih * wH < ih() * .4) {
 //				innerCurveRadius = (float) (h() * .4 * heightRatio);
-				innerCurveRadius = rih * wH;
+//				innerCurveRadius = rih * wH;
+				innerCurveRadius = ih() * .4f;
 			} else {
 				innerCurveRadius = (float) (rih);
 			}
@@ -256,7 +257,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 				innerCurveRadius = rih;
 			} else {
 //				innerCurveRadius = (float) (w() * .4 * widthRatio);
-				innerCurveRadius = riw * hW;
+//				innerCurveRadius = riw * hW;
+				innerCurveRadius = iw() * .4f;
 			}
 		}
 		PApplet.println("Inner Curve Radius: " + innerCurveRadius + "  RIW: " + riw + "  RIH: " + (rih) +  "  WH: " + wH + "  HW: " + hW + "  HeightRatioUsed: " + heightUsed + " Curvature: " + curvature);
