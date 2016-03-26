@@ -216,26 +216,30 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		
 //		float widthRatio = (w / iw());
 //		float heightRatio = (h / ih());
-		float heightRatio = rih / ih();
-		float widthRatio = riw / iw();
+		float hW = rih / riw;
+		float wH = riw / rih;
 //		PApplet.println(heightRatio + " " + widthRatio);
-		
+	    
+		boolean heightUsed = false;
 		if (rih < riw) {
+			heightUsed = true;
 			if (riw < ih() * .4) {
 				innerCurveRadius = riw;
-			} else {
+			} else if (rih * wH < ih() * .4) {
 //				innerCurveRadius = (float) (h() * .4 * heightRatio);
-				innerCurveRadius = rih * heightRatio;
+				innerCurveRadius = rih * wH;
+			} else {
+				innerCurveRadius = (float) (rih);
 			}
 		} else {
 			if (rih < iw() * .4) {
 				innerCurveRadius = rih;
 			} else {
 //				innerCurveRadius = (float) (w() * .4 * widthRatio);
-				innerCurveRadius = riw * widthRatio;
+				innerCurveRadius = riw * hW;
 			}
 		}
-		PApplet.println("Inner Curve Radius: " + innerCurveRadius);
+		PApplet.println("Inner Curve Radius: " + innerCurveRadius + "  RIW: " + riw + "  RIH: " + (rih) +  "  WH: " + wH + "  HW: " + hW + "  HeightRatioUsed: " + heightUsed + " Curvature: " + curvature);
 	}
 	
 	private float r() {
