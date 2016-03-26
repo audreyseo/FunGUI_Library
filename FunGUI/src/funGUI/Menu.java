@@ -9,10 +9,10 @@ import processing.data.*;
  */
 public class Menu extends List {
 	MenuItem [] items;
-	public float x;
-	public float y;
-	public float w;
-	public float h;
+//	public float x;
+//	public float y;
+//	public float w;
+//	public float h;
 	
 	/**
 	 * Constructor for the class Menu, a pop-up list of items to choose from
