@@ -46,9 +46,9 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.rectMode(CENTER);
 		g.noStroke();
 		g.fill(outside);
-		PApplet.println("BackShape - Before");
+//		PApplet.println("BackShape - Before");
 		backShape(x(), y(), w(), h());
-		PApplet.println("BackShape- After");
+//		PApplet.println("BackShape- After");
 		g.popStyle();
 //		float insideW, insideH;
 //		insideW = w - 20 * wratio;
@@ -112,7 +112,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		//float theta = 0;
 		float dth = HALF_PI;
 		// First corner - arc
-		PApplet.println("dth???:     " + dth);
+//		PApplet.println("dth???:     " + dth);
 		g.arc(xa, ya, diameter, diameter, PI - dth, 3 * HALF_PI + dth, CHORD);
 		
 		// Second corner - arc
@@ -131,7 +131,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		float hi2 = (float) (hi * .5);
 		float partialW = (float) (wi2 - ir());
 		float partialH = (float) (hi2 - ir());
-		PApplet.println("partialW: " + partialW);
+//		PApplet.println("partialW: " + partialW);
 		float x1a = xi - wi2;
 		float x1b = xi - partialW;
 		
@@ -175,7 +175,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		
 		//float theta = 0;
 		float dth = HALF_PI;
-		PApplet.println("dth:     " + dth + "\n");
+//		PApplet.println("dth:     " + dth + "\n");
 //		 First corner - arc
 		g.arc(xa, ya, diameter, diameter, PI - dth, 3 * HALF_PI + dth, CHORD);
 		
@@ -195,6 +195,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	}
 	
 	private void calculateRadius() {
+		PApplet.println("");
 		float rh = rH();
 		float rw = rW();
 		float rih = (float) (ih() * curvature * .5);
@@ -217,7 +218,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 //		float heightRatio = (h / ih());
 		float heightRatio = rih / ih();
 		float widthRatio = riw / iw();
-		PApplet.println(heightRatio + " " + widthRatio);
+//		PApplet.println(heightRatio + " " + widthRatio);
 		
 		if (rih < riw) {
 			if (riw < ih() * .4) {
@@ -225,7 +226,6 @@ public class RoundedRectButton extends RectButton implements PConstants {
 			} else {
 //				innerCurveRadius = (float) (h() * .4 * heightRatio);
 				innerCurveRadius = rih * heightRatio;
-				PApplet.println("Inner Curve Radius: " + innerCurveRadius);
 			}
 		} else {
 			if (rih < iw() * .4) {
@@ -235,6 +235,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 				innerCurveRadius = riw * widthRatio;
 			}
 		}
+		PApplet.println("Inner Curve Radius: " + innerCurveRadius);
 	}
 	
 	private float r() {
