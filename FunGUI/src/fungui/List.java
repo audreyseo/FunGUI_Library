@@ -8,6 +8,7 @@ public class List {
 	String selectedLabel = "";
 	String type;
 	public PApplet p;
+	public float x, y, w, h;
 	
 	public List(PApplet p, float ex, float why, String [] optionLabels, String t, Display d, int numColumns) {
 		this.p = p;
@@ -27,6 +28,10 @@ public class List {
 		for (int i = 0; i < optionLabels.length; i++) {
 			options[i] = new ListItem(p, ex, why + i * 20, optionLabels[i], d, numColumns);
 		}
+		this.x =ex;
+		this.y = why;
+		this.w = d.w;
+		this.h = optionLabels.length * 20;
 	}
 
 	public void draw() {
