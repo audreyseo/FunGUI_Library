@@ -4,7 +4,8 @@ import processing.core.*;
 
 public class ToggleButton extends Button implements PConstants {
 	boolean on = false;
-	float xOffset = .25f;
+	public float xOffset = .25f;
+	public float trueWidth = 0;
 	public Timer t;
 	PFont font, liFont;
 	protected float r;
@@ -59,8 +60,10 @@ public class ToggleButton extends Button implements PConstants {
 		g.textFont(font);
 		float tw = g.textWidth(label);
 		float half_w = 40 + 20;
+		trueWidth = tw + half_w + 30;
 		float wi = tw + half_w + 30; // 30 pixels of padding in between
-		this.xOffset = 1 - ((tw+15) / wi);
+//		this.xOffset = 1 - ((tw+15) / wi);
+		this.xOffset = .5f; //PApplet.abs(1  - (tw / (2 * half_w)));
 		PApplet.println("xOffset: " + xOffset);
 	}
 	
@@ -108,8 +111,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void offset() {
 		g.textFont(font);
-		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
-		float dx = (g.textWidth(label) * xOffset) + 10f;
+		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
+		float dx = (trueWidth * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
@@ -262,8 +265,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedX() {
 		g.textFont(font);
-//		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
-		float dx = (g.textWidth(label) * xOffset) + 10f;
+//		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
+		float dx = (trueWidth * xOffset) + 10f;
 //		float dy = 12;
 		switch (textPosition) {
 		case UP:
@@ -291,8 +294,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedY() {
 		g.textFont(font);
-//		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
-//		float dx = (g.textWidth(label) * xOffset) + 10f;
+//		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
+//		float dx = (trueWidth * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
@@ -322,7 +325,7 @@ public class ToggleButton extends Button implements PConstants {
 	@Override
 	public boolean clicked() {
 		g.textFont(font);
-		float dx1 = (g.textWidth(label) * (1 - xOffset)) + 10f;
+		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
@@ -388,9 +391,11 @@ public class ToggleButton extends Button implements PConstants {
 		h = 20;
 		r = 10.0f;
 		w2 = 20.0f;
+		
 		font = p.createFont("Optima-Bold", 17);
 		liFont = p.createFont("Helvetica-Regular", 18);
 		g = p.g;
 		g.textFont(font);
+		
 	}
 }
