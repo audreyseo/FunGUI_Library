@@ -1,6 +1,7 @@
 package funGUI;
 
 import processing.core.*;
+import processing.data.*;
 
 /**
  * A window is what a display should be, except that a display is
@@ -14,6 +15,8 @@ public class Window extends Display {
 	float horizontalMargin = 2;
 	float verticalMargin = 2;
 	PFont font;
+	PFont headerFont;
+	StringList texts = new StringList();
 	
 	/**
 	 * Constructor for the Window class.
@@ -31,6 +34,7 @@ public class Window extends Display {
 		this.g = this.p.g;
 		this.horizontalMargin = horizontalMargin;
 		this.verticalMargin = verticalMargin;
+		init();
 	}
 	
 	/**
@@ -45,6 +49,7 @@ public class Window extends Display {
 		super(x, y, w, h);
 		this.p = p;
 		this.g = this.p.g;
+		init();
 	}
 	
 	@Override
@@ -61,11 +66,39 @@ public class Window extends Display {
 	@Override
 	protected void text() {
 		g.fill(30);
+		g.textFont(font);
 		g.text(text, x(), y());
+	}
+	
+	protected void limitText() {
+		g.pushStyle();
+		g.textFont(font);
+		float tw = g.textWidth(text);
+		if (tw > innerWidth()) {
+			texts.clear();
+			
+			int i = 0;
+			String [] txts = PApplet.split(text, " ");
+			while (i < txts.length){ 
+				String partial = txts[0];
+				i++;
+				while (g.textWidth(partial + " " +  txts[i]) < tw) {
+					partial = partial + " " + txts[i];
+					i++;
+				}
+				texts.append(partial);
+			}
+
+		}
+		g.popStyle();
 	}
 	
 	public void assignText(String s) {
 		this.text = s;
+	}
+	
+	public void assignHeadline(String head) {
+		this.headline = head;
 	}
 	
 	float innerWidth() {
@@ -74,5 +107,12 @@ public class Window extends Display {
 	
 	float innerHeight() {
 		return(h - 2 * verticalMargin);
+	}
+	
+	void init() {
+		font = p.createFont(REG_SANSS_TXT, REGTXTSIZE);
+		headerFont = p.createFont(REG_SANSS_TXT, LGTXTSIZE);
+		headline = null;
+		text = null;
 	}
 }
