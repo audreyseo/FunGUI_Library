@@ -112,7 +112,7 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void offset() {
 		g.textFont(font);
-		float dx1 = xDisplacement();
+		float dx1 = -xDisplacement();
 		float dx = xDisplacement();
 		float dy = yDisplacement();
 		// Draw the background components of the button
