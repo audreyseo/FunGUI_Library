@@ -7,7 +7,7 @@ import processing.data.*;
  * @author audrey
  *
  */
-public class Menu extends List {
+public class Menu extends List implements FunGUIObject {
 	MenuItem [] items;
 //	public float x;
 //	public float y;
@@ -108,5 +108,21 @@ public class Menu extends List {
 				selectedOption = i;
 			}
 		}
+	}
+	
+	public float x() {
+		return(x);
+	}
+	
+	public float y() {
+		return(y);
+	}
+	
+	public float w() {
+		return(w);
+	}
+	
+	public float h() {
+		return(h);
 	}
 }

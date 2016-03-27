@@ -1,6 +1,6 @@
 package funGUI;
 
-import processing.core.PApplet;
+import processing.core.*;
 
 /**
  * A window is what a display should be, except that a display is
@@ -13,7 +13,7 @@ import processing.core.PApplet;
 public class Window extends Display {
 	float horizontalMargin = 2;
 	float verticalMargin = 2;
-	
+	PFont font;
 	
 	/**
 	 * Constructor for the Window class.
@@ -48,16 +48,23 @@ public class Window extends Display {
 	}
 	
 	@Override
+	protected void style() {
+		g.stroke(30);
+		g.fill(255);
+	}
+	
+	@Override
 	protected void display() {
-		
+		g.rect(x(), y(), w(), h());
 	}
 	
 	@Override
 	protected void text() {
-		
+		g.fill(30);
+		g.text(text, x(), y());
 	}
 	
-	public void text(String s) {
+	public void assignText(String s) {
 		this.text = s;
 	}
 	

@@ -23,7 +23,7 @@ public class DropDownMenu extends Menu implements PConstants {
 	public DropDownMenu(PApplet p, float ex, float why, String [] optionLabels) {
 		super(p, ex, why, optionLabels, "");
 		this.items = new DropDownMenuItem [optionLabels.length];
-		PFont font = this.p.createFont("Helvetica", 13);
+		PFont font = this.p.createFont(REG_SANSS_TXT, REGTXTSIZE);
 		p.textFont(font);
 		FloatList textSizes = new FloatList();
 		for (int i = 0; i < optionLabels.length; i++) {
