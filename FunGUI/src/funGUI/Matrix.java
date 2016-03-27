@@ -25,7 +25,7 @@ public class Matrix {
 		this.p = p;
 	}
 
-	public void assign(int xi, int yi, ClassType t) {
+	public void assign(int xi, int yi, ClassType t, String label) {
 		switch (t) {
 		case GUIFRAME:
 			break;
@@ -34,7 +34,7 @@ public class Matrix {
 		case TEXTDISPLAY:
 			break;
 		case TOGGLER:
-			matrix[xi][yi] = new ToggleButton(p, x + xi * colw, y + yi * rowh, "Hi");
+			matrix[xi][yi] = new ToggleButton(p, x + xi * colw, y + yi * rowh, label);
 			break;
 		}
 	}
@@ -54,8 +54,8 @@ public class Matrix {
 	public void init(float w, float h, int row, int col) {
 		this.rows = row;
 		this.cols = col;
-		this.colw = w / cols;
-		this.rowh = h / rows;
+		this.colw = w / (float)(cols);
+		this.rowh = h / (float)(rows);
 		matrix = new Frame[cols][rows];
 	}
 }
