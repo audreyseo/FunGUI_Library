@@ -22,13 +22,21 @@ public class Choice extends Option implements PConstants {
 	}
 	
 	
+	/**
+	 * Used for debugging only. Prints a string to the console in the following format: "Class name: " + string
+	 * @param s		String, the string to be printed
+	 */
 	@Override
 	public void record(String s) {
 		if (testing) {
 			PApplet.println("Choice: " + s);
 		}
 	}
-
+	
+	/**
+	 * A function to show the shape of the checkbox on the screen, in this case, a square.
+	 * @param width		float, the width of the checkboxes
+	 */
 	@Override
 	public void shapeDisplay(float width) {
 		g.pushStyle();
@@ -38,7 +46,11 @@ public class Choice extends Option implements PConstants {
 		g.rect(x * wratio, y * hratio, width, width);
 		g.popStyle();
 	}
-
+	
+	/**
+	 * If the checkbox has been checked off, this function
+	 * will display the checkmark.
+	 */
 	@Override
 	public void selectionDisplay() {
 		if (selected) {
@@ -51,6 +63,9 @@ public class Choice extends Option implements PConstants {
 		}
 	}
 	
+	/**
+	 * Determines if the checkbox has been selected by a click of the mouse.
+	 */
 	@Override
 	public void selected() {
 		if (clicked() && !pressed) selected = !selected;
