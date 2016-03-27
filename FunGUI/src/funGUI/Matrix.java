@@ -43,9 +43,9 @@ public class Matrix {
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix.length; j++) {
 				if (matrix[i][j] != null) {
-					PApplet.println("tried: (" + i + ", " + j + ")");
+//					PApplet.println("tried: (" + i + ", " + j + ")");
 					matrix[i][j].draw();
-					PApplet.println("finished");
+//					PApplet.println("finished");
 				}
 			}
 		}
