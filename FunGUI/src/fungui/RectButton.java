@@ -353,6 +353,7 @@ public class RectButton extends Button {
 		return(h * hei);
 	}
 
+	@Override
 	public float y() {
 		return(y * hratio);
 	}
@@ -367,7 +368,8 @@ public class RectButton extends Button {
 		return(w * wratio);
 	}
 
-	float x() {
+	@Override
+	public float x() {
 		return(x * wratio);
 	}
 

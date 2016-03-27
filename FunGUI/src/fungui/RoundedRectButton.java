@@ -21,7 +21,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	 */
 	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, String ntext, float curvature) {
 		super(p, nx, ny, nw, nh, ntext);
-		this.curvature = PApplet.constrain(curvature, 0.1f, 1);
+		this.curvature = PApplet.constrain(curvature, 0.1f, 1f);
 		calculateRadius();
 	}
 	
@@ -39,7 +39,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	 */
 	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, float curvature) {
 		super(p, nx, ny, nw, nh, ncolors, ntext);
-		this.curvature = PApplet.constrain(curvature, 0.1f, 1);
+		this.curvature = PApplet.constrain(curvature, 0.1f, 1f);
 		calculateRadius();
 	}
 	
@@ -218,8 +218,8 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		PApplet.println("");
 		float rh = rH();
 		float rw = rW();
-		float rih = (float) (ih() * curvature * .5);
-		float riw = (float) (iw() * curvature * .5);
+		float rih = PApplet.constrain(PApplet.map(curvature * ih() * .5f, 0f, ih(), 0f, ih() * .5f), 0, ih() * .5f);
+		float riw = PApplet.constrain(PApplet.map(curvature * iw() * .5f, 0f, iw(), 0f, iw() * .5f), 0, iw() * .5f);
 		if (rh < rw) {
 			if (rw < h * .4) {
 				curveRadius = rw;
@@ -277,11 +277,11 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	 * @return
 	 */
 	private float rH() {
-		return((float) (curvature * h * .5));
+		return((float) PApplet.constrain(PApplet.map(curvature * h * .5f, 0f, h, 0f, h * .5f), 0, h * .5f));
 	}
 	
 	private float rW() {
-		return((float) (curvature * w * .5));
+		return((float) PApplet.constrain(PApplet.map(curvature * w * .5f, 0f, w, 0f, w * .5f), 0, w * .5f));
 	}
 	
 //	private float complement() {

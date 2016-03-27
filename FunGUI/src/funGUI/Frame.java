@@ -7,7 +7,7 @@ import processing.core.*;
  * the screen.
  * @author Audrey Seo
  */
-public abstract class Frame {
+public abstract class Frame implements FunGUIObject {
 	public enum ColorApp {
 		INNER_FILL, OUTER_FILL, INNER_STROKE, OUTER_STROKE, FONT_FILL;
 
@@ -81,6 +81,14 @@ public abstract class Frame {
 	
 	public boolean col(int n) {
 		return (c.length > (n + 1) && c[n] >= 0);
+	}
+	
+	public float x() {
+		return(x);
+	}
+	
+	public float y() {
+		return(y);
 	}
 
 	public float w() {
