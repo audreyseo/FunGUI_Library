@@ -69,10 +69,12 @@ public class Window extends Display {
 		g.textFont(font);
 		g.textAlign(LEFT, TOP);
 		if (text != null && texts.size() == 0) {
-			g.text(text, x(), y());
+			g.text(text, x() - .5f * innerWidth(), y() - innerHeight() * .5f);
 		} else {
+			PApplet.println("Used");
 			for (int i = 0; i < texts.size(); i++) {
-				g.text(texts.get(i), x(), y() - innerHeight() * .5f + i * 40f);
+				g.text(texts.get(i), x() - innerWidth() * .5f, y() - innerHeight() * .5f + i * 20f);
+				PApplet.println(i + ":  " + texts.get(i));
 			}
 		}
 		if (headline != null) {
@@ -93,13 +95,19 @@ public class Window extends Display {
 				int i = 0;
 				String [] txts = PApplet.split(text, " ");
 				while (i < txts.length){ 
-					String partial = txts[0];
+					String partial = txts[i];
 					i++;
-					while (g.textWidth(partial + " " +  txts[i]) < tw) {
-						partial = partial + " " + txts[i];
-						i++;
+					PApplet.println("i: " + i + " txts.lengh: " + txts.length);
+					while (i < txts.length) {
+						if (g.textWidth(partial + " " +  txts[i]) < tw) {
+							partial = partial + " " + txts[i];
+							i++;
+						} else {
+							break;
+						}
 					}
 					texts.append(partial);
+					PApplet.println(texts.size());
 				}
 
 			}
