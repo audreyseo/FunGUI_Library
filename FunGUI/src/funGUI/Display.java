@@ -1,7 +1,7 @@
 package funGUI;
 
 public class Display extends Frame {
-	String text, headline;
+	protected String text, headline;
 	
 	public Display(float x, float y, float w, float h) {
 		this.x = x;
