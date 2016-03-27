@@ -99,10 +99,14 @@ public class Window extends Display {
 					i++;
 					PApplet.println("i: " + i + " txts.lengh: " + txts.length);
 					if (i < txts.length) {
-						while (g.textWidth(partial + " " +  txts[i]) < tw) {
+						while (g.textWidth(partial + " " +  txts[i]) < innerWidth()) {
 
 							partial = partial + " " + txts[i];
 							i++;
+							PApplet.println("i: " + i);
+							if (i >= txts.length) {
+								break;
+							}
 
 						}
 					}
