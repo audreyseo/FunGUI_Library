@@ -67,30 +67,44 @@ public class Window extends Display {
 	protected void text() {
 		g.fill(30);
 		g.textFont(font);
-		g.text(text, x(), y());
+		g.textAlign(LEFT, TOP);
+		if (text != null && texts.size() == 0) {
+			g.text(text, x(), y());
+		} else {
+			for (int i = 0; i < texts.size(); i++) {
+				g.text(texts.get(i), x(), y() - innerHeight() * .5f + i * 40f);
+			}
+		}
+		if (headline != null) {
+			g.textFont(headerFont);
+			g.text(headline, x(), y() - innerHeight() * .5f);
+		}
+		limitText();
 	}
 	
 	protected void limitText() {
-		g.pushStyle();
-		g.textFont(font);
-		float tw = g.textWidth(text);
-		if (tw > innerWidth()) {
-			texts.clear();
-			
-			int i = 0;
-			String [] txts = PApplet.split(text, " ");
-			while (i < txts.length){ 
-				String partial = txts[0];
-				i++;
-				while (g.textWidth(partial + " " +  txts[i]) < tw) {
-					partial = partial + " " + txts[i];
+		if (text != null) {
+			g.pushStyle();
+			g.textFont(font);
+			float tw = g.textWidth(text);
+			if (tw > innerWidth()) {
+				texts.clear();
+				
+				int i = 0;
+				String [] txts = PApplet.split(text, " ");
+				while (i < txts.length){ 
+					String partial = txts[0];
 					i++;
+					while (g.textWidth(partial + " " +  txts[i]) < tw) {
+						partial = partial + " " + txts[i];
+						i++;
+					}
+					texts.append(partial);
 				}
-				texts.append(partial);
-			}
 
+			}
+			g.popStyle();
 		}
-		g.popStyle();
 	}
 	
 	public void assignText(String s) {
