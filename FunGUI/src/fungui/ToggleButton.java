@@ -140,10 +140,10 @@ public class ToggleButton extends Button implements PConstants {
 		
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
-		if (dx < 0) {
-			dx -= 30;
-		} else if (dx > 0) {
-			dx += 30;
+		if (dx1 < 0) {
+			dx1 += 30;
+		} else if (dx1 > 0) {
+			dx1 -= 30;
 		}
 		buttonBase(dx1, -dy);
 		buttonFace(dx1, -dy);
@@ -347,6 +347,11 @@ public class ToggleButton extends Button implements PConstants {
 			break;
 		}
 		//pressed = p.mousePressed;
+		if (dx1 < 0) {
+			dx1 += 30;
+		} else if (dx1 > 0) {
+			dx1 -= 30;
+		}
 		return (super.clicked(-dx1, -dy) || edgesClicked(-dx1, -dy));
 	}
 	
