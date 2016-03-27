@@ -16,4 +16,5 @@ interface FunGUIObject extends PConstants {
 	public float y();
 	public float h();
 	public float w();
+	public String returnName();
 }

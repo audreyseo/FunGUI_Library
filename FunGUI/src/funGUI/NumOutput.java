@@ -36,4 +36,9 @@ public class NumOutput extends Frame implements PConstants {
 	public float val() {
 		return(s.p());
 	}
+	
+	@Override
+	public String returnName() {
+		return("NumOutput");
+	}
 }

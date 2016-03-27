@@ -6,8 +6,8 @@ import processing.core.*;
  * placement of the slider.
  * @author Audrey Seo
  */
-public class Slider implements PConstants {
-	public float x, y, w, h;
+public class Slider extends Frame implements PConstants {
+//	public float x, y, w, h;
 
 	float percent;
 
@@ -15,8 +15,8 @@ public class Slider implements PConstants {
 	protected float max;
 	String label;
 	PFont f;
-	PGraphics g;
-	PApplet p;
+//	PGraphics g;
+//	PApplet p;
 	
 	/**
 	 * The constructor of the Slider object.
@@ -179,4 +179,8 @@ public class Slider implements PConstants {
 		return(max);
 	}
 	
+	@Override
+	public String returnName() {
+		return("Slider");
+	}
 }

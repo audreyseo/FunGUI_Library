@@ -125,4 +125,8 @@ public class Menu extends List implements FunGUIObject {
 	public float h() {
 		return(h);
 	}
+	
+	public String returnName() {
+		return("Menu");
+	}
 }

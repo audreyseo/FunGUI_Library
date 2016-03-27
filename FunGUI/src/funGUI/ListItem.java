@@ -46,4 +46,9 @@ public class ListItem extends Frame {
 	public boolean clicked() {
 		return(true);
 	}
+	
+	@Override
+	public String returnName() {
+		return("ListItem");
+	}
 }

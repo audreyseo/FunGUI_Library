@@ -398,6 +398,11 @@ public class ToggleButton extends Button implements PConstants {
 	protected boolean notequals(String s1, String s2) {
 		return (!(s1.equals(s2)));
 	}
+	
+	@Override
+	public String returnName() {
+		return("ToggleButton");
+	}
 
 	/**
 	 * Enacts all of the basic functionality of the two constructors.

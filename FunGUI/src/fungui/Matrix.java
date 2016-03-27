@@ -25,20 +25,25 @@ public class Matrix {
 		this.p = p;
 	}
 
-	public void assign(int xi, int yi, ClassType t, String label) {
-		switch (t) {
-		case GUIFRAME:
-			break;
-		case SLIDER:
-			break;
-		case TEXTDISPLAY:
-			break;
-		case TOGGLER:
-			matrix[xi][yi] = new ToggleButton(p, x + xi * colw, y + yi * rowh, label);
-			break;
-		}
+	public void assignToggler(int xi, int yi, String label) {
+		float newx = x + xi * colw;
+		float newy = y + yi * rowh;
+		matrix[xi][yi] = new ToggleButton(p, newx, newy, label);
+	}
+
+	public void assignSlider(int xi, int yi, float minimum, float maximum, String label) {
+		float newx = x + xi * colw;
+		float newy = y + yi * rowh;
+		matrix[xi][yi] = new Slider(p, newx, newy, minimum, maximum);
 	}
 	
+	public Frame getSlider(int xi, int yi) throws NullPointerException {
+		if (matrix[xi][yi].returnName().equals("Slider")) {
+			return(matrix[xi][yi]);
+		}
+		else return(null);
+	}
+
 	public void draw() {
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix.length; j++) {
