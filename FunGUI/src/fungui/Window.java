@@ -98,12 +98,12 @@ public class Window extends Display {
 					String partial = txts[i];
 					i++;
 					PApplet.println("i: " + i + " txts.lengh: " + txts.length);
-					while (i < txts.length) {
-						if (g.textWidth(partial + " " +  txts[i]) < tw) {
+					if (i < txts.length) {
+						while (g.textWidth(partial + " " +  txts[i]) < tw) {
+
 							partial = partial + " " + txts[i];
 							i++;
-						} else {
-							break;
+
 						}
 					}
 					texts.append(partial);
