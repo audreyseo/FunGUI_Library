@@ -71,10 +71,10 @@ public class Window extends Display {
 		if (text != null && texts.size() == 0) {
 			g.text(text, x() - .5f * innerWidth(), y() - innerHeight() * .5f);
 		} else {
-			PApplet.println("Used");
+//			PApplet.println("Used");
 			for (int i = 0; i < texts.size(); i++) {
 				g.text(texts.get(i), x() - innerWidth() * .5f, y() - innerHeight() * .5f + i * 20f);
-				PApplet.println(i + ":  " + texts.get(i));
+//				PApplet.println(i + ":  " + texts.get(i));
 			}
 		}
 		if (headline != null) {
@@ -97,13 +97,13 @@ public class Window extends Display {
 				while (i < txts.length){ 
 					String partial = txts[i];
 					i++;
-					PApplet.println("i: " + i + " txts.lengh: " + txts.length);
+//					PApplet.println("i: " + i + " txts.lengh: " + txts.length);
 					if (i < txts.length) {
 						while (g.textWidth(partial + " " +  txts[i]) < innerWidth()) {
-
+							
 							partial = partial + " " + txts[i];
 							i++;
-							PApplet.println("i: " + i);
+//							PApplet.println("i: " + i);
 							if (i >= txts.length) {
 								break;
 							}
@@ -111,7 +111,7 @@ public class Window extends Display {
 						}
 					}
 					texts.append(partial);
-					PApplet.println(texts.size());
+//					PApplet.println(texts.size());
 				}
 
 			}
