@@ -34,7 +34,7 @@ public class Matrix {
 		case TEXTDISPLAY:
 			break;
 		case TOGGLER:
-			matrix[xi][yi] = new ToggleButton(p, x, y);
+			matrix[xi][yi] = new ToggleButton(p, x + xi * colw, y + yi * rowh, "Hi");
 			break;
 		}
 	}
@@ -43,7 +43,9 @@ public class Matrix {
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix.length; j++) {
 				if (matrix[i][j] != null) {
+					PApplet.println("tried: (" + i + ", " + j + ")");
 					matrix[i][j].draw();
+					PApplet.println("finished");
 				}
 			}
 		}
