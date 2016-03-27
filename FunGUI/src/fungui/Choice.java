@@ -1,12 +1,26 @@
 package funGUI;
 import processing.core.*;
 
-
+/**
+ * The Choice class comprises a checkbox, which is implemented by the ChoiceList class as the checkboxes in a list.
+ * As on the web, the checkboxes are not mutually exclusive, and all or none can be marked.
+ * @author audrey
+ */
 public class Choice extends Option implements PConstants {
 	
+	/**
+	 * Constructor of the Choice class
+	 * @param p				PApplet, the parent of the sketch (usually "this")
+	 * @param ex			float, the x-coordinate of the checkbox
+	 * @param why			float, the y-coordinate of the checkbox
+	 * @param label			String, the text that floats to the right of the checkbox
+	 * @param d				Display, the display that contains the checkboxes
+	 * @param numColumns	int, the number of columns that the choicelist comprises
+	 */
 	public Choice(PApplet p, float ex, float why, String label, Display d, int numColumns) {
 		super(p, ex, why, label, d, numColumns);
 	}
+	
 	
 	@Override
 	public void record(String s) {
@@ -43,6 +57,10 @@ public class Choice extends Option implements PConstants {
 		pressed = p.mousePressed;
 	}
 	
+	/**
+	 * Returns whether or not the checkbox has been clicked
+	 * @return	boolean, true or false
+	 */
 	@Override
 	public boolean clicked() {
 		return(p.mousePressed && (p.mouseX < wratio * (x + r2 * .5) && p.mouseX > wratio * (x - r2 * .5)) && (p.mouseY < hratio * (y + r2 * .5) && p.mouseY > hratio * (y - r2 * .5)));
