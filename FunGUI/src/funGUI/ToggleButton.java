@@ -61,6 +61,7 @@ public class ToggleButton extends Button implements PConstants {
 		float half_w = 40 + 20;
 		float wi = tw + half_w + 30; // 30 pixels of padding in between
 		this.xOffset = 1 - ((tw+15) / wi);
+		PApplet.println("xOffset: " + xOffset);
 	}
 	
 	public void position(Direction d) {
