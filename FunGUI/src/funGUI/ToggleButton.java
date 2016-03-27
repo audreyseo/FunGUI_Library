@@ -61,7 +61,7 @@ public class ToggleButton extends Button implements PConstants {
 		float tw = g.textWidth(label);
 		float half_w = 40 + 20;
 		trueWidth = tw + half_w + 30;
-		float wi = tw + half_w + 30; // 30 pixels of padding in between
+//		float wi = tw + half_w + 30; // 30 pixels of padding in between
 //		this.xOffset = 1 - ((tw+15) / wi);
 		this.xOffset = .5f; //PApplet.abs(1  - (tw / (2 * half_w)));
 		PApplet.println("xOffset: " + xOffset);
@@ -112,30 +112,9 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void offset() {
 		g.textFont(font);
-		float dx1 = (trueWidth * (1 - xOffset));
-		float dx = (trueWidth * xOffset);
-		float dy = 12;
-		switch (textPosition) {
-		case UP:
-			dx = 0;
-			dx1 = 0;
-			dy *= -1;
-			break;
-		case DOWN:
-			dx = 0;
-			dx1 = 0;
-			break;
-		case RIGHT:
-			dy = 0;
-			dx1 *= -1;
-			break;
-		case LEFT:
-			dx *= -1;
-			dy = 0;
-			break;
-		default:
-			break;
-		}
+		float dx1 = xDisplacement();
+		float dx = xDisplacement();
+		float dy = yDisplacement();
 		// Draw the background components of the button
 		
 		// Draw the front components of the button (i.e. the switch, the words
@@ -322,6 +301,47 @@ public class ToggleButton extends Button implements PConstants {
 
 		return (y + dy);
 	}
+	
+	protected float xDisplacement() {
+		float dx1 = (trueWidth * (1 - xOffset));
+		switch (textPosition) {
+		case UP:
+			dx1 = 0;
+			break;
+		case DOWN:
+			dx1 = 0;
+			break;
+		case RIGHT:
+			break;
+		case LEFT:
+			dx1 *= -1;
+			break;
+		default:
+			break;
+		}
+		return(dx1);
+	}
+	
+	protected float yDisplacement() {
+		float dy = 12;
+		switch (textPosition) {
+		case UP:
+			dy *= -1;
+			break;
+		case DOWN:
+			break;
+		case RIGHT:
+			dy = 0;
+			break;
+		case LEFT:
+			dy = 0;
+			break;
+		default:
+			break;
+		}
+		return(dy);
+	}
+	
 
 	@Override
 	public boolean clicked() {
