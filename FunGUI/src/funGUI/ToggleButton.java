@@ -73,9 +73,10 @@ public class ToggleButton extends Button implements PConstants {
 
 	public void label(String l) {
 		this.label = l;
-		g.textFont(font);
-		float full = PApplet.abs((g.textWidth(label)));
-		this.xOffset = (float) ((full - 30.0) / full);
+		position();
+//		g.textFont(font);
+//		float full = PApplet.abs((g.textWidth(label)));
+//		this.xOffset = (float) ((full - 30.0) / full);
 	}
 
 	public void name(String name) {
@@ -111,8 +112,8 @@ public class ToggleButton extends Button implements PConstants {
 
 	protected void offset() {
 		g.textFont(font);
-		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
-		float dx = (trueWidth * xOffset) + 10f;
+		float dx1 = (trueWidth * (1 - xOffset));
+		float dx = (trueWidth * xOffset);
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
@@ -139,20 +140,20 @@ public class ToggleButton extends Button implements PConstants {
 		
 		// Draw the front components of the button (i.e. the switch, the words
 		// On or Off, etc.)
-//		if (dx < 0) {
-//			dx += 30;
-//		} else if (dx > 0) {
-//			dx -= 30;
-//		}
+		if (dx < 0) {
+			dx -= 30;
+		} else if (dx > 0) {
+			dx += 30;
+		}
 		buttonBase(dx1, -dy);
 		buttonFace(dx1, -dy);
-		if (dx > 0) {
-//			dx += 55;
-			dx += 70;
-		} else if (dx < 0) {
-//			dx -= 55;
-			dx -= 70;
-		}
+//		if (dx > 0) {
+////			dx += 55;
+//			dx += 70;
+//		} else if (dx < 0) {
+////			dx -= 55;
+//			dx -= 70;
+//		}
 		text(dx, dy);
 	}
 
@@ -266,7 +267,7 @@ public class ToggleButton extends Button implements PConstants {
 	public float adjustedX() {
 		g.textFont(font);
 //		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
-		float dx = (trueWidth * xOffset) + 10f;
+		float dx = (trueWidth * xOffset);
 //		float dy = 12;
 		switch (textPosition) {
 		case UP:
@@ -294,7 +295,7 @@ public class ToggleButton extends Button implements PConstants {
 
 	public float adjustedY() {
 		g.textFont(font);
-//		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
+//		float dx1 = (trueWidth * (1 - xOffset));
 //		float dx = (trueWidth * xOffset) + 10f;
 		float dy = 12;
 		switch (textPosition) {
@@ -325,7 +326,7 @@ public class ToggleButton extends Button implements PConstants {
 	@Override
 	public boolean clicked() {
 		g.textFont(font);
-		float dx1 = (trueWidth * (1 - xOffset)) + 10f;
+		float dx1 = (trueWidth * (1 - xOffset));
 		float dy = 12;
 		switch (textPosition) {
 		case UP:
