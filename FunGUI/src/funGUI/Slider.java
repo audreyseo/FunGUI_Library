@@ -59,8 +59,7 @@ public class Slider implements PConstants {
 			float max, String label, float initial) {
 		this.label = label;
 		init(p, x, y, min, max);
-		this.percent = PApplet.constrain(PApplet.map(initial, min, max, 0, 1),
-				0, 1);
+		this.percent = PApplet.constrain(PApplet.map(initial, min, max, 0, 1), 0, 1);
 	}
 	
 	/**
@@ -93,7 +92,11 @@ public class Slider implements PConstants {
 		g.arc((float) (x - w * .49), y, h, h, HALF_PI, HALF_PI * 3, OPEN);
 		g.arc((float) (x + w * .5), y, h, h, HALF_PI * 3, HALF_PI * 5, OPEN);
 		float xi = (float) (x - w * .45);
-		float step = (float) (((x + w * .45) - xi) / 10);
+		int total = 10;
+		if (range() > 3) {
+			total = PApplet.round(range());
+		}
+		float step = (float) (((x + w * .45) - xi) / total);
 		for (int i = 0; i < (w * .9) / step + 1; i++) {
 			g.fill(30);
 			g.strokeWeight((float) (1.5));
@@ -102,7 +105,7 @@ public class Slider implements PConstants {
 			g.rect(xi + step * i, y, 2, 10);
 		}
 		g.strokeWeight(3);
-		g.line(xi, y, xi + step * 10, y);
+		g.line(xi, y, xi + step * total, y);
 		g.popStyle();
 	}
 
