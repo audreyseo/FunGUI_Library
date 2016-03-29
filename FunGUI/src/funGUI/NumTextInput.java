@@ -7,7 +7,7 @@ import processing.core.*;
  * etc.
  * @author Audrey Seo
  */
-public class NumInput extends TextStrip implements PConstants {
+public class NumTextInput extends TextStrip implements PConstants {
 	boolean scientific = true;
 	/**
 	 * Constructor of the numerics-only text strip class.
@@ -17,7 +17,7 @@ public class NumInput extends TextStrip implements PConstants {
 	 * @param w		float, the width of the number input box
 	 * @param h		float, the height of the number input box
 	 */
-	public NumInput(PApplet p, float x, float y, float w, float h) {
+	public NumTextInput(PApplet p, float x, float y, float w, float h) {
 		super(p, x, y, w, h);
 	}
 	
@@ -30,7 +30,7 @@ public class NumInput extends TextStrip implements PConstants {
 	 * @param h		float, the height of the number input box
 	 * @param name	String, the instructions for the user that will be to the left of the number input box, e.g. "Birthdate: "
 	 */
-	public NumInput(PApplet p, float x, float y, float w, float h,
+	public NumTextInput(PApplet p, float x, float y, float w, float h,
 			String name) {
 		super(p, x, y, w, h, name);
 	}
@@ -44,7 +44,7 @@ public class NumInput extends TextStrip implements PConstants {
 	 * @param h				float, the height of the number input box
 	 * @param scientific	boolean, whether or not this input box allows scientific notation in the form of "1x10^exponent"
 	 */
-	public NumInput(PApplet p, float x, float y, float w, float h, boolean scientific) {
+	public NumTextInput(PApplet p, float x, float y, float w, float h, boolean scientific) {
 		super(p, x, y, w, h);
 		this.scientific = scientific;
 	}
