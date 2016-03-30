@@ -77,17 +77,70 @@ public class Graph extends Window {
 		
 	}
 	
-	void drawGraph() {
+	void drawBox() {
+		//outliers = outs(outs);
+	    //wra = wratio;
+	    //hra = hratio;
+	    if (range() > 0) {
+	      float increment = range() / 20;
+	      r = radius;
+	      for (int i = 0; i < 21; i++) {
+	        g.stroke(0);
+	        int s = 1;
+	        if ((i) % (4) == 0) {
+	          g.fill(0);
+	          String time = nfc(((i * increment) + lowest()) * .001, 2);
+	          g.textAlign(CENTER, CENTER);
+	          g.textFont(font, REGTXTSIZE);
+	          if (remap((i * increment) + lowest(), x, r) > x + r - textWidth(time)) {
+	            g.textAlign(RIGHT, CENTER);
+	          } else if (i == 0)
+	            g.textAlign(LEFT, CENTER);
+	          text(time, remap((i * increment) + lowest(), x, r), y + 15*hratio);
+	          s = 2;
+	        }
+	        g.strokeWeight(s);
+	        g.line(remap((i * increment) + lowest(), x, r), y + 8*hratio, remap((i * increment) + lowest(), x, r), y + 6*hratio);
+	      }
+	    }
+	}
+	
+	public float range() {
+		float range = 0;
 		switch(dimension) {
 		case DATA_1D:
+			range = dataX.max() - dataX.min();
 			break;
 		case DATA_2D:
+			range = dataX.max() - dataX.min();
 			break;
 		case DATA_3D:
+			drawAlternativeGraph();
 			break;
 		default:
 			break;
 		}
+		return(range);
+	}
+	
+	void drawGraph() {
+		switch(dimension) {
+		case DATA_1D:
+			draw1DGraph();
+			break;
+		case DATA_2D:
+			drawXYGraph();
+			break;
+		case DATA_3D:
+			drawAlternativeGraph();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	void draw1DGraph() {
+		
 	}
 	
 	void drawXYGraph() {
@@ -103,6 +156,7 @@ public class Graph extends Window {
 		case DATA_1D:
 			if (type == null || type.d() != 1) {
 				// If type has not yet been assigned or the number of dimensions for type is not 1
+				// Because the dimensionality of the graph and that of the plot must match
 				type = GraphType.DOTPLOT;
 			}
 			break;
