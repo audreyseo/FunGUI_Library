@@ -2,7 +2,7 @@
 FunGUI is a library for implementing functional and well-designed graphical user interfaces in the Processing language. Originally conceived as a part of numerous side projects, this endeavor grew out of my love of creating Graphical User Interfaces, art, and programming. Everything from different styles and shapes of buttons and messages or warnings to text boxes and lists of options with checkboxes can be found in this library, simplifying code for GUIs.
 
 ## About
-FunGUI is a pun on "fungi" sounding like "fun guy" but instead this is a fun, easy-to-use GUI. This name is subject to change.
+FunGUI is a pun on "fungi" sounding like "fun guy" but instead this is a fun, easy-to-use GUI. This name is subject to change. This library is currently in alpha.
 
 ##Features
 A non-exhaustive list of available features:<br>
