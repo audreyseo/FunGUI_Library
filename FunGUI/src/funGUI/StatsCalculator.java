@@ -75,8 +75,21 @@ class StatsCalculator implements Stats {
 
 	@Override
 	public float q0() {
-		// TODO Auto-generated method stub
-		return 0;
+		FloatList outs = outliers();
+		if (outs != null) {
+			outs.sort();
+			for (int i = outs.size() - 1; i > -1; i--) {
+				if (outs.get(i) > q2()) {
+					outs.remove(i);
+					i++;
+				} else if (outs.get(i) < q1() - outlierLimit()) {
+					break;
+				}
+			}
+			int numOuts = outs.size();
+			return(floats.get(floats.size() - 1 - numOuts));
+		}
+		return(min());
 	}
 
 	@Override
@@ -119,9 +132,24 @@ class StatsCalculator implements Stats {
 
 	@Override
 	public float q4() {
-		// TODO Auto-generated method stub
-		return 0;
+		FloatList outs = outliers();
+		if (outs != null) {
+			outs.sort();
+			for (int i = 0; i < outs.size(); i++) {
+				if (outs.get(i) < q2()) {
+					outs.remove(i);
+					i--;
+				} else if (outs.get(i) > q3() + outlierLimit()) {
+					break;
+				}
+			}
+			int numOutliers = outs.size();
+			return(floats.get(floats.size() - 1 - numOutliers));
+		}
+		return(max());
 	}
+	
+	
 
 	@Override
 	public float iqr() {
@@ -131,13 +159,13 @@ class StatsCalculator implements Stats {
 	@Override
 	public boolean outlier(int index) {
 		if (index < q1()) {
-			return(floats.get(index) < q1() - outliersLimit());
+			return(floats.get(index) < q1() - outlierLimit());
 		}
-		return(floats.get(index) > q3() + outliersLimit());
+		return(floats.get(index) > q3() + outlierLimit());
 	}
 
 	@Override
-	public float outliersLimit() {
+	public float outlierLimit() {
 		return(iqr() * 1.5f);
 	}
 
@@ -156,6 +184,21 @@ class StatsCalculator implements Stats {
 		}
 		if (outs.size() != 0) return(outs);
 		return null;
+	}
+
+	@Override
+	public float max() {
+		return(floats.max());
+	}
+
+	@Override
+	public float min() {
+		return(floats.min());
+	}
+
+	@Override
+	public float range() {
+		return(max() - min());
 	}
 	
 	
