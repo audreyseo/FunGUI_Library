@@ -4,7 +4,7 @@ interface Stats {
 	// Basic functions - mean, median, mode, standard deviation, and variance
 	public float mean();
 	public float median();
-	public float moad();
+	public float mode();
 	public float stdDev();
 	public float variance();
 	
