@@ -10,6 +10,8 @@ public class Slider extends Frame implements PConstants {
 //	public float x, y, w, h;
 
 	float percent;
+	protected boolean following = false;
+	protected boolean pressed = false;
 
 	protected float min;
 	protected float max;
@@ -127,7 +129,8 @@ public class Slider extends Frame implements PConstants {
 		g.fill(255);
 		g.stroke(30);
 		g.rect(x, y, w, h);
-		g.arc((float) (x - w * .49), y, h, h, HALF_PI, HALF_PI * 3, OPEN);
+		float dx = (w < 150) ? .48f : .49f;
+		g.arc((float) (x - w * dx), y, h, h, HALF_PI, HALF_PI * 3, OPEN);
 		g.arc((float) (x + w * .5), y, h, h, HALF_PI * 3, HALF_PI * 5, OPEN);
 		float xi = (float) (x - w * .45);
 		int total = 10;
@@ -135,7 +138,7 @@ public class Slider extends Frame implements PConstants {
 			total = PApplet.round(range());
 		}
 		float step = (float) (((x + w * .45) - xi) / total);
-		float a = (step < 15) ? 2.5f : 1f;
+		float a = (step < 10) ? 2.5f : 1f;
 		for (int i = 0; i < ((w * .9) / (a * step)) + 1; i++) {
 			g.fill(30);
 			g.strokeWeight((float) (1.5));
@@ -171,17 +174,24 @@ public class Slider extends Frame implements PConstants {
 
 	void slide() {
 //		float xs = (float) (x - w * .45 + percent() * (w * .9));
-		if (p.mousePressed && p.mouseX > x - .45 * w && p.mouseX < x + .45 * w
-				&& p.mouseY > y - 7.5 && p.mouseY < y + 7.5) {
+		if (slid() || following) {
 			percent = PApplet.constrain(PApplet.map((float) (p.mouseX),
 					(float) (x - .45 * w), (float) (x + .45 * w), 0.0f, 1.0f),
 					0.0f, 1.0f);
 		}
+		
+		if (!pressed && slid()) {
+			following = !following;
+		} else if ((!pressed && !slid() && PApplet.dist(p.mouseX, p.mouseY, x, y) > w * 1.5) || (!p.mousePressed)) {
+			following = false;
+		}
+		
+		pressed = p.mousePressed;
+		
 	}
 
 	boolean slid() {
-		return (p.mousePressed && p.mouseX > x - .45 * w
-				&& p.mouseX < x + .45 * w && p.mouseY > y - 7.5 && p.mouseY < y + 7.5);
+		return (p.mousePressed && p.mouseX > x - .45 * w && p.mouseX < x + .45 * w && p.mouseY > y - 7.5 && p.mouseY < y + 7.5);
 	}
 	
 	/**

@@ -5,6 +5,20 @@ public class RoundButton extends Button {
 	public float r;
 	public float r0 = 0;
 	public float ri = 0;
+	char c = ' ';
+	PFont font;
+	
+	public RoundButton(PApplet p, float x, float y, float r, char c){
+		this.x = x;
+		this.y = y;
+		this.p = p;
+		this.g = p.g;
+		this.r = r;
+		this.r0 = this.r;
+		this.ri = this.r * .25f;
+		font = p.createFont(REG_SANSS_TXT, REGTXTSIZE);
+		this.c = c;
+	}
 	
 	public RoundButton(PApplet p, float x, float y, float r){
 		this.x = x;
@@ -14,6 +28,7 @@ public class RoundButton extends Button {
 		this.r = r;
 		this.r0 = this.r;
 		this.ri = this.r * .25f;
+		font = p.createFont(REG_SANSS_TXT, REGTXTSIZE);
 	}
 	
 	@Override
@@ -28,6 +43,16 @@ public class RoundButton extends Button {
 			g.fill(255, 255, 255);
 		}
 		g.ellipse(x, y, 2 * r - PApplet.log((r / r0) * 2.718f) * ri, 2 * r - PApplet.log((r / r0) * 2.718f) * ri);
+		g.popStyle();
+	}
+	
+	@Override
+	public void text() {
+		g.pushStyle();
+		g.fill(30);
+		g.textFont(font);
+		g.textAlign(CENTER, CENTER);
+		g.text(c, x, y);
 		g.popStyle();
 	}
 	
