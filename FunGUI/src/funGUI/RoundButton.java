@@ -5,7 +5,7 @@ public class RoundButton extends Button {
 	public float r;
 	public float r0 = 0;
 	public float ri = 0;
-	char c = ' ';
+	public char c = ' ';
 	PFont font;
 	
 	public RoundButton(PApplet p, float x, float y, float r, char c){
