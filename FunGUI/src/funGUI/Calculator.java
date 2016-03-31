@@ -7,6 +7,7 @@ public class Calculator extends Frame {
 	String math = "";
 	PFont font;
 	
+	
 	public Calculator(PApplet p, float x, float y, float w, float h) {
 		this.p = p;
 		this.g = p.g;
