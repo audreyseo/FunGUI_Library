@@ -19,6 +19,33 @@ public class Slider extends Frame implements PConstants {
 //	PApplet p;
 	
 	/**
+	 * The constructor of the Slider object. This slider defaults to a minimum of 0 and a maximum of 1.
+	 * @param p			PApplet, the parent of the sketch, usually "this"
+	 * @param x			float, the x location of the slider's center
+	 * @param y			float, the y location of the slider's center
+	 * @param w			float, the width of the slider
+	 * @param label		String, the label of the slider
+	 */
+	public Slider(PApplet p, float x, float y, float w, String label) {
+		this.label = label;
+		init(p, x, y, 0, 1);
+	}
+	
+	/**
+	 * The constructor of the Slider object.
+	 * @param p		PApplet, the parent of the sketch, usually "this."
+	 * @param x		float, the x location of the slider's center.
+	 * @param y		float, the y location of the slider's center.
+	 * @param w		float, the width of the slider
+	 * @param min	float, the minimum value of the slider.
+	 * @param max	float, the maximum value of the slider.
+	 */
+	public Slider(PApplet p, float x, float y, float w, float min, float max) {
+		init(p, x, y, min, max);
+		this.w = w;
+	}
+	
+	/**
 	 * The constructor of the Slider object.
 	 * @param p		PApplet, the parent of the sketch, usually "this."
 	 * @param x		float, the x location of the slider's center.
@@ -39,8 +66,7 @@ public class Slider extends Frame implements PConstants {
 	 * @param max	float, the maximum value of the slider.
 	 * @param label String, the name of the slider
 	 */
-	public Slider(PApplet p, float x, float y, float min,
-			float max, String label) {
+	public Slider(PApplet p, float x, float y, float min, float max, String label) {
 		this.label = label;
 		init(p, x, y, min, max);
 	}
@@ -55,8 +81,7 @@ public class Slider extends Frame implements PConstants {
 	 * @param label 	String, the name of the slider
 	 * @param initial	float, the initial value of the slider.
 	 */
-	public Slider(PApplet p, float x, float y, float min,
-			float max, String label, float initial) {
+	public Slider(PApplet p, float x, float y, float min, float max, String label, float initial) {
 		this.label = label;
 		init(p, x, y, min, max);
 		this.percent = PApplet.constrain(PApplet.map(initial, min, max, 0, 1), 0, 1);
@@ -97,12 +122,13 @@ public class Slider extends Frame implements PConstants {
 			total = PApplet.round(range());
 		}
 		float step = (float) (((x + w * .45) - xi) / total);
-		for (int i = 0; i < (w * .9) / step + 1; i++) {
+		float a = (step < 15) ? 2.5f : 1f;
+		for (int i = 0; i < ((w * .9) / (a * step)) + 1; i++) {
 			g.fill(30);
 			g.strokeWeight((float) (1.5));
 			if (i % 2 == 1)
 				g.strokeWeight((float) (.5));
-			g.rect(xi + step * i, y, 2, 10);
+			g.rect(xi + step * a * i, y, 2, 10);
 		}
 		g.strokeWeight(3);
 		g.line(xi, y, xi + step * total, y);

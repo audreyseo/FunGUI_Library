@@ -31,10 +31,16 @@ public class Matrix {
 		matrix[xi][yi] = new ToggleButton(p, newx, newy, label);
 	}
 
-	public void assignSlider(int xi, int yi, float minimum, float maximum, String label) {
+	public void assignSlider(int xi, int yi, float w, float minimum, float maximum, String label) {
 		float newx = x + xi * colw;
 		float newy = y + yi * rowh;
-		matrix[xi][yi] = new Slider(p, newx, newy, minimum, maximum);
+		matrix[xi][yi] = new Slider(p, newx, newy, w, minimum, maximum);
+	}
+	
+	public void assignSlider(int xi, int yi, float w, String label) {
+		float newx = x + xi * colw;
+		float newy = y + yi * rowh;
+		matrix[xi][yi] = new Slider(p, newx, newy, w, label);
 	}
 	
 	public Frame getSlider(int xi, int yi) throws NullPointerException {

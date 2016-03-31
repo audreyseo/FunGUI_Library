@@ -4,6 +4,7 @@ import processing.core.*;
 public class RoundButton extends Button {
 	public float r;
 	public float r0 = 0;
+	public float ri = 0;
 	
 	public RoundButton(PApplet p, float x, float y, float r){
 		this.x = x;
@@ -12,6 +13,7 @@ public class RoundButton extends Button {
 		this.g = p.g;
 		this.r = r;
 		this.r0 = this.r;
+		this.ri = this.r * .25f;
 	}
 	
 	@Override
@@ -25,7 +27,7 @@ public class RoundButton extends Button {
 		} else {
 			g.fill(255, 255, 255);
 		}
-		g.ellipse(x, y, 2 * r - PApplet.log((r0 / r) * 2.718f) * 20f, 2 * r - PApplet.log((r0 / r) * 2.718f) * 20f);
+		g.ellipse(x, y, 2 * r - PApplet.log((r / r0) * 2.718f) * ri, 2 * r - PApplet.log((r / r0) * 2.718f) * ri);
 		g.popStyle();
 	}
 	
