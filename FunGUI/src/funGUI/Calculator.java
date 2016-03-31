@@ -5,9 +5,9 @@ public class Calculator extends Frame {
 	RoundButton [][] nums = new RoundButton [3][4];
 	RoundButton [] operations = new RoundButton[4];
 	boolean pressed = false;
-	String math = "";
+	String math = "0";
 	PFont font;
-	
+	TextScroll display;
 	
 	public Calculator(PApplet p, float x, float y, float w, float h) {
 		this.p = p;
@@ -16,6 +16,9 @@ public class Calculator extends Frame {
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		display = new TextScroll(p, x, y - 90, 120, 20);
+		
+		
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 4; j++) {
 				String chars = Integer.toString(9 - ((2 - i) + j * 3));
@@ -53,9 +56,11 @@ public class Calculator extends Frame {
 	@Override
 	public void text() {
 		g.pushStyle();
-		g.textFont(font);
-		g.textAlign(CENTER, CENTER);
-		g.text(math, x, y - 70);
+//		g.textFont(font);
+//		g.textAlign(CENTER, CENTER);
+//		g.text(math, x, y - 70);
+		display.text = math;
+		display.draw();
 		g.popStyle();
 	}
 
