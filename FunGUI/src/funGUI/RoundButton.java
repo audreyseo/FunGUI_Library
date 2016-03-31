@@ -3,6 +3,7 @@ import processing.core.*;
 
 public class RoundButton extends Button {
 	public float r;
+	public float r0 = 0;
 	
 	public RoundButton(PApplet p, float x, float y, float r){
 		this.x = x;
@@ -10,6 +11,7 @@ public class RoundButton extends Button {
 		this.p = p;
 		this.g = p.g;
 		this.r = r;
+		this.r0 = this.r;
 	}
 	
 	@Override
@@ -18,12 +20,12 @@ public class RoundButton extends Button {
 		g.noStroke();
 		g.fill(220);
 		g.ellipse(x, y, r * 2, r * 2);
-		if (p.mousePressed) {
+		if (clicked()) {
 			g.fill(240, 240, 240);
 		} else {
 			g.fill(255, 255, 255);
 		}
-		g.ellipse(x, y, r * 1.8f, r * 1.8f);
+		g.ellipse(x, y, 2 * r - PApplet.log((r0 / r) * 2.718f) * 20f, 2 * r - PApplet.log((r0 / r) * 2.718f) * 20f);
 		g.popStyle();
 	}
 	
@@ -39,6 +41,11 @@ public class RoundButton extends Button {
 	
 	public float r() {
 		return(r);
+	}
+	
+	@Override
+	public boolean clicked() {
+		return(p.mousePressed && PApplet.dist(p.mouseX, p.mouseY, this.x, this.y) <= r);
 	}
 	
 	@Override
