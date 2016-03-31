@@ -43,6 +43,12 @@ public class Matrix {
 		matrix[xi][yi] = new Slider(p, newx, newy, w, label);
 	}
 	
+	public void assignSlider(int xi, int yi, float w) {
+		float newx = x + xi * colw;
+		float newy = y + yi * rowh;
+		matrix[xi][yi] = new Slider(p, newx, newy, w);
+	}
+	
 	public Frame getSlider(int xi, int yi) throws NullPointerException {
 		if (matrix[xi][yi].returnName().equals("Slider")) {
 			return(matrix[xi][yi]);
