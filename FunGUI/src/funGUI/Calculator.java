@@ -57,6 +57,7 @@ public class Calculator extends Frame {
 			String s = String.valueOf(nums[n1][n2].c);
 			math += s;
 		}
+		pressed = p.mousePressed && anyPressed() >= 0;
 	}
 	
 	int anyPressed() {
