@@ -7,6 +7,7 @@ public class DropDownSubMenuItem extends DropDownMenuItem {
 	boolean showingOptions = false;
 	boolean wasShowing = false;
 	int oldOption = -1;
+	
 	public DropDownSubMenuItem(PApplet p, float ex, float why, String label, int numColumns, float width, int ordinal, Menu menu, String [] optionLabels) {
 		super(p, ex, why, label, numColumns, width, ordinal, menu);
 		m = new Menu(p, x() + w, y(), optionLabels);

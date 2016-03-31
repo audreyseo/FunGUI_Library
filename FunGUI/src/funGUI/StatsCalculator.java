@@ -36,6 +36,10 @@ class StatsCalculator implements Stats {
 		unsortedFloats.append(f);
 		floats.sort();
 	}
+	
+	public int size() {
+		return(floats.size());
+	}
 
 	@Override
 	public float mean() {

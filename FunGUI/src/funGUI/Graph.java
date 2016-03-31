@@ -1,64 +1,71 @@
 package funGUI;
 import processing.core.*;
 import processing.data.*;
+
 import java.util.ArrayList;
 
+import funGUI.StatsCalculator.DataType;
+
 public class Graph extends Window {
-	FloatList dataX = new FloatList();
-	FloatList dataY = new FloatList();
+	StatsCalculator dataX = new StatsCalculator(DataType.FLOAT);
+	FloatList outliers = new FloatList();
+	StatsCalculator dataY = new StatsCalculator(DataType.FLOAT);
 	ArrayList<FloatList> data = new ArrayList<FloatList>();
 	DataDimension dimension;
 	GraphType type = null;
+	DotPlot dots;
+	BoxPlot boxes;
+	
 	
 	public Graph(PApplet p, float x, float y, float w, float h, DataDimension dimension, GraphType type) {
 		super(p, x, y, w, h);
 		this.dimension = dimension;
 		this.type = type;
-		assignType();
+		init();
 	}
 	
 	
 	public Graph(PApplet p, float x, float y, float w, float h, DataDimension dimension) {
 		super(p, x, y, w, h);
 		this.dimension = dimension;
-		assignType();
+		init();
 	}
 	
 	public Graph(PApplet p, float x, float y, float w, float h) {
 		super(p, x, y, w, h);
 		this.dimension = DataDimension.DATA_1D;
-		assignType();
+		init();
 	}
 	
 	void addDataX(float f) {
-		dataX.append(f);
+		dataX.add(f);
 	}
 	
 	void addDataX(float [] f) {
 		for (int i = dataX.size(); i < f.length; i++) {
-			dataX.append(f[i]);
+			dataX.add(f[i]);
 		}
 	}
 	
 	void addDataX(FloatList f) {
 		for (int i = dataX.size(); i < f.size(); i++) {
-			dataX.append(f.get(i));
+			dataX.add(f.get(i));
 		}
 	}
 	
 	void addDataY(float f) {
-		dataY.append(f);
+		dataY.add(f);
 	}
 	
 	void addDataY(float [] f) {
 		for (int i = dataY.size(); i < f.length; i++) {
-			dataY.append(f[i]);
+			dataY.add(f[i]);
 		}
 	}
 	
 	void addDataY(FloatList f) {
 		for (int i = dataY.size(); i < f.size(); i++) {
-			dataY.append(f.get(i));
+			dataY.add(f.get(i));
 		}
 	}
 	
@@ -74,37 +81,45 @@ public class Graph extends Window {
 	
 	@Override
 	public void draw() {
-		
+		drawGraph();
 	}
-	
+
 	void drawBox() {
-		//outliers = outs(outs);
-	    //wra = wratio;
-	    //hra = hratio;
-	    if (range() > 0) {
-	      float increment = range() / 20;
-	      r = radius;
-	      for (int i = 0; i < 21; i++) {
-	        g.stroke(0);
-	        int s = 1;
-	        if ((i) % (4) == 0) {
-	          g.fill(0);
-	          String time = nfc(((i * increment) + lowest()) * .001, 2);
-	          g.textAlign(CENTER, CENTER);
-	          g.textFont(font, REGTXTSIZE);
-	          if (remap((i * increment) + lowest(), x, r) > x + r - textWidth(time)) {
-	            g.textAlign(RIGHT, CENTER);
-	          } else if (i == 0)
-	            g.textAlign(LEFT, CENTER);
-	          text(time, remap((i * increment) + lowest(), x, r), y + 15*hratio);
-	          s = 2;
-	        }
-	        g.strokeWeight(s);
-	        g.line(remap((i * increment) + lowest(), x, r), y + 8*hratio, remap((i * increment) + lowest(), x, r), y + 6*hratio);
-	      }
-	    }
+		outliers = dataX.outliers();
+		//wra = wratio;
+		//hra = hratio;
+		if (dataX.range() > 0) {
+			float increment = (range() > 20) ? Math.round(dataX.range() / 20) : dataX.range() / 20;
+			float r = w / 2;
+			for (int i = 0; i < 21; i++) {
+				g.stroke(0);
+				int s = 1;
+				if ((i) % (4) == 0) {
+					g.fill(0);
+					String time = PApplet.nfc((float) (((i * increment) + dataX.min()) * .001), 2);
+					g.textAlign(CENTER, CENTER);
+					g.textFont(font, REGTXTSIZE);
+					if (remap((i * increment) + dataX.min(), x, r) > x + r - g.textWidth(time)) {
+						g.textAlign(RIGHT, CENTER);
+					} else if (i == 0)
+						g.textAlign(LEFT, CENTER);
+					g.text(time, remap((i * increment) + dataX.min(), x, r), y + 15f);
+					s = 2;
+				}
+				g.strokeWeight(s);
+				g.line(remap((i * increment) + dataX.min(), x, r), y + 8, remap((i * increment) + dataX.min(), x, r), y + 6);
+			}
+		}
 	}
-	
+
+	float remap(float n, float x, float w) {
+		return(PApplet.map(n, dataX.min(), dataX.max(), (x - w), (x + w)));
+	}
+
+	float remap(float n, float shrink, float x, float w) {
+		return(PApplet.map(n / shrink, dataX.min(), dataX.max(), (x - w), (x + w)));
+	}
+
 	public float range() {
 		float range = 0;
 		switch(dimension) {
@@ -140,7 +155,16 @@ public class Graph extends Window {
 	}
 	
 	void draw1DGraph() {
-		
+		switch(type) {
+		case DOTPLOT:
+			dots.draw();
+			break;
+		case BOXPLOT:
+			boxes.draw(dataX.outliers());
+			break;
+		default:
+			break;
+		}
 	}
 	
 	void drawXYGraph() {
@@ -149,6 +173,12 @@ public class Graph extends Window {
 	
 	void drawAlternativeGraph() {
 		
+	}
+	
+	void init() {
+		dots = new DotPlot(p, x, y, p.createFont(REG_SANSS_TXT, REGTXTSIZE), REGTXTSIZE);
+		boxes = new BoxPlot(p, x, y, p.createFont(REG_SANSS_TXT, REGTXTSIZE), REGTXTSIZE);
+		assignType();
 	}
 	
 	void assignType() {

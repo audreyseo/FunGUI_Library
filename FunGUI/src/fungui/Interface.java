@@ -21,6 +21,7 @@ public class Interface {
 	int [] standardColors = {p.color(100, 100, 230), p.color(190, 190, 190), p.color(240, 240, 240)};
 //	ArrayList<Button> buttons = new ArrayList<Button>();
 	HashMap<String, Button> buttons = new HashMap<String, Button>();
+	HashMap<String, List> lists = new HashMap<String, List>();
 	
 	/**
 	 * Instantiates a new Interface, given the number of columns and rows.
@@ -46,6 +47,10 @@ public class Interface {
 	
 	public void makeRectButton(int column, int row, String name) {
 		buttons.put(index(column, row),  new RectButton(p, column * columnWidth, row * rowHeight, .8f * columnWidth, .8f * rowHeight, standardColors, name));
+	}
+	
+	public void makeList(int column, int row, String [] names) {
+		
 	}
 	
 	public void makeRectButton(int column, int row, float length, String name) {
