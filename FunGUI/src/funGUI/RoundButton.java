@@ -50,7 +50,7 @@ public class RoundButton extends Button {
 	public void text() {
 		g.pushStyle();
 		g.fill(30);
-		g.textFont(font);
+		g.textFont(font, (r / r0) * REGTXTSIZE);
 		g.textAlign(CENTER, CENTER);
 		g.text(c, x, y);
 		g.popStyle();
