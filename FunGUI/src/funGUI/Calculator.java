@@ -59,7 +59,7 @@ public class Calculator extends Frame {
 //		g.textFont(font);
 //		g.textAlign(CENTER, CENTER);
 //		g.text(math, x, y - 70);
-		display.text = math;
+		display.assign(math);
 		display.draw();
 		g.popStyle();
 	}

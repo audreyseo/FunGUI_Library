@@ -108,6 +108,9 @@ public class TextScroll implements PConstants {
 	public void assign(String s) {
 		this.text = s;
 		cursor_placement = s.length();
+		if (begin > s.length()) {
+			begin = 0;
+		}
 		while (g.textWidth(text.substring(begin, text.length())) > w * .8) {
 			begin++;
 		}
