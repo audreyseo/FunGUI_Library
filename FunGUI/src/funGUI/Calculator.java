@@ -3,6 +3,7 @@ import processing.core.*;
 
 public class Calculator extends Frame {
 	RoundButton [][] nums = new RoundButton [3][4];
+	RoundButton [] operations = new RoundButton[4];
 	boolean pressed = false;
 	String math = "";
 	PFont font;
@@ -29,6 +30,11 @@ public class Calculator extends Frame {
 		nums[1][3] = new RoundButton(p, x, y + 100, 20, '.');
 		nums[2][3] = new RoundButton(p, x + 50, y + 100, 20, 'c');
 		font = p.createFont(REG_SANSS_TXT, LGTXTSIZE);
+		
+		char [] c = {'÷', 'x', '-', '+'};
+		for (int i = 0; i < operations.length; i++) {
+			operations[i] = new RoundButton(p, x + 80, y + (i - 2) * 25, 10, c[i]);
+		}
 	}
 	
 	@Override
@@ -37,6 +43,9 @@ public class Calculator extends Frame {
 			for (int j = 0; j < nums[i].length; j++) {
 				nums[i][j].draw();
 			}
+		}
+		for (int i = 0; i < operations.length; i++) {
+			operations[i].draw();
 		}
 		check();
 	}
@@ -49,14 +58,18 @@ public class Calculator extends Frame {
 		g.text(math, x, y - 70);
 		g.popStyle();
 	}
-	
+
 	void check() {
 		if (!pressed && p.mousePressed && anyPressed() >= 0) {
 			int n = anyPressed();
 			int n1 = (n >> 8) & 0xF;
 			int n2 = n & 0xF;
 			String s = String.valueOf(nums[n1][n2].c);
-			math += s;
+			if (s.equals("c")) {
+				math = "";
+			} else {
+				math += s;
+			}
 		}
 		pressed = p.mousePressed && anyPressed() >= 0;
 	}
