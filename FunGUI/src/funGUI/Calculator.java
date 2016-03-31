@@ -66,8 +66,11 @@ public class Calculator extends Frame {
 			int n2 = n & 0xF;
 			String s = String.valueOf(nums[n1][n2].c);
 			if (s.equals("c")) {
-				math = "";
+				math = "0";
 			} else {
+				if (math.equals("0") && !(s.equals("."))) {
+					math = "";
+				}
 				math += s;
 			}
 		}
