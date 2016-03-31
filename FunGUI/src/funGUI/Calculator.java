@@ -13,7 +13,7 @@ public class Calculator extends Frame {
 		for (int i = 0; i < nums.length; i++) {
 			for (int j = 0; j < nums[i].length; j++) {
 				String chars = Integer.toString(i * 3 + j);
-				nums[i][j] = new RoundButton(p, x + (i - 1) * 50, y + (i - 1) * 50, 20, chars.charAt(0));
+				nums[i][j] = new RoundButton(p, x + (i - 1) * 50, y + (j - 1) * 50, 20, chars.charAt(0));
 			}
 		}
 	}
