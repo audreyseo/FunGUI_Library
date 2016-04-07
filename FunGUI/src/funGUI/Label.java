@@ -30,7 +30,8 @@ public class Label extends NumOutput {
 		g.text(val, x - (w * .45f), y);
 		
 		g.stroke(c);
-		g.line(x, y, x0, y0);
+		float offsetX = (x0 < x) ? x - w * .5f : x + w * .5f;
+		g.line(offsetX, y, x0, y0);
 		g.popStyle();
 	}
 }
