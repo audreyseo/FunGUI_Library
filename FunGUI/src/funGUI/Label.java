@@ -13,7 +13,7 @@ public class Label extends NumOutput {
 		c = g.color(255);
 	}
 	
-	public void color(int n) {
+	public void colorLine(int n) {
 		c = n;
 	}
 	
