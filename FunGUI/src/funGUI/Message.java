@@ -85,7 +85,7 @@ public class Message extends Frame {
 			g.textFont(font);
 			float total = 0;
 			for (int i = 0; i < lines.length; i++) {
-				total += g.textWidth(lines[i]);
+				total += g.textWidth(lines[i] + " ");
 			}
 			this.w = 1.1f * (total / 4f);
 			this.h = REGTXTSIZE * 4.2f;
@@ -96,8 +96,8 @@ public class Message extends Frame {
 				while (count < newLines.length) { 
 					String newLine = "";
 					if (i < lines.length) {
-						while (g.textWidth(newLine + lines[i]) < w) {
-							newLine += lines[i];
+						while (g.textWidth(newLine + lines[i] + " ") < w) {
+							newLine += lines[i] + " ";
 							i++;
 							if (i == lines.length) break;
 						}
