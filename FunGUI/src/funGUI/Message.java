@@ -88,7 +88,7 @@ public class Message extends Frame {
 				total += g.textWidth(lines[i] + " ");
 			}
 			this.w = 1.1f * (total / 4f);
-			this.h = REGTXTSIZE * 6.5f;
+			this.h = REGTXTSIZE * 7.5f;
 			String [] newLines = new String [PApplet.ceil(total / (w / 1.1f))];
 			if (newLines.length > 1) {
 				int count = 0;
@@ -136,7 +136,8 @@ public class Message extends Frame {
 			g.textFont(font);
 			g.fill(0);
 			g.textAlign(CENTER, CENTER);
-			g.text(bodyText, x, y + 5);
+			g.text(bodyText, x, y + 10);
+			g.text(headerText, x, y - h * .45f);
 			g.popStyle();
 		}
 	}
