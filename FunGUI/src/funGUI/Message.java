@@ -89,7 +89,7 @@ public class Message extends Frame {
 				total += g.textWidth(lines[i] + " ");
 			}
 			this.w = 1.1f * (total / 4f);
-			this.h = REGTXTSIZE * 7.5f;
+			this.h = REGTXTSIZE * 8.5f;
 			String [] newLines = new String [PApplet.ceil(total / (w / 1.1f))];
 			if (newLines.length > 1) {
 				int count = 0;
