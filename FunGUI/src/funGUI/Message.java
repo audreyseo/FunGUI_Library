@@ -97,7 +97,7 @@ public class Message extends Frame {
 				while (count < newLines.length) { 
 					String newLine = "";
 					if (i < lines.length) {
-						while (g.textWidth(newLine + lines[i] + " ") < w) {
+						while (g.textWidth(newLine + lines[i] + " ") < (w / 1.05f)) {
 							newLine += lines[i] + " ";
 							i++;
 							if (i == lines.length) break;
