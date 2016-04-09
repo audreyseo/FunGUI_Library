@@ -105,8 +105,9 @@ public class Message extends Frame {
 					newLines[count] = newLine;
 					count++;
 				}
+				bodyText = "";
 				for (i = 0; i < newLines.length; i++) {
-					bodyText = bodyText + newLines + "\n";
+					bodyText = bodyText + newLines[i] + "\n";
 				}
 			} else {
 				return;
