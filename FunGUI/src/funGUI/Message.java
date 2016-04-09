@@ -10,6 +10,7 @@ public class Message extends Frame {
 	protected boolean on = false;
 	protected String bodyText = "";
 	protected String headerText = "";
+	protected String dismissText = "Press ";
 	protected PFont font;
 	
 	public Message(PApplet p, String text, String header) {
@@ -113,6 +114,8 @@ public class Message extends Frame {
 				return;
 			}
 		}
+		
+		dismissText += "'" + offkey + "' to exit";
 	}
 	
 	public void assignText(String s) {
@@ -138,6 +141,7 @@ public class Message extends Frame {
 			g.textAlign(CENTER, CENTER);
 			g.text(bodyText, x, y + 10);
 			g.text(headerText, x, y - h * .4f);
+			g.text(dismissText, x, y + h * .4f);
 			g.popStyle();
 		}
 	}
