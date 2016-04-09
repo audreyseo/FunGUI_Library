@@ -17,7 +17,7 @@ public class Message extends Frame {
 		offkey = 's';
 		this.bodyText = text;
 		this.headerText = header;
-		init(p, p.width / 2, p.height / 2, 0, 0);
+		init(p, (float) (p.width) / 2.0f, (float) (p.height) / 2.0f, 0, 0);
 		splitText();
 	}
 	
@@ -33,7 +33,7 @@ public class Message extends Frame {
 		offkey = off;
 		this.bodyText = text;
 		this.headerText = header;
-		init(p, p.width / 2, p.height / 2, 0, 0);
+		init(p, (float) (p.width) / 2, (float) (p.height) / 2, 0, 0);
 		splitText();
 	}
 	
@@ -87,7 +87,7 @@ public class Message extends Frame {
 			for (int i = 0; i < lines.length; i++) {
 				total += g.textWidth(lines[i]);
 			}
-			this.w = 1.1f * (total / 4);
+			this.w = 1.1f * (total / 4f);
 			this.h = REGTXTSIZE * 4.2f;
 			String [] newLines = new String [PApplet.ceil(total / (w / 1.1f))];
 			if (newLines.length > 1) {
@@ -95,9 +95,12 @@ public class Message extends Frame {
 				int i = 0;
 				while (count < newLines.length) { 
 					String newLine = "";
-					while (g.textWidth(newLine + lines[i]) < w) {
-						newLine += lines[i];
-						i++;
+					if (i < lines.length) {
+						while (g.textWidth(newLine + lines[i]) < w) {
+							newLine += lines[i];
+							i++;
+							if (i == lines.length) break;
+						}
 					}
 					newLines[count] = newLine;
 					count++;
@@ -140,9 +143,9 @@ public class Message extends Frame {
 	public void keyEvent(KeyEvent e) {
 		if (e.getKey() != CODED) {
 			if (e.getKey() == onkey) {
-			
+				on = true;
 			} else if (e.getKey() == offkey) {
-				
+				on = false;
 			}
 		}
 	}
