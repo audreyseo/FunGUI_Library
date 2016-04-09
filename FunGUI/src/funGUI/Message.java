@@ -137,7 +137,7 @@ public class Message extends Frame {
 			g.fill(0);
 			g.textAlign(CENTER, CENTER);
 			g.text(bodyText, x, y + 10);
-			g.text(headerText, x, y - h * .45f);
+			g.text(headerText, x, y - h * .4f);
 			g.popStyle();
 		}
 	}
