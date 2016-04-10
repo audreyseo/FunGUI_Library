@@ -1,5 +1,6 @@
 package funGUI;
 import processing.core.*;
+import processing.event.KeyEvent;
 
 public class Calculator extends Frame {
 	RoundButton [][] nums = new RoundButton [3][4];
@@ -8,6 +9,9 @@ public class Calculator extends Frame {
 	String math = "0";
 	PFont font;
 	TextScroll display;
+	int chosenOp = -1;
+	float firstNum = 0;
+	float secondNum = 0;
 	
 	public Calculator(PApplet p, float x, float y, float w, float h) {
 		this.p = p;
@@ -38,6 +42,8 @@ public class Calculator extends Frame {
 		for (int i = 0; i < operations.length; i++) {
 			operations[i] = new RoundToggleButton(p, x + 80, y + (i - 2) * 25, 10, c[i]);
 		}
+		
+		p.registerMethod("keyEvent", this);
 	}
 	
 	@Override
@@ -69,8 +75,11 @@ public class Calculator extends Frame {
 			int n = anyPressed();
 			int n1 = (n >> 8) & 0xF;
 			int n2 = n & 0xF;
+			if (chosenOp >= 0) {
+				firstNum = Float.valueOf(math);
+			}
 			String s = String.valueOf(nums[n1][n2].c);
-			if (s.equals("c")) {
+			if (s.equals("c") || chosenOp >= 0) {
 				math = "0";
 			} else {
 				if (math.equals("0") && !(s.equals("."))) {
@@ -80,6 +89,62 @@ public class Calculator extends Frame {
 			}
 		}
 		pressed = p.mousePressed && anyPressed() >= 0;
+		
+		if (operationsPressed() > 0) {
+			if (operationsPressed() > 1) {
+				if (chosenOp < 0) {
+					
+				} else {
+					for (int i = 0; i < operations.length; i++) {
+						if (operations[i].on() && i != chosenOp) {
+							chosenOp = i;
+						}
+					}
+				}
+			} else {
+				for (int i = 0; i < operations.length; i++) {
+					if (operations[i].on()) {
+						chosenOp = i;
+					}
+				}
+			}
+		}
+	}
+	
+	public void keyEvent(KeyEvent k) {
+		if (k.getKey() == ENTER || k.getKey() == RETURN) {
+			secondNum = Float.valueOf(math);
+			float result = 0;
+			if (chosenOp >= 0) {
+				switch(operations[chosenOp].c) {
+				case '÷':
+					result = firstNum / secondNum;
+					break;
+				case 'x':
+					result = firstNum * secondNum;
+					break;
+				case '-':
+					result = firstNum - secondNum;
+					break;
+				case '+':
+					result = firstNum + secondNum;
+					break;
+				default:
+					break;
+				}
+			}
+			math = String.valueOf(result);
+		}
+	}
+	
+	int operationsPressed() {
+		int total = 0;
+		for (int i = 0; i < operations.length; i++) {
+			if (operations[i].on()) {
+				total++;
+			}
+		}
+		return(total);
 	}
 	
 	int anyPressed() {
