@@ -98,6 +98,8 @@ public class Calculator extends Frame {
 					for (int i = 0; i < operations.length; i++) {
 						if (operations[i].on() && i != chosenOp) {
 							chosenOp = i;
+						} else {
+							operations[i].on = false;
 						}
 					}
 				}
