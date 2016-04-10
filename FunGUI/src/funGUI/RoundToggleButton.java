@@ -33,16 +33,12 @@ public class RoundToggleButton extends RoundButton {
 	}
 
 	public void mouseEvent(MouseEvent me) {
-		PApplet.println("Clicked");
-		PApplet.println("MouseEvent: " + me.getAction());
-		PApplet.println("Press: " + MouseEvent.PRESS);
 		if (me.getAction() == MouseEvent.PRESS) {
 			toggle();
 		}
 	}
 	
 	void toggle() {
-		PApplet.println("Toggled");
 		if (clicked() && !click) {
 			on = !on;
 		}
