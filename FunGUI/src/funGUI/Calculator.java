@@ -12,6 +12,7 @@ public class Calculator extends Frame {
 	int chosenOp = -1;
 	float firstNum = 0;
 	float secondNum = 0;
+	RoundedRectButton equals;
 	
 	public Calculator(PApplet p, float x, float y, float w, float h) {
 		this.p = p;
@@ -21,6 +22,8 @@ public class Calculator extends Frame {
 		this.w = w;
 		this.h = h;
 		display = new TextScroll(p, x, y - 90, 120, 20);
+		
+		equals = new RoundedRectButton(p, x + 100, y + 50, 20, 90, "=", .5f);
 		
 		
 		for (int i = 0; i < 3; i++) {
@@ -72,15 +75,24 @@ public class Calculator extends Frame {
 
 	void check() {
 		if (!pressed && p.mousePressed && anyPressed() >= 0) {
+			PApplet.println("ChosenOP: " + chosenOp);
 			int n = anyPressed();
 			int n1 = (n >> 8) & 0xF;
 			int n2 = n & 0xF;
-			if (chosenOp >= 0) {
+			if (chosenOp >= 0 && firstNum == 0) {
 				firstNum = Float.valueOf(math);
+				PApplet.println("FirstNum: " + firstNum);
+				math = "0";
 			}
 			String s = String.valueOf(nums[n1][n2].c);
-			if (s.equals("c") || chosenOp >= 0) {
+			if (s.equals("c")) {
 				math = "0";
+				firstNum = 0;
+				secondNum = 0;
+				chosenOp = -1;
+				for (int i = 0; i < operations.length; i++) {
+					operations[i].on = false;
+				}
 			} else {
 				if (math.equals("0") && !(s.equals("."))) {
 					math = "";
@@ -114,7 +126,7 @@ public class Calculator extends Frame {
 	}
 	
 	public void keyEvent(KeyEvent k) {
-		if (k.getKey() == ENTER || k.getKey() == RETURN) {
+		if ((k.getKey() == ENTER || k.getKey() == RETURN) && k.getAction() == KeyEvent.RELEASE) {
 			secondNum = Float.valueOf(math);
 			float result = 0;
 			if (chosenOp >= 0) {
@@ -136,6 +148,12 @@ public class Calculator extends Frame {
 				}
 			}
 			math = String.valueOf(result);
+			firstNum = Float.valueOf(result);
+			secondNum = 0;
+			chosenOp = -1;
+			for (int i = 0; i < operations.length; i++) {
+				operations[i].on = false;
+			}
 		}
 	}
 	
