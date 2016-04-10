@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 public class RoundToggleButton extends RoundButton {
-	boolean on = false;
+	public boolean on = false;
 	boolean click = false;
 	
 	public RoundToggleButton(PApplet p, float x, float y, float r) {
@@ -12,8 +12,8 @@ public class RoundToggleButton extends RoundButton {
 		p.registerMethod("mouseEvent", this);
 	}
 	
-	public RoundToggleButton(PApplet p, float f, float g, int i, char c) {
-		super(p, f, g, i, c);
+	public RoundToggleButton(PApplet p, float x, float y, int r, char c) {
+		super(p, x, y, r, c);
 		p.registerMethod("mouseEvent", this);
 	}
 	
@@ -34,16 +34,23 @@ public class RoundToggleButton extends RoundButton {
 
 	public void mouseEvent(MouseEvent me) {
 		PApplet.println("Clicked");
+		PApplet.println("MouseEvent: " + me.getAction());
+		PApplet.println("Press: " + MouseEvent.PRESS);
 		if (me.getAction() == MouseEvent.PRESS) {
 			toggle();
 		}
 	}
 	
 	void toggle() {
+		PApplet.println("Toggled");
 		if (clicked() && !click) {
 			on = !on;
 		}
 		click = clicked();
+	}
+	
+	public boolean on() {
+		return(on);
 	}
 
 }
