@@ -23,7 +23,9 @@ public class Calculator extends Frame {
 		this.h = h;
 		display = new TextScroll(p, x, y - 90, 120, 20);
 		
-		equals = new RoundedRectButton(p, x + 100, y + 50, 20, 90, "=", .5f);
+		int [] colors = {g.color(220), g.color(255, 255, 255), g.color(240, 240, 240)};
+		
+		equals = new RoundedRectButton(p, x + 80, y + 75, 20, 75, colors, "=", .5f, 12);
 		
 		
 		for (int i = 0; i < 3; i++) {
@@ -51,6 +53,7 @@ public class Calculator extends Frame {
 	
 	@Override
 	public void display() {
+		equals.draw();
 		for (int i = 0; i < nums.length; i++) {
 			for (int j = 0; j < nums[i].length; j++) {
 				nums[i][j].draw();
