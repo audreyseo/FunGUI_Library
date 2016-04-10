@@ -3,7 +3,7 @@ import processing.core.*;
 
 public class Calculator extends Frame {
 	RoundButton [][] nums = new RoundButton [3][4];
-	RoundButton [] operations = new RoundButton[4];
+	RoundToggleButton [] operations = new RoundToggleButton[4];
 	boolean pressed = false;
 	String math = "0";
 	PFont font;
@@ -36,7 +36,7 @@ public class Calculator extends Frame {
 		
 		char [] c = {'÷', 'x', '-', '+'};
 		for (int i = 0; i < operations.length; i++) {
-			operations[i] = new RoundButton(p, x + 80, y + (i - 2) * 25, 10, c[i]);
+			operations[i] = new RoundToggleButton(p, x + 80, y + (i - 2) * 25, 10, c[i]);
 		}
 	}
 	
