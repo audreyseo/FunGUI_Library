@@ -1,6 +1,7 @@
 package funGUI;
 import processing.core.*;
 import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
 public class Calculator extends Frame {
 	RoundButton [][] nums = new RoundButton [3][4];
@@ -49,6 +50,7 @@ public class Calculator extends Frame {
 		}
 		
 		p.registerMethod("keyEvent", this);
+		p.registerMethod("mouseEvent", this);
 	}
 	
 	@Override
@@ -130,34 +132,47 @@ public class Calculator extends Frame {
 	
 	public void keyEvent(KeyEvent k) {
 		if ((k.getKey() == ENTER || k.getKey() == RETURN) && k.getAction() == KeyEvent.RELEASE) {
-			secondNum = Float.valueOf(math);
-			float result = 0;
-			if (chosenOp >= 0) {
-				switch(operations[chosenOp].c) {
-				case '÷':
-					result = firstNum / secondNum;
-					break;
-				case 'x':
-					result = firstNum * secondNum;
-					break;
-				case '-':
-					result = firstNum - secondNum;
-					break;
-				case '+':
-					result = firstNum + secondNum;
-					break;
-				default:
-					break;
-				}
-			}
-			math = String.valueOf(result);
-			firstNum = Float.valueOf(result);
-			secondNum = 0;
-			chosenOp = -1;
-			for (int i = 0; i < operations.length; i++) {
-				operations[i].on = false;
+			equate();
+		}
+	}
+	
+	public void mouseEvent(MouseEvent m) {
+		if (m.getAction() == MouseEvent.PRESS) {
+			if (equals.clicked() && !equals.pressed) {
+				equate();
 			}
 		}
+	}
+	
+	void equate() {
+		secondNum = Float.valueOf(math);
+		float result = 0;
+		if (chosenOp >= 0) {
+			switch(operations[chosenOp].c) {
+			case '÷':
+				result = firstNum / secondNum;
+				break;
+			case 'x':
+				result = firstNum * secondNum;
+				break;
+			case '-':
+				result = firstNum - secondNum;
+				break;
+			case '+':
+				result = firstNum + secondNum;
+				break;
+			default:
+				break;
+			}
+		}
+		math = String.valueOf(result);
+		firstNum = Float.valueOf(result);
+		secondNum = 0;
+		chosenOp = -1;
+		for (int i = 0; i < operations.length; i++) {
+			operations[i].on = false;
+		}
+		
 	}
 	
 	int operationsPressed() {
