@@ -19,7 +19,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	 * @param ncolors	color, the colors used in this button
 	 * @param ntext		String, the string value of the name of this button
 	 * @param curvature	float, the percent by which to curve the button's corners in
-	 * @param fsize		float, the font size
+	 * @param fsize		float, the font size 
 	 */
 	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, float curvature, float fsize) {
 		super(p, nx, ny, nw, nh, ncolors, ntext);
