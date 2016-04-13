@@ -98,6 +98,10 @@ public abstract class Frame implements FunGUIObject {
 	public float h() {
 		return (h);
 	}
+	
+	public void record() {
+		PApplet.println("FunGUI Object: " + returnName());
+	}
 
 
 	float limitFont(PFont font, float fontSize, String str, float w) {

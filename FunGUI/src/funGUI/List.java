@@ -2,7 +2,7 @@ package funGUI;
 
 import processing.core.PApplet;
 
-public class List {
+public class List extends Frame {
 	ListItem [] options;
 	int selectedOption = -1;
 	String selectedLabel = "";
@@ -56,5 +56,10 @@ public class List {
 
 	String str() {
 		return(selectedLabel + type);
+	}
+
+	@Override
+	public String returnName() {
+		return "List";
 	}
 }
