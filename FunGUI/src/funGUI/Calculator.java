@@ -14,6 +14,8 @@ public class Calculator extends Frame {
 	float firstNum = 0;
 	float secondNum = 0;
 	RoundedRectButton equals;
+	boolean runButtons = false;
+	boolean runKeys = false;
 	
 	public Calculator(PApplet p, float x, float y, float w, float h) {
 		this.p = p;
@@ -63,6 +65,13 @@ public class Calculator extends Frame {
 		}
 		for (int i = 0; i < operations.length; i++) {
 			operations[i].draw();
+		}
+		
+		if (runButtons) {
+			runButtons = false;
+			buttons();
+		} else if (runKeys) {
+			equate();
 		}
 		check();
 	}
@@ -132,13 +141,15 @@ public class Calculator extends Frame {
 	
 	public void keyEvent(KeyEvent k) {
 		if ((k.getKey() == ENTER || k.getKey() == RETURN) && k.getAction() == KeyEvent.RELEASE) {
-			equate();
+//			equate();
+			runKeys = true;
 		}
 	}
 	
 	public void mouseEvent(MouseEvent m) {
 		if (m.getAction() == MouseEvent.PRESS) {
-			buttons();
+			runButtons = true;
+//			buttons();
 		}
 	}
 	
