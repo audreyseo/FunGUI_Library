@@ -154,11 +154,11 @@ public class Calculator extends Frame {
 	}
 	
 	public void buttons() {
-		record("Start buttons");
+//		record("Start buttons");
 		if (equals != null) {
-			record("Equals != null");
+//			record("Equals != null");
 			if (!equals.pressed){
-				record("Equals.pressed is false");
+//				record("Equals.pressed is false");
 				if (equals.clicked()) equate();
 			}
 		}
