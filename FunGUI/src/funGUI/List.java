@@ -10,6 +10,13 @@ public class List extends Frame {
 	public PApplet p;
 	public float x, y, w, h;
 	
+	public List(PApplet p, float ex, float why, float w, String [] optionLabels, String t) {
+		this.p = p;
+		options = new ListItem [optionLabels.length];
+		type = t;
+		init(ex, why, w, optionLabels);
+	}
+	
 	public List(PApplet p, float ex, float why, String [] optionLabels, String t, Display d, int numColumns) {
 		this.p = p;
 		options = new ListItem [optionLabels.length];
@@ -22,6 +29,16 @@ public class List extends Frame {
 		options = new ListItem [numOptions];
 		type = t;
 		init(ex, why, optionLabels, d, numColumns);
+	}
+	
+	protected void init(float ex, float why, float w, String [] optionLabels) {
+		this.h = 20;
+		for (int i = 0; i < optionLabels.length; i++) {
+			options[i] = new ListItem(p, ex, why + i * 20, optionLabels[i], w);
+		}
+		this.x = ex;
+		this.y = why;
+		this.w = w;
 	}
 	
 	protected void init(float ex, float why, String [] optionLabels, Display d, int numColumns) {
