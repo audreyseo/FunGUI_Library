@@ -5,8 +5,7 @@ import processing.core.PApplet;
 public class ObjectLabel extends Label {
 	Frame object;
 	
-	public ObjectLabel(PApplet p, float x, float y,
-			float initialValue, Frame f) {
+	public ObjectLabel(PApplet p, float x, float y, float initialValue, Frame f) {
 		super(p, x, y, p.g.textWidth(String.valueOf(initialValue)), REGTXTSIZE, initialValue, f.x(), f.y());
 		object = f;
 	}
