@@ -154,4 +154,9 @@ public class Row implements FunGUIObject {
 		PApplet.println("FunGUI Object: " + returnName());
 		
 	}
+	
+	@Override
+	public void record(String s) {
+		PApplet.println("FunGUI Object: " + returnName() + ": " + s);
+	}
 }
