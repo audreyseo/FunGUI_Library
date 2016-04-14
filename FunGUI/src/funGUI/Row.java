@@ -12,7 +12,7 @@ import processing.core.*;
  * @author audreyseo
  *
  */
-class Row implements FunGUIObject {
+public class Row implements FunGUIObject {
 	ArrayList<Frame> objects = new ArrayList<Frame>();
 	PApplet p;
 	float x, y;
@@ -36,6 +36,12 @@ class Row implements FunGUIObject {
 		y = p.width / 2;
 		w = p.width;
 		h = -1; // Negative means that height is unlimited
+	}
+	
+	public void draw() {
+		for (int i = 0; i < objects.size(); i++) {
+			objects.get(i).draw();
+		}
 	}
 	
 	public void addChoiceList() {

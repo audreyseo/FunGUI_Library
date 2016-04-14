@@ -138,8 +138,8 @@ public class Calculator extends Frame {
 	
 	public void mouseEvent(MouseEvent m) {
 		if (m.getAction() == MouseEvent.PRESS) {
-			if (equals.clicked() && !equals.pressed) {
-				equate();
+			if (!equals.pressed) {
+				if (equals.clicked()) equate();
 			}
 		}
 	}
