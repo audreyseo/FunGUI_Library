@@ -89,18 +89,19 @@ public class DropDownMenu extends Menu implements PConstants {
 	@Override
 	protected void mutuallyExclusive(int i) {
 		if (items[i].selected) {
-			if (selectedOption < 0) {
-				selectedOption = i;
-				if (dropDownSelected) {
-					dropDownSelected = false;
-				}
-			} else if (selectedOption != i) {
-				items[selectedOption].selected = false;
+			if (selectedOption < 0 || selectedOption != i) {
 				selectedOption = i;
 				if (dropDownSelected) {
 					dropDownSelected = false;
 				}
 			}
+//			else if (selectedOption != i) {
+//				items[selectedOption].selected = false;
+//				selectedOption = i;
+//				if (dropDownSelected) {
+//					dropDownSelected = false;
+//				}
+//			}
 		}
 	}
 	
