@@ -107,6 +107,11 @@ public class Slider extends Frame implements PConstants {
 		this.textPosition = newPosition;
 	}
 	
+	public void assignLowHigh(float low, float high) {
+		this.min = low;
+		this.max = high;
+	}
+	
 	/**
 	 * Displays the slider on the screen, fully operational.
 	 */
@@ -121,7 +126,8 @@ public class Slider extends Frame implements PConstants {
 		if (label != null) {
 			g.pushStyle();
 			g.textFont(f);
-			customAlignText();
+			
+			g.textAlign(CENTER, CENTER);
 			
 			g.fill(0);
 			g.text(label, x + xOffset(), y + yOffset());
@@ -130,7 +136,7 @@ public class Slider extends Frame implements PConstants {
 	}
 	
 	void customAlignText() {
-		int hAlign = 0;
+		int hAlign = CENTER;
 		int vAlign = CENTER;
 		
 		switch(textPosition) {
@@ -155,10 +161,10 @@ public class Slider extends Frame implements PConstants {
 		float dx = 0;
 		switch(textPosition) {
 		case LEFT:
-			dx = -.5f * w();
+			dx = -.25f * w();
 			break;
 		case RIGHT:
-			dx = .5f * w();
+			dx = .25f * w();
 			break;
 		case DOWN: case UP:
 			dx = 0;
@@ -186,7 +192,7 @@ public class Slider extends Frame implements PConstants {
 			break;
 		}
 		
-		return(dy);
+		return(dy * .5f);
 	}
 
 	void bg() {
@@ -194,10 +200,15 @@ public class Slider extends Frame implements PConstants {
 		g.rectMode(CENTER);
 		g.fill(255);
 		g.stroke(30);
-		g.rect(x - xOffset(), y - yOffset(), w, h);
+		
+		float yi = y - yOffset();
+		
+		g.rect(x - xOffset(), yi, w, h);
 		float dx = (w < 150) ? .48f : .49f;
-		g.arc((float) (x - xOffset() - w * dx), y - yOffset(), h, h, HALF_PI, HALF_PI * 3, OPEN);
-		g.arc((float) (x - xOffset() + w * .5), y - yOffset(), h, h, HALF_PI * 3, HALF_PI * 5, OPEN);
+		g.arc((float) (x - xOffset() - w * dx), yi, h, h, HALF_PI, HALF_PI * 3, OPEN);
+		g.arc((float) (x - xOffset() + w * dx), yi, h, h, HALF_PI * 3, HALF_PI * 5, OPEN);
+		
+		
 		float xi = (float) (x - xOffset() - w * .45);
 		int total = 10;
 		if (range() > 3) {
@@ -207,35 +218,38 @@ public class Slider extends Frame implements PConstants {
 		float exp = (float) Math.log10(total);
 		int apprxExp = Math.round(exp);
 		float a = (step < 10) ? 2.5f : 1f;
+		
 		if (apprxExp >= 2) {
 			step = (float) ((w * .9) / 10);
-			PApplet.println("Step: " + step);
 			a = 1f;
 		}
+		
 		for (int i = 0; i < ((w * .9) / (a * step)) + 1; i++) {
 			g.fill(30);
 			g.strokeWeight((float) (1.5));
 			if (i % 2 == 1)
 				g.strokeWeight((float) (.5));
-			g.rect(xi + step * a * i, y, 2, 10);
+			g.rect(xi + step * a * i, yi, 2, 10);
 		}
+		
 		g.strokeWeight(3);
-		g.line(xi, y, xi + w * .9f, y);
+		g.line(xi, y - yOffset(), xi + w * .9f, yi);
 		g.popStyle();
 	}
 
 	void slider() {
 		g.pushStyle();
 		float xs = (float) (x - xOffset() - w * .45 + percent() * (w * .9));
+		float ys = y - yOffset();
 		g.rectMode(CENTER);
 		g.fill(255);
 		g.stroke(0);
 		g.beginShape();
-		g.vertex((float) (xs - 3.5), (float) (y - yOffset() - 7.5));
-		g.vertex((float) (xs - 3.5), (float) (y - yOffset() + 5));
-		g.vertex(xs, (float) (y + 10));
-		g.vertex((float) (xs + 3.5), (float) (y - yOffset() + 5));
-		g.vertex((float) (xs + 3.5), (float) (y - yOffset() - 7.5));
+		g.vertex((float) (xs - 3.5), (float) (ys - 7.5));
+		g.vertex((float) (xs - 3.5), (float) (ys + 5));
+		g.vertex(xs, (float) (ys + 10));
+		g.vertex((float) (xs + 3.5), (float) (ys + 5));
+		g.vertex((float) (xs + 3.5), (float) (ys - 7.5));
 		g.endShape(CLOSE);
 		// g.rect(xs, y, 7, 15);
 		g.popStyle();
