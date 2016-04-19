@@ -103,6 +103,11 @@ public class Slider extends Frame implements PConstants {
 		this.percent = PApplet.constrain(PApplet.map(initial, min, max, 0, 1), 0, 1);
 	}
 	
+	/**
+	 * Changes the position of the text to a new position for the text:
+	 * RIGHT, LEFT, UP, DOWN. All of these are relative to the slider.
+	 * @param newPosition		Direction, the new relative position of the slider.
+	 */
 	public void alignText(Direction newPosition) {
 		this.textPosition = newPosition;
 	}
