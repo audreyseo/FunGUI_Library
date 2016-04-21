@@ -141,9 +141,9 @@ public class RectButton extends Button {
 	}
 
 	void display(String time, PFont displayFont, float fontsize) {
-//		g.pushStyle();
-//		back();
-//		g.popStyle();
+		g.pushStyle();
+		back();
+		g.popStyle();
 		g.pushStyle();
 		g.fill(0);
 		g.textFont(displayFont, limitFont(displayFont, fontsize, time, w));
@@ -156,7 +156,6 @@ public class RectButton extends Button {
 		g.rectMode(CENTER);
 		g.noStroke();
 		g.fill(outside);
-		PApplet.println(outside);
 		backShape(x(), y(), w(), h());
 
 		g.fill(inside);
@@ -180,7 +179,7 @@ public class RectButton extends Button {
 		 *other than mX and mY to allow the function rolled_over */
 		rolled_over(p.mouseX, p.mouseY);
 
-		back();
+//		back();
 		display("", font, fsize);
 		
 		if (rollover) {

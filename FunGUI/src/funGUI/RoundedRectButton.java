@@ -118,15 +118,14 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.fill(inside);
 //		innerBackShape(x(), y(), iw(), ih());\
 		backShape(x(), y(), iw(), ih(), ir());
-		g.fill(0);
 		g.popStyle();
 	}
 	
-	void backOutline(float xi, float yi, float wi, float hi) {
+	void backOutline(float xi, float yi, float wi, float hi, float r) {
 		float wi2 = (float) (wi * .5);
 		float hi2 = (float) (hi * .5);
-		float partialW = (float) (wi2 - r());
-		float partialH = (float) (hi2 - r());
+		float partialW = (float) (wi2 - r);
+		float partialH = (float) (hi2 - r);
 		//PApplet.println("PartialW: " + partialW);
 		float x1a = xi - wi2;
 		float x1b = xi - partialW;
@@ -188,7 +187,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	}
 
 	public void backShape(float xi, float yi, float wi, float hi, float r) {
-		backOutline(xi, yi, wi, hi);
+		backOutline(xi, yi, wi, hi, r);
 		backCorners(xi, yi, wi, hi, r);
 		
 //		float wi2 = (float) (wi * .5);
