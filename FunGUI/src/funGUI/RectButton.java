@@ -68,6 +68,8 @@ public class RectButton extends Button {
 		init(p, nx, ny, nw, nh, ntext, FANCIEST_TXT, PApplet.floor(nh - 20f));
 		
 		scheme = standardColors();
+		inside = scheme[1];
+		outside = scheme[0];
 	}
 
 	/**
@@ -83,6 +85,8 @@ public class RectButton extends Button {
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext) {
 		init(p, nx, ny, nw, nh, ntext, FANCIEST_TXT, PApplet.floor(nh - 20f));
 		scheme = ncolors;
+		inside = scheme[1];
+		outside = scheme[0];
 	}
 	
 	/**
@@ -101,6 +105,8 @@ public class RectButton extends Button {
 		init(p, nx, ny, nw, nh, ntext, fontName, fontSize);
 
 		scheme = ncolors;
+		inside = scheme[1];
+		outside = scheme[0];
 	}
 
 	/**
@@ -135,16 +141,22 @@ public class RectButton extends Button {
 	}
 
 	void display(String time, PFont displayFont, float fontsize) {
-		back();
+//		g.pushStyle();
+//		back();
+//		g.popStyle();
+		g.pushStyle();
+		g.fill(0);
 		g.textFont(displayFont, limitFont(displayFont, fontsize, time, w));
 		g.textAlign(CENTER, CENTER);
 		g.text(time, x(), y());
+		g.popStyle();
 	}
 
 	protected void back() {
 		g.rectMode(CENTER);
 		g.noStroke();
 		g.fill(outside);
+		PApplet.println(outside);
 		backShape(x(), y(), w(), h());
 
 		g.fill(inside);
@@ -375,8 +387,6 @@ public class RectButton extends Button {
 		mFont = p.createFont("FZLTXHK--GBK1-0", 19, true);
 		myfont1 = p.createFont("FZLTXHK--GBK1-0", 20, true);
 		cGrey15 = g.color(250, 250, 250);
-		inside = scheme[1];
-		outside = scheme[0];
 		sfsize = 15;
 		mfsize = 19;
 

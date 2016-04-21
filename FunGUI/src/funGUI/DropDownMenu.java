@@ -99,13 +99,6 @@ public class DropDownMenu extends Menu implements PConstants {
 					dropDownSelected = false;
 				}
 			}
-//			else if (selectedOption != i) {
-//				items[selectedOption].selected = false;
-//				selectedOption = i;
-//				if (dropDownSelected) {
-//					dropDownSelected = false;
-//				}
-//			}
 		}
 	}
 	
