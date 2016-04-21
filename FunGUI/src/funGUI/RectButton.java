@@ -52,6 +52,8 @@ public class RectButton extends Button {
 	PApplet p;
 	PGraphics g;
 	
+
+	
 	/**
 	 * Constructor of a rectangular button.
 	 * @param p			PApplet, the parent of the sketch, usually "this"
@@ -63,25 +65,9 @@ public class RectButton extends Button {
 	 * @param ntext		String, the label for the button
 	 */
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, String ntext) {
-		wid = 20 / w;
-		hei = 20 / h;
-		this.x = nx;
-		this.y = ny;
-		this.w = nw;
-		this.h = nh;
-		this.p = p;
-		this.g = p.g;
-		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
-			wid = 9/w;
-			hei = 9/w;
-			PApplet.println(ntext);
-		}
+		init(p, nx, ny, nw, nh, ntext, FANCIEST_TXT, PApplet.floor(nh - 20f));
+		
 		scheme = standardColors();
-		buttonText = ntext;
-		font = p.createFont("Baskerville-Italic", 200, true);
-		fsize = PApplet.floor((float) (nh - 20));
-
-		init();
 	}
 
 	/**
@@ -95,25 +81,10 @@ public class RectButton extends Button {
 	 * @param ntext		String, the label for the button
 	 */
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext) {
-		wid = 20 / w;
-		hei = 20 / h;
-		this.x = nx;
-		this.y = ny;
-		this.w = nw;
-		this.h = nh;
-		this.p = p;
-		this.g = p.g;
-		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
-			wid = 9/w;
-			hei = 9/w;
-			PApplet.println(ntext);
-		}
+		init(p, nx, ny, nw, nh, ntext, FANCIEST_TXT, PApplet.floor(nh - 20f));
 		scheme = ncolors;
-		buttonText = ntext;
 		font = p.createFont("Baskerville-Italic", 200, true);
 		fsize = PApplet.floor((float) (nh - 20));
-
-		init();
 	}
 	
 	/**
@@ -129,25 +100,9 @@ public class RectButton extends Button {
 	 * @param fontSize  int, the size of the font for the label
 	 */
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, String fontName, int fontSize) {
-		wid = 20 / w;
-		hei = 20 / h;
-		this.x = nx;
-		this.y = ny;
-		this.w = nw;
-		this.h = nh;
-		this.p = p;
-		this.g = p.g;
-		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
-			wid = 9/w;
-			hei = 9/w;
-			PApplet.println(ntext);
-		}
-		scheme = ncolors;
-		buttonText = ntext;
-		font = p.createFont(fontName, 200, true);
-		fsize = fontSize;
+		init(p, nx, ny, nw, nh, ntext, fontName, fontSize);
 
-		init();
+		scheme = ncolors;
 	}
 
 	/**
@@ -163,8 +118,6 @@ public class RectButton extends Button {
 	 * @param nfsize	int, the size of the font
 	 */
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, PFont nfont, int nfsize) {
-		wid = 20 / w;
-		hei = 20 / h;
 		this.x = nx;
 		this.y = ny;
 		this.w = nw;
@@ -345,14 +298,6 @@ public class RectButton extends Button {
 		return(p.height/ 400);
 	}
 
-	float ohsix() {
-		return(w * wid);
-	}
-
-	float ohthree() {
-		return(h * hei);
-	}
-
 	@Override
 	public float y() {
 		return(y * hratio);
@@ -447,7 +392,20 @@ public class RectButton extends Button {
 		return(fontSize);
 	}
 	
-	void init() {
+	void init(PApplet p, float nx, float ny, float nw, float nh, String text, String fontName, float fontSize) {
+		this.x = nx;
+		this.y = ny;
+		this.w = nw;
+		this.h = nh;
+		this.p = p;
+		this.g = p.g;
+		this.buttonText = text;
+		font = p.createFont(fontName, 200);
+	    this.fsize = Math.round(fontSize);
+	    assignVars();
+	}
+	
+	void assignVars() {
 		//fonts
 		minifont = p.createFont("Menlo-regular", 20);
 		smallfont = p.createFont("FZLTXHK--GBK1-0", 200, true);
