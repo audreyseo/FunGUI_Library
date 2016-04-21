@@ -1,19 +1,40 @@
 package funGUI;
 import processing.core.*;
+import processing.data.*;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
+/**
+ * The Calculator class creates an actual calculator inside your
+ * Processing sketch. While I'm not entirely sure why this would
+ * be necessary at all, it's pretty neat and you can access the
+ * answers the calculator finds through the function lastAnswer().
+ * This is almost more of an example of the something this library
+ * has enabled me to do within a reasonable time instead of an actual
+ * widget for the library.
+ * @author Audrey Seo
+ */
 public class Calculator extends Frame {
+	
+	// All of the different buttons needed by the calculator.
 	RoundButton [][] nums = new RoundButton [3][4];
 	RoundToggleButton [] operations = new RoundToggleButton[4];
-	boolean pressed = false;
-	String math = "0";
-	PFont font;
 	TextScroll display;
+	RoundedRectButton equals;
+	
+	// Stores all of the calculated numbers
+	FloatList answers;
+	
+	// Holds all of the math going on - numbers only - for display
+	String math = "0";
+	
+	PFont font;
+	
 	int chosenOp = -1;
 	float firstNum = 0;
 	float secondNum = 0;
-	RoundedRectButton equals;
+	
+	boolean pressed = false;
 	boolean runButtons = false;
 	boolean runKeys = false;
 	
@@ -24,6 +45,9 @@ public class Calculator extends Frame {
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		
+		answers = new FloatList();
+		
 		display = new TextScroll(p, x, y - 90, 120, 20);
 		
 		int [] colors = {g.color(220), g.color(255, 255, 255), g.color(240, 240, 240)};
@@ -164,6 +188,21 @@ public class Calculator extends Frame {
 		}
 	}
 	
+	public boolean haveAnswers() {
+		return(answers.size() > 0);
+	}
+	
+	/**
+	 * Retrieves the most recent answer the calculator found.
+	 * @return	float, the most recent answer the calculator found, or 0.
+	 */
+	public float lastAnswer() {
+		if (haveAnswers()) {
+			return(answers.get(answers.size() - 1));
+		}
+		return(0);
+	}
+	
 	void equate() {
 		secondNum = Float.valueOf(math);
 		float result = 0;
@@ -185,6 +224,7 @@ public class Calculator extends Frame {
 				break;
 			}
 		}
+		answers.append(result);
 		math = String.valueOf(result);
 		firstNum = Float.valueOf(result);
 		secondNum = 0;

@@ -132,9 +132,6 @@ public class RectButton extends Button {
 	}
 	void update() {
 		change();
-		//		if (buttonMessage != null) {
-		//			buttonMessage.update();
-		//		}
 	}
 
 	void display(String time, PFont displayFont, float fontsize) {
@@ -149,9 +146,7 @@ public class RectButton extends Button {
 		g.noStroke();
 		g.fill(outside);
 		backShape(x(), y(), w(), h());
-//		float insideW, insideH;
-//		insideW = w - 20 * wratio;
-//		insideH = h - 20 * hratio;
+
 		g.fill(inside);
 		innerBackShape(x(), y(), iw(), ih());
 		g.fill(0);
@@ -173,23 +168,6 @@ public class RectButton extends Button {
 		 *other than mX and mY to allow the function rolled_over */
 		rolled_over(p.mouseX, p.mouseY);
 
-		
-
-//		g.noStroke();
-//		g.rectMode(CENTER);
-//		if ((rollover)) {
-//			g.fill(scheme[0]);
-//			backShape(x(), y(), w(), h());
-//			g.fill(scheme[1]);
-//			backShape(x(), y(), w(), h());
-//			g.fill(scheme[2]);
-//			backShape(x(), y(), iw(), ih());
-//		} else {
-//			g.fill(scheme[0]);
-//			backShape(x(), y(), w(), h());
-//			g.fill(scheme[1]);
-//			backShape(x(), y(), iw(), ih());
-//		}
 		back();
 		display("", font, fsize);
 		
