@@ -83,8 +83,6 @@ public class RectButton extends Button {
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext) {
 		init(p, nx, ny, nw, nh, ntext, FANCIEST_TXT, PApplet.floor(nh - 20f));
 		scheme = ncolors;
-		font = p.createFont("Baskerville-Italic", 200, true);
-		fsize = PApplet.floor((float) (nh - 20));
 	}
 	
 	/**
@@ -118,23 +116,9 @@ public class RectButton extends Button {
 	 * @param nfsize	int, the size of the font
 	 */
 	public RectButton(PApplet p, float nx, float ny, float nw, float nh, int [] ncolors, String ntext, PFont nfont, int nfsize) {
-		this.x = nx;
-		this.y = ny;
-		this.w = nw;
-		this.h = nh;
-		this.p = p;
-		this.g = p.g;
-		if (w * wrat() < 26 * wrat() && h * hrat() < 26 * hrat()) {
-			wid = 9/w;
-			hei = 9/w;
-			PApplet.println(ntext);
-		}
+		init(p, nx, ny, nw, nh, ntext, FANCIEST_TXT, nfsize);
 		scheme = ncolors;
-		buttonText = ntext;
 		font = nfont;
-		fsize = nfsize;
-
-		init();
 	}
 
 	protected int [] standardColors() {
