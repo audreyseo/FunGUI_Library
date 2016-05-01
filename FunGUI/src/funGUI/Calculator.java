@@ -38,6 +38,14 @@ public class Calculator extends Frame {
 	boolean runButtons = false;
 	boolean runKeys = false;
 	
+	/**
+	 * Constructor of the class.
+	 * @param p		PApplet, the parent of the sketch, usually "this"
+	 * @param x		float, the x-coordinate of the center of the calculator
+	 * @param y		float, the y-coordinate of the center of the calculator
+	 * @param w		float, the length along the x-axis of the calculator
+	 * @param h		float, the length along the y-axis of the calculator
+	 */
 	public Calculator(PApplet p, float x, float y, float w, float h) {
 		this.p = p;
 		this.g = p.g;
@@ -45,9 +53,6 @@ public class Calculator extends Frame {
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		
-		answers = new FloatList();
-		
 		display = new TextScroll(p, x, y - 90, 120, 20);
 		
 		int [] colors = {g.color(220), g.color(255, 255, 255), g.color(240, 240, 240)};
@@ -79,8 +84,9 @@ public class Calculator extends Frame {
 		p.registerMethod("mouseEvent", this);
 	}
 	
+
 	@Override
-	public void display() {
+	protected void display() {
 		equals.draw();
 		for (int i = 0; i < nums.length; i++) {
 			for (int j = 0; j < nums[i].length; j++) {
@@ -101,7 +107,7 @@ public class Calculator extends Frame {
 	}
 	
 	@Override
-	public void text() {
+	protected void text() {
 		g.pushStyle();
 //		g.textFont(font);
 //		g.textAlign(CENTER, CENTER);
@@ -163,6 +169,11 @@ public class Calculator extends Frame {
 		}
 	}
 	
+	/**
+	 * Triggered when a key event occurs. This should only
+	 * be called by the sketch itself.
+	 * @param k		KeyEvent, the keyboard event that just happened
+	 */
 	public void keyEvent(KeyEvent k) {
 		if ((k.getKey() == ENTER || k.getKey() == RETURN) && k.getAction() == KeyEvent.RELEASE) {
 //			equate();
@@ -170,13 +181,22 @@ public class Calculator extends Frame {
 		}
 	}
 	
+	/**
+	 * Triggered when a mouse event (clicking, releasing,
+	 * etc.) This is only meant to be called by the sketch
+	 * itself.
+	 * @param m		MouseEvent, the mouse event that just occurred
+	 */
 	public void mouseEvent(MouseEvent m) {
 		if (m.getAction() == MouseEvent.PRESS) {
 			runButtons = true;
-//			buttons();
 		}
 	}
 	
+	/**
+	 * Checks the buttons to see if any other functions
+	 * need to be called.
+	 */
 	public void buttons() {
 //		record("Start buttons");
 		if (equals != null) {
@@ -186,21 +206,6 @@ public class Calculator extends Frame {
 				if (equals.clicked()) equate();
 			}
 		}
-	}
-	
-	public boolean haveAnswers() {
-		return(answers.size() > 0);
-	}
-	
-	/**
-	 * Retrieves the most recent answer the calculator found.
-	 * @return	float, the most recent answer the calculator found, or 0.
-	 */
-	public float lastAnswer() {
-		if (haveAnswers()) {
-			return(answers.get(answers.size() - 1));
-		}
-		return(0);
 	}
 	
 	void equate() {
@@ -234,7 +239,22 @@ public class Calculator extends Frame {
 		}
 		
 	}
-	
+
+	public boolean haveAnswers() {
+		return(answers.size() > 0);
+	}
+
+	/**
+	 * Retrieves the most recent answer the calculator found.
+	 * @return      float, the most recent answer the calculator found, or 0.
+	 */
+	public float lastAnswer() {
+		if (haveAnswers()) {
+			return(answers.get(answers.size() - 1));
+		}
+		return(0);
+	}
+
 	int operationsPressed() {
 		int total = 0;
 		for (int i = 0; i < operations.length; i++) {
