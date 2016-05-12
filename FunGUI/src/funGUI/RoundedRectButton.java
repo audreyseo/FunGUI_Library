@@ -97,6 +97,27 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	}
 	
 	@Override
+	public void draw() {
+		/*Function to display the button
+	     takes no arguments* bc all of the properties of the button are initialized/created by the initializer, new Button()
+		 *other than mX and mY to allow the function rolled_over */
+		rolled_over(p.mouseX, p.mouseY);
+
+//		back();
+		display("", font, fsize);
+		
+		if (rollover) {
+			g.pushStyle();
+			g.fill(scheme[2]);
+			g.noStroke();
+			backing(x(), y(), w(), h(), r());
+			g.popStyle();
+		}
+		
+		drawButtonName();
+	}
+	
+	@Override
 	protected void back() {
 		g.pushStyle();
 		g.rectMode(CENTER);
