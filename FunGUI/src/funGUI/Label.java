@@ -40,6 +40,17 @@ public class Label extends NumOutput {
 	}
 	
 	@Override
+	public void draw() {
+		// Runs all of the shape-drawing functions
+		g.pushStyle();
+		style();
+		display();
+		text();
+		g.popStyle();
+	}
+
+	
+	@Override
 	protected void display() {
 		g.pushStyle();
 		g.fill(255);
