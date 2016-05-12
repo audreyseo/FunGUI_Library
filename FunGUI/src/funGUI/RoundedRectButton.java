@@ -104,7 +104,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.fill(outside);
 //		if (printing) PApplet.println("BackShape - Before");
 //		backShape(x(), y(), w(), h());
-		backShape(x(),y(), w(), h(), r());
+		backing(x(),y(), w(), h(), r());
 //		if (printing) PApplet.println("BackShape- After");
 		g.popStyle();
 //		float insideW, insideH;
@@ -117,8 +117,12 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.noStroke();
 		g.fill(inside);
 //		innerBackShape(x(), y(), iw(), ih());\
-		backShape(x(), y(), iw(), ih(), ir());
+		backing(x(), y(), iw(), ih(), ir());
 		g.popStyle();
+	}
+	
+	void backing(float xi, float yi, float wi, float hi, float ri) {
+		g.rect(xi, yi, wi, hi, ri);
 	}
 	
 	void backOutline(float xi, float yi, float wi, float hi, float r) {
