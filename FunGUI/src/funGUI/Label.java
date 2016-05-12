@@ -38,16 +38,6 @@ public class Label extends NumOutput {
 	public void colorLine(int n) {
 		c = n;
 	}
-	
-	@Override
-	public void draw() {
-		// Runs all of the shape-drawing functions
-		g.pushStyle();
-		style();
-		display();
-		text();
-		g.popStyle();
-	}
 
 	
 	@Override
