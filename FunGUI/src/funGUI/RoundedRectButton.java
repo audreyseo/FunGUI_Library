@@ -106,10 +106,12 @@ public class RoundedRectButton extends RectButton implements PConstants {
 //		back();
 		display("", font, fsize);
 		
+		
 		if (rollover) {
 			g.pushStyle();
 			g.fill(scheme[2]);
 			g.noStroke();
+			g.rectMode(CENTER);
 			backing(x(), y(), w(), h(), r());
 			g.popStyle();
 		}
