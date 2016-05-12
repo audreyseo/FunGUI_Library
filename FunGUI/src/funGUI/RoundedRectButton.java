@@ -7,6 +7,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	float curveRadius = 0.0f;
 	float innerCurveRadius = 0.0f;
 	private boolean printing = false;
+	public boolean border = true;
 	
 	/**
 	 * Most basic constructor for the RoundedRectButton class.
@@ -140,24 +141,27 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		g.pushStyle();
 		g.rectMode(CENTER);
 		g.noStroke();
-		g.fill(outside);
-//		if (printing) PApplet.println("BackShape - Before");
-//		backShape(x(), y(), w(), h());
-		backing(x(),y(), w(), h(), r());
-//		if (printing) PApplet.println("BackShape- After");
+		if (border) {
+			g.fill(outside);
+			//		if (printing) PApplet.println("BackShape - Before");
+			//		backShape(x(), y(), w(), h());
+			backing(x(),y(), w(), h(), r());
+			//		if (printing) PApplet.println("BackShape- After");
+
+			//		float insideW, insideH;
+			//		insideW = w - 20 * wratio;
+			//		insideH = h - 20 * hratio;
+
+			g.fill(inside);
+			//		innerBackShape(x(), y(), iw(), ih());\
+			backing(x(), y(), iw(), ih(), ir());
+
+		} else {
+			g.fill(inside);
+			backing(x(), y(), w(), h(), r());
+		}
 		g.popStyle();
-//		float insideW, insideH;
-//		insideW = w - 20 * wratio;
-//		insideH = h - 20 * hratio;
-		
-		
-		g.pushStyle();
-		g.rectMode(CENTER);
-		g.noStroke();
-		g.fill(inside);
-//		innerBackShape(x(), y(), iw(), ih());\
-		backing(x(), y(), iw(), ih(), ir());
-		g.popStyle();
+
 	}
 	
 	void backing(float xi, float yi, float wi, float hi, float ri) {
