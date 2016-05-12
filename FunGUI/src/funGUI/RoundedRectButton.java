@@ -8,6 +8,22 @@ public class RoundedRectButton extends RectButton implements PConstants {
 	float innerCurveRadius = 0.0f;
 	private boolean printing = false;
 	
+	/**
+	 * Most basic constructor for the RoundedRectButton class.
+	 * @param p		PApplet, the parent sketch, usually "this"
+	 * @param nx	float, the horizontal location of the button's center
+	 * @param ny	float, the vertical location of the button's center
+	 * @param nw	float, the width of the button
+	 * @param nh	float, the height of the button
+	 * @param text	String, the label of the button
+	 */
+	public RoundedRectButton(PApplet p, float nx, float ny, float nw, float nh, String text) {
+		super(p, nx, ny, nw, nh, text);
+		this.curvature = PApplet.constrain(curvature, 0.1f, 1f);
+		calculateRadius();
+		this.fsize = (int) fsize;
+		this.font = p.createFont(REG_SANSS_TXT, nh - 3);
+	}
 	
 	/**
 	 * Constructor for the RoundedRectButton class.
