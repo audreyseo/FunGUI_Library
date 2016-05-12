@@ -122,6 +122,10 @@ public class NumOutput extends Frame {
 		val = f;
 	}
 	
+	public void assign(String s) {
+		val = Float.valueOf(s);
+	}
+	
 	@Override
 	public String returnName() {
 		return("NumOutput");
