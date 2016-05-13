@@ -157,6 +157,7 @@ public class RoundedRectButton extends RectButton implements PConstants {
 			backing(x(), y(), iw(), ih(), ir());
 
 		} else {
+			g.stroke(outside);
 			g.fill(inside);
 			backing(x(), y(), w(), h(), r());
 		}
