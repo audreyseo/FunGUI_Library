@@ -113,6 +113,11 @@ public class RoundedRectButton extends RectButton implements PConstants {
 		calculateRadius();
 	}
 	
+	public void borders(boolean isBordered) {
+		border = isBordered;
+		if (!border) fsize = (int) (h * .9);
+	}
+	
 	@Override
 	public void draw() {
 		/*Function to display the button
