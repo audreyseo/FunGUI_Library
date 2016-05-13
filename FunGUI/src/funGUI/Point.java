@@ -13,8 +13,8 @@ import processing.core.*;
  *
  */
 public class Point {
-	float x;
-	float y;
+	public float x;
+	public float y;
 	
 	/**
 	 * Constructor of the Point object
@@ -59,4 +59,19 @@ public class Point {
 		return( (float) Math.acos(PVector.dot(vector, vector2) / (vector.mag() * vector.mag())) );
 	}
 	
+	/**
+	 * Retrieves and returns the x-coordinate of this point
+	 * @return		float
+	 */
+	public float x() {
+		return(x);
+	}
+	
+	/**
+	 * Retrieves and returns the y-coordinate of this point
+	 * @return		float
+	 */
+	public float y() {
+		return(y);
+	}
 }
