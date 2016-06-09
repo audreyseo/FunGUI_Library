@@ -29,7 +29,7 @@ public class Slider extends Frame implements PConstants {
 	 */
 	public Slider(PApplet p, float x, float y) {
 		init(p, x, y, 0, 1);
-		this.w = 100;
+		this.w = 150;
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class Slider extends Frame implements PConstants {
 	 */
 	public Slider(PApplet p, float x, float y, String name) {
 		init(p, x, y, 0, 1);
-		this.w = 100;
+		this.w = 150;
 		this.label = name;
 	}
 	
